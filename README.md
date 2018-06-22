@@ -3,7 +3,7 @@ This is the parent project for a suite of applications which take time series da
 
 # Accounts
 This is a private repo, but may be public in the future.
-All account details (usernames, passwords, private keys) are placed here during development, so that it's obvious when they are. If the code goes public, these account details are to be changed, and removed.
+All account details (usernames, passwords, private keys) are placed here during development, so that it's obvious where they are. If the code goes public, these account details are to be changed, and removed.
 
 # Sub Projects
 <List of Sub Projects goes here>
