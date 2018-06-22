@@ -9,5 +9,5 @@ All account details (usernames, passwords, private keys) are placed here during 
 <List of Sub Projects goes here>
   
 # Trello
-<Parent Trello Board here >
+[Parent Trello Board](https://trello.com/b/0pc2DUBy/overview)
 
