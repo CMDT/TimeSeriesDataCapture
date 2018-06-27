@@ -14,5 +14,6 @@ All account details (usernames, passwords, private keys) are placed here during 
 
  # Wireframes
  [Guthub Pages](https://cmdt.github.io/TimeSeriesDataCapture/wireframes)
+ 
  [On the Repo](https://github.com/CMDT/TimeSeriesDataCapture/tree/master/docs/wireframes)
 
