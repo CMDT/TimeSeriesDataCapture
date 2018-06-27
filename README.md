@@ -12,3 +12,7 @@ All account details (usernames, passwords, private keys) are placed here during 
 [Trello Team](https://trello.com/timeseriesdatacapture)   
 [Parent Trello Board](https://trello.com/b/0pc2DUBy/overview)
 
+ # Wireframes
+ [Guthub Pages](https://cmdt.github.io/TimeSeriesDataCapture/wireframes)
+ [On the Repo](https://github.com/CMDT/TimeSeriesDataCapture/tree/master/docs/wireframes)
+
