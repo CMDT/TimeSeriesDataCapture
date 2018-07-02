@@ -11,17 +11,23 @@ Account: TimeSeriesDataCapture@gmail.com
 
 Password: !2DataCapture&@
 
+---
+
 **Heroku**
 
 Account: TimeSeriesDataCapture@gmail.com
 
 Password: £$Time12CMD?<
 
+---
+
 **Auth0**
 
 Account: TimeSeriesDataCapture@gmail.com
 
 Password: Data^%Series98*
+
+---
 
 # Sub Projects
 <List of Sub Projects goes here>
