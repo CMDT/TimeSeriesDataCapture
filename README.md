@@ -30,7 +30,8 @@ Password: Data^%Series98*
 ---
 
 # Sub Projects
-<List of Sub Projects goes here>
+[BrowseData](https://github.com/CMDT/TimeSeriesDataCapture_BrowseData)
+[ImportSource](https://github.com/CMDT/TimeSeriesDataCapture_ImportSource)
   
 # Trello
 [Trello Team](https://trello.com/timeseriesdatacapture)   
