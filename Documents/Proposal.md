@@ -217,7 +217,9 @@ We predicted the whole system will take 4 weeks (approx 150 hours) to build. The
 |Diary |8
 
 
-Total (Hours) |147
+ 
+|  Total (Hours) |  147 |
+|---|---|
 
 
 
