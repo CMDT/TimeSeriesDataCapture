@@ -12,7 +12,7 @@ Additionally when researching the instrumentation we concluded that there too ma
 
 ---
 
-## Single Page Web App
+# Single Page Web App
 The SPA allow any user to search for runs, view and compare. Furthermore it will also allow administrator level users to import new runs as well as edit them.
 
 Components of SPA :
@@ -25,29 +25,29 @@ Components of SPA :
 - URL State
 - Responsive UI
 
-### Login 
+## Login 
 Wireframe: https://cmdt.github.io/TimeSeriesDataCapture/wireframes/#/page/homepageloggedin
 Throughout the SPA if user is not logged in, all admin controls e.g. add new annotation will be hidden. Once a user is logged in admin controls will be shown.
 
-### Import New Runs  
+## Import New Runs  
 Wireframe: https://cmdt.github.io/TimeSeriesDataCapture/wireframes/#/page/import 
 To import new runs into the database, admin user can select new runs which are stored in the file storage but not into the database. A different algorithm can be chosen to calculate Rth, once selection is confirmed runs will be imported into database
 
-### Search Runs
+## Search Runs
 Wireframe: https://cmdt.github.io/TimeSeriesDataCapture/wireframes/#/page/homepagesearch
 On the SPA the user can search for runs either by time & date, tags or data IDs. If user is not logged in only public runs will be available but if the user is logged in (admin) all runs will be available.
 
-### Export Data to local machine
+## Export Data to local machine
 Wireframe: https://cmdt.github.io/TimeSeriesDataCapture/wireframes/#/page/homepagesearch_selected
 One or multiple run(s) csv data can be exported to local machine as a zip folders. 
 
-### Delete Data from Database
+## Delete Data from Database
 The file storage can never be edited but the database can. Admin user can delete runs from database. Once runs are deleted from database they can be re-imported.
 
-### URL State
+## URL State
 The SPA will maintain its exact state within the URL, for example, what runs are being viewed, graph offset and zoom level,  thus the URL can be copied and pasted to the share page being currently viewed. 
 
-### Responsive UI
+## Responsive UI
 The SPA will scale to any size screen either on desktop or mobile
 
 ---
