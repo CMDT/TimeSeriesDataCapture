@@ -1,16 +1,22 @@
-# Proposal
+# Time Series Data Capture Proposal
 
-Time Series Data Capture
-This system will aim to provide a way for research groups to store and visualise time series data.  The system will include:
+This system will aim to provide a way for research groups to store and visualise time series data, designed with extensibility in the choice of location and format of data files. Initially, .csv files stored on OneDrive will be supported.
 
-Single Page Web App (SPA) to search and visualise each data run
-Import API to pull data from an external file storage
-Server to store the imported data on database and Browse API to communicate with the SPA
 
-The system will be built so any file storage can be implemented as well as any type of time series data. 
 
-This reason there is no interaction with research instrumentation is that we felt it distracted from the purpose of the system, to able to view and store time series data. 
-Additionally when researching the instrumentation we concluded that there too many unknowns to understand within the given time-frame.  
+The system will include:
+
+- Single Page Web App (SPA) to search and visualise each data run
+- Import API to pull data from an external file storage
+- Browse API to communicate with the SPA and a Database to store the imported data 
+
+
+
+Instrument control has been dropped, in favour more analysis features. We felt focusing on the instrument distracted from the purpose of the system, to able to view and store time series data.
+
+This gives more resources for the analytical visualisation and removes a substantial amount of risk associated with instrument.
+
+
 
 ---
 
@@ -51,7 +57,7 @@ The SPA will scale to any size screen either on desktop or mobile
 ---
 
 ## [View and Compare Runs](https://cmdt.github.io/TimeSeriesDataCapture/wireframes/#/page/viewpage)
-Line graph will display each run viewed, the graph can be zoomed in and panned about. For each run annotations will be displayed as well as tags.
+A line graph will display each run being viewed, the graph can be zoomed in and panned about. For each run, annotations and tag will be displayed.
 
 Components of View Page:
 
@@ -70,7 +76,7 @@ On the line graph a trend line will be visible for every column within each run 
 User can zoom in the whole graph to view details closer and pan the active run trends origin so features can coincide. 
 
 #### [Edit Tags and Annotations](https://cmdt.github.io/TimeSeriesDataCapture/wireframes/#/page/viewpage_edit_annotation)
-From the view page tags can be edited deleted and new ones added. Annotations can be deleted, relocated (new x coordinate), their descriptions edited and new ones added. 
+From the view page, tags can be edited deleted and new ones added. Annotations can be deleted, relocated (new x coordinate), their descriptions edited and new ones added. 
 
 ---
 
@@ -134,9 +140,17 @@ Holds the file storage Client ID for file storage authentication
 ---
 
 ## Proposal
-The total days of execution are 47 which 32 will be allocated to development. The remaining 15 days will include stability testing and handover.
+The whole project constits of 60 days of work, 47 will be dedicated for execution.
 
-We predicted the whole system will take 4 weeks (approx 150 hours) to build. The remaining 2 weeks allows us to iterate over the view page design and features twice.
+The 47 days of execution will be split into 32 days for development and 15 days for stability testing and handover.
+
+Out of the 32 days of development, we predicted building whole system would only take 147 hours (20 days) leaving us an extra 12 days .
+
+The remaining 12 days will be used to perform two iterations over the view page, tweaking design and/or adding new features. 
+
+
+
+Each table below describes how the 147 hours (20 days) will be allocated:
 
 | Search Page Tasks               | Estimate (Hours) |
 |--------------------------------:|-----------------:|
