@@ -141,7 +141,17 @@ Holds the file storage Client ID for file storage authentication
 ## Proposal
 The total days of execution are 47 which 32 will be allocated to development. The remaining 15 days will include stability testing and handover.
 
-We predicted the whole system will take 4 weeks (approx 150 hours) to build. The remaining 2 weeks allows us to iterate over the view page design and features twice.    
+We predicted the whole system will take 4 weeks (approx 150 hours) to build. The remaining 2 weeks allows us to iterate over the view page design and features twice.
+
+| Search Page Tasks               | Estimate (Hours) |
+|---------------------------------|------------------|
+| Design Results List             | 2                |
+| Design Search Page UI           | 2                |
+| Implement Export                | 3                |
+| Implement Buttons               | 3                |
+| Implement Results List          | 2                |
+| Implement Pagination            | 3                |
+| Implement Search Page URL State | 3                |
 
 
 
