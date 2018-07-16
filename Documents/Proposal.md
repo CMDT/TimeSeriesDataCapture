@@ -131,7 +131,6 @@ Holds a collection of documents, each documents is a run which contains: ID, dat
 ## Authentication Data 
 Holds the file storage Client ID for file storage authentication 
 
-
 ---
 
 # Proposal
@@ -151,71 +150,68 @@ We predicted the whole system will take 4 weeks (approx 150 hours) to build. The
 
 
 
-|View Page Tasks              |Estimate (Hours) 
+|View Page Tasks                   |Estimate (Hours)|
+|---------------------------------:|-------------------:|
+|Design Annotations |3|
+|Design Column/Tab Panel |2|
+|Design Columns/Tab List |2|
+|Build Graph Axis |4|
+|Build Graph Lines |4|
+|Build Graph Responsive |4|
+|Implement Graph Zoom |6|
+|Implement Graph Pan |6|
+|Graph Trend Line Visibility |3|
+|Implement Annotation Popup |3|
+|Implement Annotation Drag |4|
+|Implement Run Update |2|
+|Implement Column/Tab Panel |3|
+|Implement Edit Tag |2|
+|Implement View Page URL State |8|
+
+
+|Import Page Tasks |Estimate (Hours)|
 |--------------------------------:|-----------------:|
-|Design Annotations |3
-|Design Column/Tab Panel |2
-|Design Columns/Tab List |2
-|Build Graph Axis |4
-|Build Graph Lines |4
-|Build Graph Responsive |4
-|Implement Graph Zoom |6
-|Implement Graph Pan |6
-|Graph Trend Line Visibility |3
-|Implement Annotation Popup |3
-|Implement Annotation Drag |4
-|Implement Run Update |2
-|Implement Column/Tab Panel |3
-|Implement Edit Tag |2
-|Implement View Page URL State |8
+|Import Panel |3|
+|Folder Path |1|
+|Folder Elements |3|
+|Page Buttons |3|
+|Algorithm Panel |1|
+|Implement Import Panel |5|
+|Implement Folder Path |1|
+|Implement Folder List |3|
+|Implement Graph |2|
+|Implement Algorithms Panel |2|
+|Implement Import Request |1|
 
 
-|Import Page Tasks |Estimate (Hours)
+|Server Tasks |Estimate (Hours)|
 |--------------------------------:|-----------------:|
-|Import Panel |3
-|Folder Path |1
-|Folder Elements |3
-|Page Buttons |3
-|Algorithm Panel |1
-|Implement Import Panel |5
-|Implement Folder Path |1
-|Implement Folder List |3
-|Implement Graph |2
-|Implement Algorithms Panel |2
-|Implement Import Request |1
+|Implement Browse API |2|
+|Implement Database |6|
+|Implement Search Query |2|
+|Implement Query Component |2|
+|Implement Update Component |2|
+|Implement Add Component |2|
+|Implement Rth Calculation |2|
+|Implement Get Component |3|
+|Implement Import API |2|
+|Implement Get Import IDs |3|
+|Implement Get Import Component |2|
 
 
-|Server Tasks |Estimate (Hours)
+|Authentication Tasks |Estimate (Hours)|
 |--------------------------------:|-----------------:|
-|Implement Browse API |2
-|Implement Database |6
-|Implement Search Query |2
-|Implement Query Component |2
-|Implement Update Component |2
-|Implement Add Component |2
-|Implement Rth Calculation |2
-|Implement Get Component |3
-|Implement Import API |2
-|Implement Get Import IDs |3
-|Implement Get Import Component |2
+|Implement Get Client ID |2|
+|Implement Auth0 Authentication |3|
+|Implement OneDrive Authentication |5|
 
 
-|Authentication Tasks |Estimate (Hours)
+|Miscellaneous |Estimate (Hours)|
 |--------------------------------:|-----------------:|
-|Implement Get Client ID |2
-|Implement Auth0 Authentication |3
-|Implement OneDrive Authentication |5
+|Initial Start Up |3|
+|Diary |8|
 
-
-|Miscellaneous |Estimate (Hours)
-|--------------------------------:|-----------------:|
-|Initial Start Up |3
-|Diary |8
-
-
- 
-|  Total (Hours) |  147 |
-|---|---|
-
-
+| Total (Hours) | 147  |
+| ------------- | ---- |
+|               |      |
 
