@@ -204,5 +204,20 @@ We predicted the whole system will take 4 weeks (approx 150 hours) to build. The
 |Implement Get Import Component |2
 
 
+|Authentication Tasks |Estimate (Hours)
+|--------------------------------:|-----------------:|
+|Implement Get Client ID |2
+|Implement Auth0 Authentication |3
+|Implement OneDrive Authentication |5
+
+
+|Miscellaneous |Estimate (Hours)
+|--------------------------------:|-----------------:|
+|Initial Start Up |3
+|Diary |8
+
+
+Total (Hours) |147
+
 
 
