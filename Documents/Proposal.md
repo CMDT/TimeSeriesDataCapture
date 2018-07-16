@@ -155,3 +155,24 @@ We predicted the whole system will take 4 weeks (approx 150 hours) to build. The
 
 
 
+|View Page              |Tasks
+|----------------------:|-----:|
+|Estimate (Hours)
+|Design Annotations |3
+|Design Column/Tab Panel |2
+|Design Columns/Tab List |2
+|Build Graph Axis |4
+|Build Graph Lines |4
+|Build Graph Responsive |4
+|Implement Graph Zoom |6
+|Implement Graph Pan |6
+|Graph Trend Line Visibility |3
+|Implement Annotation Popup |3
+|Implement Annotation Drag |4
+|Implement Run Update |2
+|Implement Column/Tab Panel |3
+|Implement Edit Tag |2
+|Implement View Page URL State |8
+
+
+
