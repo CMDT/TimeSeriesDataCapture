@@ -144,7 +144,7 @@ The total days of execution are 47 which 32 will be allocated to development. Th
 We predicted the whole system will take 4 weeks (approx 150 hours) to build. The remaining 2 weeks allows us to iterate over the view page design and features twice.
 
 | Search Page Tasks               | Estimate (Hours) |
-|---------------------------------|------------------|
+|--------------------------------:|-----------------:|
 | Design Results List             | 2                |
 | Design Search Page UI           | 2                |
 | Implement Export                | 3                |
