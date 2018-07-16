@@ -155,9 +155,8 @@ We predicted the whole system will take 4 weeks (approx 150 hours) to build. The
 
 
 
-|View Page              |Tasks
+|View Page Tasks              |Estimate (Hours) 
 |----------------------:|-----:|
-|Estimate (Hours)
 |Design Annotations |3
 |Design Column/Tab Panel |2
 |Design Columns/Tab List |2
@@ -173,6 +172,22 @@ We predicted the whole system will take 4 weeks (approx 150 hours) to build. The
 |Implement Column/Tab Panel |3
 |Implement Edit Tag |2
 |Implement View Page URL State |8
+
+
+|Import Page Tasks |Estimate (Hours)
+|---------------:|--:|
+|Import Panel |3
+|Folder Path |1
+|Folder Elements |3
+|Page Buttons |3
+|Algorithm Panel |1
+|Implement Import Panel |5
+|Implement Folder Path |1
+|Implement Folder List |3
+|Implement Graph |2
+|Implement Algorithms Panel |2
+|Implement Import Request |1
+
 
 
 
