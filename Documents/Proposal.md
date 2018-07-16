@@ -27,7 +27,7 @@ Components of SPA :
 - URL State
 - Responsive UI
 
-## [Login](https://cmdt.github.io/TimeSeriesDataCapture/wireframes/#/page/homepageloggedin) 
+#### [Login](https://cmdt.github.io/TimeSeriesDataCapture/wireframes/#/page/homepageloggedin) 
 Throughout the SPA if user is not logged in, all admin controls e.g. add new annotation will be hidden. Once a user is logged in admin controls will be shown.
 
 ## [Import New Runs](https://cmdt.github.io/TimeSeriesDataCapture/wireframes/#/page/import )  
