@@ -1,21 +1,36 @@
 var app = angular.module('app', ['ui.router',]);
 
 
-app.config(['$stateProvider',function($stateProvider){
-    
-    
+app.config(config);
 
-    var homeState = {
-        name: 'home',
-        url: '/home',
-        templateUrl: 'app/shared/home/homeView.html',
-        controller: 'homeController'
-      }
+config.$inject = [
+  '$stateProvider'
+]
+
+function config($stateProvider){
+
+  var homeState = {
+    name: 'home',
+    url: '/home',
+    templateUrl: 'app/shared/home/homeView.html',
+    controller: 'homeController'
+  }
+
+  var callbackState = {
+    name: 'callback',
+    url: '/callback',
+    templateUrl: 'app/shared/callback/callbackView.html',
     
-      
-    
-      $stateProvider.state(homeState);
-}]);
+  }
+
+
+
+
+  $stateProvider.state(callbackState);
+  $stateProvider.state(homeState);
+
+}
+
 
 
     

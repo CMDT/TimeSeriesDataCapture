@@ -1,9 +1,44 @@
-app.service('authenticationService', function(authenticationService){
+app.service('authenticationService',['$log',function($log){
+    var lock = null;
 
-    var self = this;
-
-    function test(){
-        return 'hello from authenticationService';
+    var options = {
+        autoclose: true,
+        auth:  {
+            responseType: "token id_token"
+        }
     }
 
-})
+    this.initialize = function(){
+
+        if(lock == null){
+
+        lock = new Auth0Lock(
+            '0XLhzBnfbBmbmKU6OnEan4CU5lLWkD81',
+            'timeseriestest.eu.auth0.com',
+            options
+          );
+        }
+        
+    }
+
+    this.initialize();
+
+
+
+    this.login = function(){
+        lock.show();
+    }
+
+    lock.on('authenticated',function(authResult){
+        lock.getUserInfo(authResult.accessToken, function(error, profile){
+            if(error){
+                $log.error('authentication error');
+                return;
+            }
+
+            console.log(authResult);
+            console.log(profile);
+            
+        })
+    })
+}])
