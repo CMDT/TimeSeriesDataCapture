@@ -2,3 +2,6 @@
 
 <button ng-click='login()'>Login</button>
 <button ng-click="loginOneDrive()">Login OneDrive</button>
+<input type="text" ng-change="inputChange(search)" ng-model="search" ng-model-options="{debounce: 800}"></input>
+<button ng-click="searchClick()">Search</button>
+<h1>{{searchResult}}</h1>

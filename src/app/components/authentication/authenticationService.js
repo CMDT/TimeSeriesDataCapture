@@ -4,7 +4,8 @@ app.service('authenticationService',['$log',function($log){
     var options = {
         autoclose: true,
         auth:  {
-            responseType: "token id_token"
+            responseType: "token id_token",
+            redirect: false
         }
     }
 
@@ -36,9 +37,13 @@ app.service('authenticationService',['$log',function($log){
                 return;
             }
 
-            console.log(authResult);
+        
+            localStorage.setItem('accessToken',authResult.idToken);
             console.log(profile);
+
+
             
         })
     })
 }])
+
