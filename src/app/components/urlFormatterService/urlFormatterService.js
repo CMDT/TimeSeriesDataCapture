@@ -8,19 +8,22 @@ app.service('urlFormatterService', ['$log', function ($log) {
 
     self.setUrl = function (newUrl) {
         url = newUrl;
+        firstParam = true;
     }
 
     self.addParameter = function(key,value){
         if(firstParam){
-            url += '?' 
+            url += '?';
+            firstParam = false; 
         }else{
-            url+= '&'
+            url+= '&';
         }
 
-        url += + key + "=" + value;
+        url += key + "=" + value;
     }
 
     self.getUrl = function(){
+        
         return url;
     }
 
