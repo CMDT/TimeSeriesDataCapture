@@ -1,4 +1,4 @@
-app.service('searchService', ['$log', '$http', 'tagPredictionService', function ($log, $http, $tagPredictionService) {
+app.service('searchService', ['$log', '$http', 'tagPredictionService','dtFormatterService', function ($log, $http, $tagPredictionService, dtFormatterService) {
 
     var self = this;
 
@@ -6,24 +6,22 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', function 
         return new Promise(function (resolve, reject) {
 
            
-            var dateArray = dateExtract(search);
-            var date = ''
+            var dateArray = dtFormatterService.dateExtract(search);
+            var date = null
             if(dateArray != null && dateArray.length > 0){
-                $log.log(search);
                 search = search.replace(dateArray[0],'');
-                $log.log(search);
-                date = dateFormat(dateArray[0]);
+                date = dtFormatterService.dateEncode(dateArray[0]);
             }
 
             
-            self.tagPrediction(searchArray[0]).then(function(result){
+            self.tagPrediction('gold').then(function(result){
                 return result
             })
             .then(function(result){
                 $log.log(result[0]._id);
                 var req = {
                     method: 'GET',
-                    url: 'http://10.182.45.87:8000/apis/search?tags=' + result[0]._id,
+                    url: 'http://10.182.45.87:8000/apis/search?date=' + date,
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -52,22 +50,7 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', function 
 
     }
 
-    function dateExtract(search){
-        var dateRegex = /\d{1,2}\/\d{1,2}\/\d{4}/;
-        var dateArray = (dateRegex.exec(search));
-        return dateArray
-        
-    }
-
-    function dateFormat(search){
-        var dateArray = search.split("/");
-        var date= ''
-        for(var i=dateArray.length-1;i>=0;i--){
-            date += dateArray[i];
-        }
-
-        return date;
-    }
+   
 
    
 
