@@ -7,16 +7,32 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormat
 
             urlFormatterService.setUrl('http://10.182.45.87:8000/apis/search');
 
+            var date = dateParse(search);
+            if (date != null) {
+                search = search.replace(date, ' ');
+            }
 
-            search = search.replace(dateParse(search),'');
-            search = search.replace(timeParse(search),'');
+            var time = timeParse(search);
+            if (time != null) {
+                search = search.replace(time, ' ');
+            }
 
-            $log.log(urlFormatterService.getUrl());
-            self.tagPrediction('gold').then(function (result) {
-                return result
-            })
+            var tagArray = search.split(' ');
+            tagParse(tagArray)
                 .then(function (result) {
+                    $log.log(result);
+                    var tags = '';
+                    for (var i = 0, n = result.length-1; i < n; i++) {
+                        $log.log('hit');
+                        tags += result[i][0]['_id'] + ',';
+                    }
+                    tags += result[result.length-1][0]['_id'];
 
+                    urlFormatterService.addParameter('tags',tags);
+                    return;
+                })
+                .then(function (result) {
+                    $log.log(urlFormatterService.getUrl());
                     var req = {
                         method: 'GET',
                         url: urlFormatterService.getUrl(),
@@ -26,6 +42,7 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormat
                     };
 
                     $http(req).then(function (result) {
+                        $log.log(result);
                         resolve(result.data);
                     })
                 })
@@ -43,34 +60,46 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormat
 
     }
 
+    function tagParse(tagArray) {
+        $log.log(tagArray);
+        return new Promise(function (resolve, reject) {
+            const tagIdPromises = tagArray.map(self.tagPrediction);
+            Promise.all(tagIdPromises).then(function (result) {
+                
+                resolve(result);
+            })
+        })
+
+    }
+
+
     function dateParse(search) {
         var dateArray = dtFormatterService.dateExtract(search);
-        if (dateArray != null && dateArray.length > 0) {
+
+        if (dateArray != null) {
+            $log.log(dateArray);
             $log.log('added date');
             search = search.replace(dateArray[0], '');
             urlFormatterService.addParameter('date', dtFormatterService.dateEncode(dateArray[0]));
+            return dateArray[0];
+        } else {
+            return null;
         }
 
-        return dateArray[0];
+
     }
 
     function timeParse(search) {
         var timeArray = dtFormatterService.timeExtract(search);
-        if (timeArray != null && timeArray.length > 0) {
+        if (timeArray != null) {
             $log.log('added time');
             search = search.replace(timeArray[0], '');
             urlFormatterService.addParameter('timeStamp', dtFormatterService.timeEncode(timeArray[0]));
+            return timeArray[0];
+        } else {
+            return null;
         }
-
-        return timeArray[0];
-
     }
-
-
-
-
-
-
 
 
 }])
