@@ -19,7 +19,7 @@ app.service('dtFormatterService', ['$log', function ($log) {
     }
 
     self.timeEncode = function(time){
-
+        return(time.replace(/:/g,''));
     }
 
     self.timeDecode = function(time){
@@ -30,6 +30,12 @@ app.service('dtFormatterService', ['$log', function ($log) {
         var dateRegex = /\d{1,2}\/\d{1,2}\/\d{4}/;
         var dateArray = (dateRegex.exec(value));
         return dateArray
+    }
+
+    self.timeExtract = function(value){
+        var timeRegex = /(?:2[0-3]|[01]?[0-9]):[0-5][0-9]:[0-5][0-9]/;
+        var timeArray = (timeRegex.exec(value));
+        return timeArray;
     }
 
 
