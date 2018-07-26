@@ -1,0 +1,23 @@
+md-list-item {
+    border-radius: 15px 15px 15px 15px;
+-moz-border-radius: 15px 15px 15px 15px;
+-webkit-border-radius: 15px 15px 15px 15px;
+border: 3px solid #d4d4d4;
+}
+
+.search input{
+    height: 50px;
+    width: 50%;
+    
+}
+
+.search{
+    position: relative;
+    left: 20%;
+}
+
+.result{
+    width: 70%;
+    position: relative;
+    left: 10%;
+}
