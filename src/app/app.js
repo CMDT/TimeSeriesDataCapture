@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router','ngMaterial']);
+var app = angular.module('app', ['ui.router', 'ngMaterial']);
 
 
 app.config(config);
@@ -7,20 +7,23 @@ config.$inject = [
   '$stateProvider'
 ]
 
-function config($stateProvider){
+function config($stateProvider) {
 
   var homeState = {
     name: 'home',
-    url: '/home',
+    url: '/home/?query',
     templateUrl: 'app/shared/home/homeView.html',
-    controller: 'homeController'
+    controller: 'homeController',
+    resolve: {
+    
+    }
   }
 
   var callbackState = {
     name: 'callback',
     url: '/callback',
     templateUrl: 'app/shared/callback/callbackView.html',
-    
+
   }
 
 
@@ -33,4 +36,4 @@ function config($stateProvider){
 
 
 
-    
+

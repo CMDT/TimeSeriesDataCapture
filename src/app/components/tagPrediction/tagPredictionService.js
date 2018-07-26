@@ -14,12 +14,13 @@ app.service('tagPredictionService', ['$log', '$http', function ($log, $http) {
                 }
             };
 
+          
+
 
             $http(req).then(function (result) {
                 var data = result.data;
-            
+        
                 
-;
                 resolve(data);
             }).catch(function (error) {
                 $log.error(error);

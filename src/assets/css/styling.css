@@ -8,16 +8,23 @@ border: 3px solid #d4d4d4;
 .search input{
     height: 50px;
     width: 50%;
-    
+
 }
 
 .search{
     position: relative;
     left: 20%;
+    padding-bottom: 2%;
+}
+
+.runButtons{
+    position: relative;
+    left: 35%;
+    padding-bottom: 2%;
 }
 
 .result{
     width: 70%;
     position: relative;
-    left: 10%;
+    left: 13%;
 }
