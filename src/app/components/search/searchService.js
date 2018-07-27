@@ -58,44 +58,9 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormat
         })
 
     }
+/* s */
 
-    /*self.search = function (search) {
-        return new Promise(function (resolv, reject) {
-            var date = dateParse(search);
-            if (date != null) {
-                search = search.replace(date, '');
-            }
-
-            var time = timeParse(search);
-            if (time != null) {
-                search = search.replace(time, '');
-            }
-
-            var tags = '';
-            var tagArray = search.split(' ');
-            tagParse(tagArray)
-                .then(function (result) {
-
-                    if (result[0].length > 0) {
-                        for (var i = 0, n = result.length - 1; i < n; i++) {
-
-                            tags += result[i][0]['_id'] + ',';
-                        }
-                        tags += result[result.length - 1][0]['_id'];
-
-
-                        return
-                    } else {
-                        tags = null;
-                    }
-
-                })
-                .then(searchRequest(tags,date,time)
-        })
-
-    }*/
-
-    self.searchRequest = function (tags, date, time) {
+   /*  self.searchRequest = function (tags, date, time) {
         return new Promise(function (resolve, reject) {
             if (tags == null && date == null && time == null) {
                 resolve([]);
@@ -129,7 +94,7 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormat
 
 
 
-    }
+    } */
 
 
 
