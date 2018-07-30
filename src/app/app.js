@@ -23,7 +23,13 @@ function config($stateProvider) {
     name: 'callback',
     url: '/callback',
     templateUrl: 'app/shared/callback/callbackView.html',
+  }
 
+  var importState = {
+    name: 'import',
+    url: '/import',
+    templateUrl: 'app/shared/import/importView.html',
+    controller: 'importController'
   }
 
 
@@ -31,6 +37,7 @@ function config($stateProvider) {
 
   $stateProvider.state(callbackState);
   $stateProvider.state(homeState);
+  $stateProvider.state(importState);
 
 }
 

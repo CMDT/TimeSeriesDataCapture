@@ -5,7 +5,7 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
     }
 
     $scope.search = ''
-    $scope.results = []
+   
     $scope.loginOneDrive = function () {
         oneDriveAuthenticationService.login();
     }

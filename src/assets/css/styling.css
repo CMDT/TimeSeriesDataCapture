@@ -1,8 +1,12 @@
-md-list-item {
+.result md-list-item {
     border-radius: 15px 15px 15px 15px;
 -moz-border-radius: 15px 15px 15px 15px;
 -webkit-border-radius: 15px 15px 15px 15px;
 border: 3px solid #d4d4d4;
+}
+
+md-dialog {
+    width: 80%;
 }
 
 .search input{
