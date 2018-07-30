@@ -25,7 +25,26 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
         if ($scope.search.length > 0) {
           
             var queryObject = searchService.searchExtract($scope.search);
-            
+            var date = null;
+            if(queryObject.hasOwnProperty('date')){
+                date = dtFormatterService.dateEncode(queryObject.date[0]);
+            }
+            var time=null;
+            if(queryObject.hasOwnProperty('time')){
+                time = dtFormatterService.timeEncode(queryObject.time[0]);
+            }
+            var tags = null;
+            if(queryObject.hasOwnProperty('tag')){
+                searchService.tagParse(queryObject.tag)
+                .then(function(result){
+                    tags = result;
+                })
+                
+            }
+            searchService.searchRequest(tags,date,time)
+            .then(function(result){
+                $log.log(result);
+            });
         }
     }
 

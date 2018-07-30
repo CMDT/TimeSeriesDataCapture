@@ -1,39 +1,9 @@
-app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormatterService', 'queryKeywordService', function ($log, $http, $tagPredictionService, dtFormatterService, queryKeywordService) {
+app.service('searchService', ['$log', '$http', 'dtFormatterService', 'queryKeywordService', function ($log, $http, $tagPredictionService, dtFormatterService, queryKeywordService) {
 
     var self = this;
 
 
-    self.search = function (search) {
-        return new Promise(function (resolve, reject) {
-
-            tagParse(tagArray)
-                .then(function (result) {
-
-                    if (result[0].length > 0) {
-                        for (var i = 0, n = result.length - 1; i < n; i++) {
-
-                            tags += result[i][0]['_id'] + ',';
-                        }
-                        tags += result[result.length - 1][0]['_id'];
-                        return
-                    } else {
-                        tags = null;
-                    }
-
-                })
-                .then(function (result) {
-                    self.searchRequest(tags, date, time).then(function (response) {
-                        resolve(response.data)
-                    });
-
-                })
-        })
-    }
-
-
     self.searchExtract = function (search) {
-
-
         var query = {}
         var keywords = queryKeywordService.getKeywords();
         for (var i = 0, n = keywords.length; i < n; i++) {
@@ -42,9 +12,7 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormat
                 query[keywords[i].name] = regexResult;
             }
         }
-
         return query;
-
     }
 
 
@@ -69,39 +37,11 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormat
             config['params']['date'] = date;
         }
         if (time != null) {
-            config['params']['time'] = time;
+            config['params']['timeStamp'] = time;
         }
 
-
+        $log.log('request');
         return $http.get(url, config);
 
     }
-
-
-
-    self.tagPrediction = function (tag) {
-        return new Promise(function (resolve, reject) {
-            $tagPredictionService.getTagID(tag).then(function (result) {
-
-                resolve(result.data);
-            }).catch(function (error) {
-                $log.log(error);
-            });
-        });
-
-    }
-
-    function tagParse(tagArray) {
-
-        return new Promise(function (resolve, reject) {
-            const tagIdPromises = tagArray.map(self.tagPrediction);
-            Promise.all(tagIdPromises).then(function (result) {
-
-                resolve(result);
-            })
-        })
-
-    }
-
-
 }])
