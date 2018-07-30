@@ -1,18 +1,38 @@
-app.service('searchService', ['$log', '$http', 'dtFormatterService', 'queryKeywordService', function ($log, $http, $tagPredictionService, dtFormatterService, queryKeywordService) {
+app.service('searchService', ['$log', '$http', 'queryKeywordService', function ($log, $http, queryKeywordService) {
 
     var self = this;
 
 
     self.searchExtract = function (search) {
-        var query = {}
+        var query = []
         var keywords = queryKeywordService.getKeywords();
         for (var i = 0, n = keywords.length; i < n; i++) {
             var regexResult = search.match(keywords[i].regex);
             if (regexResult != null) {
-                query[keywords[i].name] = regexResult;
+                query.push({
+                    name : keywords[i].name,
+                    value: regexResult
+                })
             }
         }
         return query;
+    }
+
+    self.queryUrlEncode = function(queryObject){
+        
+       
+        for(var i=0, n= queryObject.length;i<n;i++){
+           
+            for(var j=0, k=queryObject[i].value.length;j<k;j++){
+               
+                var test = queryKeywordService.urlEncode(queryObject[i].name,queryObject[i].value[j]);
+               
+                
+            }
+        }
+
+        return queryObject;
+
     }
 
 
@@ -21,6 +41,7 @@ app.service('searchService', ['$log', '$http', 'dtFormatterService', 'queryKeywo
         if (tags == null && date == null && time == null) {
             return ([]);
         }
+
 
         var config = {
             params: {},
@@ -43,5 +64,12 @@ app.service('searchService', ['$log', '$http', 'dtFormatterService', 'queryKeywo
         $log.log('request');
         return $http.get(url, config);
 
+    }
+
+    self.tagArrayParse = function(tagArray){
+        var tags = ''
+        for(var i=0,n=tagArray.length;i<n;i++){
+            
+        }
     }
 }])
