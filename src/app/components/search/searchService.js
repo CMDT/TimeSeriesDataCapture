@@ -1,107 +1,89 @@
-app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormatterService', 'urlFormatterService', function ($log, $http, $tagPredictionService, dtFormatterService, urlFormatterService) {
+app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormatterService', function ($log, $http, $tagPredictionService, dtFormatterService) {
 
     var self = this;
 
-    self.searchRequest = function (search) {
+   
+
+    self.search = function (search) {
         return new Promise(function (resolve, reject) {
-
-            urlFormatterService.setUrl('http://10.182.45.87:8000/apis/search');
-
-            var date = dateParse(search);
+            var date = dtFormatterService.dateExtract(search);
+    
             if (date != null) {
-                search = search.replace(date, '');
+                search = search.replace(date[0], '');
+                date = dtFormatterService.dateEncode(date[0]);
             }
 
-            var time = timeParse(search);
+            var time = dtFormatterService.timeExtract(search);
             if (time != null) {
-                search = search.replace(time, '');
+                search = search.replace(time[0], '');
+                time = dtFormatterService.timeEncode(time[0]);
             }
 
-
+            var tags = '';
             var tagArray = search.split(' ');
-
             tagParse(tagArray)
                 .then(function (result) {
-                    $log.log(result);
-                    $log.log(result.length);
-                    var tags = '';
+
                     if (result[0].length > 0) {
                         for (var i = 0, n = result.length - 1; i < n; i++) {
 
                             tags += result[i][0]['_id'] + ',';
                         }
                         tags += result[result.length - 1][0]['_id'];
-
-                        urlFormatterService.addParameter('tags', tags);
-                        resolve();
+                        return
+                    } else {
+                        tags = null;
                     }
 
-
-
                 })
-                .then(function (result) {
-                    $log.log(urlFormatterService.getUrl());
-                    var req = {
-                        method: 'GET',
-                        url: urlFormatterService.getUrl(),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    };
-
-                    $http(req).then(function (result) {
-
-                        resolve(result.data);
-                    })
+                .then(function(result){
+                    self.searchRequest(tags,date,time).then(function(response){
+                        resolve(response.data)
+                    });
+                 
                 })
-
         })
-
     }
-/* s */
 
-   /*  self.searchRequest = function (tags, date, time) {
-        return new Promise(function (resolve, reject) {
-            if (tags == null && date == null && time == null) {
-                resolve([]);
-            }
+    
 
-            urlFormatterService.setUrl('http://10.182.45.87:8000/apis/search');
-            if (tags != null) {
-                urlFormatterService.addParameter('tags', tags);
-            }
-            if (date != null) {
-                urlFormatterService.addParameter('date', date);
-            }
-            if (time != null) {
-                urlFormatterService.addParameter('time', time);
-            }
+    self.searchRequest = function(tags, date,time){
+        if(tags == null && date==null && time == null){
+            resolve([]);
+        }
 
-            $log.log(urlFormatterService.getUrl());
-            var req = {
-                method: 'GET',
-                url: urlFormatterService.getUrl(),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            };
+        var config = {
+            params : {},
+            responseType: 'json' 
+        }
 
-            $http(req).then(function (result) {
+        var url = 'http://10.182.45.87:8000/apis/search';
+     
 
-                resolve(result.data);
-            })
-        })
+        if (tags != null) {
+            config['params']['tags'] = tags;
+        }
+        if (date != null) {
+            config['params']['date'] = date;
+        }
+        if (time != null) {
+            config['params']['time'] = time;
+        }
 
-
-
-    } */
+    
+        return $http.get(url,config);
+      
+    }
 
 
 
     self.tagPrediction = function (tag) {
         return new Promise(function (resolve, reject) {
-            $tagPredictionService.tagRequest(tag).then(function (result) {
-                resolve(result);
+            $tagPredictionService.getTagID(tag).then(function (result) {
+               
+                resolve(result.data);
+            }).catch(function(error){
+                $log.log(error);
             });
         });
 
@@ -117,33 +99,6 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormat
             })
         })
 
-    }
-
-
-    function dateParse(search) {
-        var dateArray = dtFormatterService.dateExtract(search);
-
-        if (dateArray != null) {
-
-            search = search.replace(dateArray[0], '');
-            urlFormatterService.addParameter('date', dtFormatterService.dateEncode(dateArray[0]));
-            return dateArray[0];
-        } else {
-            return null;
-        }
-
-
-    }
-
-    function timeParse(search) {
-        var timeArray = dtFormatterService.timeExtract(search);
-        if (timeArray != null) {
-            search = search.replace(timeArray[0], '');
-            urlFormatterService.addParameter('timeStamp', dtFormatterService.timeEncode(timeArray[0]));
-            return timeArray[0];
-        } else {
-            return null;
-        }
     }
 
 

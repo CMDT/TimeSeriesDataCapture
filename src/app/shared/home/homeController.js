@@ -28,7 +28,8 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
     $scope.searchClick = function () {
         if ($scope.search.length > 0) {
             $log.log($scope.search);
-            searchService.searchRequest($scope.search).then(function (result) {
+            searchService.search($scope.search).then(function (result) {
+                $log.log(result);
                 $scope.results = result;
                 $scope.$apply();
             
@@ -36,9 +37,6 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
         }
     }
 
-
-    //$scope.results = ($scope.$resolve.searchUrl[0]);
-    //$scope.search = ($scope.$resolve.searchUrl[1])
     
   
   
