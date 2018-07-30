@@ -1,26 +1,11 @@
-app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormatterService', function ($log, $http, $tagPredictionService, dtFormatterService) {
+app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormatterService', 'queryKeywordService', function ($log, $http, $tagPredictionService, dtFormatterService, queryKeywordService) {
 
     var self = this;
 
-   
 
     self.search = function (search) {
         return new Promise(function (resolve, reject) {
-            var date = dtFormatterService.dateExtract(search);
-    
-            if (date != null) {
-                search = search.replace(date[0], '');
-                date = dtFormatterService.dateEncode(date[0]);
-            }
 
-            var time = dtFormatterService.timeExtract(search);
-            if (time != null) {
-                search = search.replace(time[0], '');
-                time = dtFormatterService.timeEncode(time[0]);
-            }
-
-            var tags = '';
-            var tagArray = search.split(' ');
             tagParse(tagArray)
                 .then(function (result) {
 
@@ -36,29 +21,46 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormat
                     }
 
                 })
-                .then(function(result){
-                    self.searchRequest(tags,date,time).then(function(response){
+                .then(function (result) {
+                    self.searchRequest(tags, date, time).then(function (response) {
                         resolve(response.data)
                     });
-                 
+
                 })
         })
     }
 
-    
 
-    self.searchRequest = function(tags, date,time){
-        if(tags == null && date==null && time == null){
-            return([]);
+    self.searchExtract = function (search) {
+
+
+        var query = {}
+        var keywords = queryKeywordService.getKeywords();
+        for (var i = 0, n = keywords.length; i < n; i++) {
+            var regexResult = search.match(keywords[i].regex);
+            if (regexResult != null) {
+                query[keywords[i].name] = regexResult;
+            }
+        }
+
+        return query;
+
+    }
+
+
+
+    self.searchRequest = function (tags, date, time) {
+        if (tags == null && date == null && time == null) {
+            return ([]);
         }
 
         var config = {
-            params : {},
-            responseType: 'json' 
+            params: {},
+            responseType: 'json'
         }
 
         var url = 'http://10.182.45.87:8000/apis/search';
-     
+
 
         if (tags != null) {
             config['params']['tags'] = tags;
@@ -70,9 +72,9 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormat
             config['params']['time'] = time;
         }
 
-    
-        return $http.get(url,config);
-      
+
+        return $http.get(url, config);
+
     }
 
 
@@ -80,9 +82,9 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormat
     self.tagPrediction = function (tag) {
         return new Promise(function (resolve, reject) {
             $tagPredictionService.getTagID(tag).then(function (result) {
-               
+
                 resolve(result.data);
-            }).catch(function(error){
+            }).catch(function (error) {
                 $log.log(error);
             });
         });

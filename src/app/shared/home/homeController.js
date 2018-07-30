@@ -23,14 +23,9 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
 
     $scope.searchClick = function () {
         if ($scope.search.length > 0) {
-            $log.log($scope.search);
-            searchService.search($scope.search).then(function (result) {
-                $log.log(result);
-
-
-                $scope.results = result;
-                $scope.$apply();
-            })
+          
+            var queryObject = searchService.searchExtract($scope.search);
+            
         }
     }
 
