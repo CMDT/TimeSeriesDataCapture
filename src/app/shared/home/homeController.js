@@ -1,4 +1,4 @@
-app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationService', 'oneDriveAuthenticationService', 'searchService', function ($scope, $log, $filter,authenticationService, oneDriveAuthenticationService, searchService) {
+app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationService', 'oneDriveAuthenticationService', 'searchService', 'dtFormatterService', function ($scope, $log, $filter, authenticationService, oneDriveAuthenticationService, searchService, dtFormatterService) {
 
     $scope.login = function () {
         authenticationService.login();
@@ -13,16 +13,12 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
     $scope.inputChange = function (search) {
         if (search.length > 0) {
             searchService.tagPrediction($filter('lowercase')(search)).then(function (result) {
-                if(result.length > 0){
+                if (result.length > 0) {
                     $scope.search = result[0].tag;
                     $scope.$apply();
                 }
-             
             });
-
-
         }
-
     }
 
     $scope.searchClick = function () {
@@ -30,21 +26,32 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
             $log.log($scope.search);
             searchService.search($scope.search).then(function (result) {
                 $log.log(result);
+
+
                 $scope.results = result;
                 $scope.$apply();
-            
             })
         }
     }
 
-    
-  
-  
+    $scope.dateDecode = function (date) {
+        return dtFormatterService.dateDecode(date);
+    }
 
-  
+    $scope.timeDecode = function (time) {
+        return dtFormatterService.timeDecode(time);
+    }
 
 
-   
+
+
+
+
+
+
+
+
+
 
 
 
