@@ -38,6 +38,11 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormat
                 })
                 .then(function(result){
                     self.searchRequest(tags,date,time).then(function(response){
+                        for(var i=0,n=response.data.length;i<n;i++){
+                            response.data[i].date = dtFormatterService.dateDecode(response.data[i].date);
+                            response.data[i].time = dtFormatterService.timeDecode(response.data[i].time);
+                        }
+                        
                         resolve(response.data)
                     });
                  
@@ -49,7 +54,7 @@ app.service('searchService', ['$log', '$http', 'tagPredictionService', 'dtFormat
 
     self.searchRequest = function(tags, date,time){
         if(tags == null && date==null && time == null){
-            resolve([]);
+            return([]);
         }
 
         var config = {
