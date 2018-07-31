@@ -8,6 +8,6 @@
     },
     "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.html",
+    "start": "node src/index.html"
   }
   }
