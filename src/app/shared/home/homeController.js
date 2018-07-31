@@ -24,7 +24,9 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
 
     $scope.searchClick = function () {
         if ($scope.search.length > 0) {
-            $state.go('.', { query: $scope.search });
+            $state.go('.', {
+                query: $scope.search
+            });
         }
     }
 
@@ -43,8 +45,12 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
         })
     }
 
-    this.uiOnParamsChanged($stateParams);
-    $scope.search = $stateParams.query;
+    if ($stateParams.query != undefined) {
+        $log.log($stateParams);
+        this.uiOnParamsChanged($stateParams);
+        $scope.search = $stateParams.query;
+    }
+
 
 
 

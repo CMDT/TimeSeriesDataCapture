@@ -1,43 +1,37 @@
 <body ng-controller="importPanelController">
-        <md-toolbar>
-                <div class="md-toolbar-tools">
-                  <h2>Import</h2>
-                  <span flex></span>
-                  <md-button class="md-icon-button" ng-click="cancel()">
-                    X
-                  </md-button>
-                </div>
-              </md-toolbar>
-    <md-list flex>
-        <md-list-item class="md-2-line" ng-click="null">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h4>Import</h4>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                X
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-list ng-repeat='result in results' flex>
+        <md-list-item class="md-2-line" ng-click="secondPage()">
+            <md-icon ng-if='result.type == "run"' md-svg-src="../../assets/img/runIcon.svg" aria-label="Run Icon"></md-icon>
+            <md-icon ng-if='result.type == "folder"' md-svg-src="../../assets/img/folderIcon.svg" aria-label="Run Icon"></md-icon>
             <div class="md-list-item-text">
-                <h2>122</h2>
+                <h4>{{result.name}}</h4>
             </div>
-            <md-checkbox aria-label="Checkbox 1">
-            </md-checkbox>
-            <md-button>Preview</md-button>
-        </md-list-item>
-        <md-list-item class="md-2-line" ng-click="null">
-            <div class="md-list-item-text">
-                <h2>13243</h2>
+            <div ng-if='result.type == "run"'>
+                <md-checkbox aria-label="Checkbox 1">
+                </md-checkbox>
+                <md-button>
+                    <md-icon md-svg-src="../../assets/img/previewIcon.svg" aria-label="Folder Icon"></md-icon>
+                </md-button>
             </div>
-            <md-checkbox aria-label="Checkbox 1">
-            </md-checkbox>
-            <md-button>Preview</md-button>
-        </md-list-item>
-        <md-list-item class="md-2-line" ng-click="null">
-            <div class="md-list-item-text">
-                <h2>1233</h2>
-            </div>
-            
-            
-        </md-list-item>
-        <md-list-item class="md-2-line" ng-click="null">
-            <div class="md-list-item-text">
-                <h2>12133</h2>
-            </div>
-            
-            
-        </md-list-item>
     </md-list>
+    <md-dialog-actions layout="row">
+
+
+        <md-button >
+            Cancel
+        </md-button>
+        <md-button>
+            Confirm
+        </md-button>
+    </md-dialog-actions>
+
 </body>
