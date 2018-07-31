@@ -4,7 +4,8 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
         authenticationService.login();
     }
 
-    $scope.search = ''
+    $scope.search = '';
+    $scope.results = [];
    
     $scope.loginOneDrive = function () {
         oneDriveAuthenticationService.login();
@@ -24,7 +25,8 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
     $scope.searchClick = function () {
         if ($scope.search.length > 0) {
             searchPageService.search($scope.search).then(function(result){
-                $log.log(result);
+                $scope.results = result;
+                $scope.$apply();
             })   
         }
     }

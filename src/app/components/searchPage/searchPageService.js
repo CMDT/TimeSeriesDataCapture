@@ -1,14 +1,14 @@
-app.service('searchPageService', ['$log', 'tagPredictionService', 'searchService', 'dtFormatterService', function ($log, $tagPredictionService, searchService, dtFormatterService) {
+app.service('searchPageService', ['$log', 'tagPredictionService', 'searchService', 'queryKeywordService', function ($log, $tagPredictionService, searchService, queryKeywordService) {
 
     var self = this;
 
     self.search = function (query) {
         return new Promise(function (resolve, reject) {
-            var queryObject = self.searchService.searchExtract(query);
-            queryObject = self.searchService.queryUrlEncode(queryObject);
-            $log.log(queryObject);
-            searchService.searchRequest(queryObject).then(function (result) {
-                $log.log(result);
+            var queryObject = self.searchExtract(query);
+            self.queryUrlEncode(queryObject).then(function (result) {
+                searchService.searchRequest(result).then(function (result) {
+                    resolve(result.data);
+                })
             })
         });
     }
@@ -34,24 +34,64 @@ app.service('searchPageService', ['$log', 'tagPredictionService', 'searchService
     }
 
     self.queryUrlEncode = function (queryObject) {
-        var encodedObject = queryObject;
-        for (var i = 0, n = encodedObject.length; i < n; i++) {
-            for (var j = 0, k = encodedObject[i].value.length; j < k; j++) {
-                encodedObject[i].value[j] = queryKeywordService.urlEncode(encodedObject[i].name, encodedObject[i].value[j]);
+        return new Promise(function (resolve, reject) {
+            var encodedObject = queryObject;
+            var PromiseArray = [];
+            for (var i = 0, n = encodedObject.length; i < n; i++) {
+                if (encodedObject[i].name === 'tags') {
+
+                    PromiseArray = encodedObject[i].value.map(self.tagPrediction);
+                    encodedObject.splice(i, 1);
+
+                }
             }
-        }
-        return encodedObject;
+
+            Promise.all(PromiseArray).then(function (result) {
+
+
+                for (var i = 0, n = encodedObject.length; i < n; i++) {
+                    for (var j = 0, k = encodedObject[i].value.length; j < k; j++) {
+                        encodedObject[i].value[j] = queryKeywordService.urlEncode(encodedObject[i].name, encodedObject[i].value[j]);
+                    }
+                }
+
+
+                var tagIDArray = []
+
+                for (var i = 0, n = result.length; i < n; i++) {
+                    $log.log(result[i][0]);
+                    if (result[i][0].hasOwnProperty('_id')) {
+
+                        tagIDArray.push(result[i]._id)
+                    }
+                }
+
+                encodedObject.push({
+                    name: 'tags',
+                    value: tagIDArray
+                })
+                $log.log(encodedObject);
+                resolve(encodedObject);
+            })
+
+        });
+
+
+
+
     }
 
 
     self.tagPrediction = function (tag) {
         return new Promise(function (resolve, reject) {
             $tagPredictionService.getTagID(tag).then(function (result) {
-
                 resolve(result.data);
             }).catch(function (error) {
                 $log.log(error);
             });
         });
     }
+
+
+
 }])

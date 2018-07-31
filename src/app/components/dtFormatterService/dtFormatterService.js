@@ -38,11 +38,5 @@ app.service('dtFormatterService', ['$log', function ($log) {
         return decodeTime;
     }
 
-   
-
-    
-
-
-    
-    
+ 
 }])
