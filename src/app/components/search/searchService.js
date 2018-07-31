@@ -16,10 +16,10 @@ app.service('searchService', ['$log', '$http', 'queryKeywordService', function (
             if(value.length > 1){
                 config.params[queryArray[i].name] = self.queryParamArray(value);
             }else{
+        
                 config.params[queryArray[i].name] = value[0];
             }
         }
-        $log.log('request');
         return $http.get(url, config);
     }
 

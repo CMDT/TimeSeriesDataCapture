@@ -6,9 +6,11 @@ app.service('searchPageService', ['$log', 'tagPredictionService', 'searchService
         return new Promise(function (resolve, reject) {
             var queryObject = self.searchExtract(query);
             self.queryUrlEncode(queryObject).then(function (result) {
-                searchService.searchRequest(result).then(function (result) {
+    
+                searchService.searchRequest(result).then(function(result){
                     resolve(result.data);
                 })
+               
             })
         });
     }
@@ -33,52 +35,25 @@ app.service('searchPageService', ['$log', 'tagPredictionService', 'searchService
         return query;
     }
 
-    self.queryUrlEncode = function (queryObject) {
-        return new Promise(function (resolve, reject) {
-            var encodedObject = queryObject;
-            var PromiseArray = [];
-            for (var i = 0, n = encodedObject.length; i < n; i++) {
-                if (encodedObject[i].name === 'tags') {
-
-                    PromiseArray = encodedObject[i].value.map(self.tagPrediction);
-                    encodedObject.splice(i, 1);
-
+  
+    self.queryUrlEncode = function(queryArray){
+        return new Promise(function(resolve,reject){
+            const promisesToResolve = queryArray.map(self.urlEncode);
+            Promise.all(promisesToResolve).then(function(result){
+                for(var i=0,n=queryArray.length;i<n;i++){
+                    queryArray[i].value = result[i];
                 }
-            }
-
-            Promise.all(PromiseArray).then(function (result) {
-
-
-                for (var i = 0, n = encodedObject.length; i < n; i++) {
-                    for (var j = 0, k = encodedObject[i].value.length; j < k; j++) {
-                        encodedObject[i].value[j] = queryKeywordService.urlEncode(encodedObject[i].name, encodedObject[i].value[j]);
-                    }
-                }
-
-
-                var tagIDArray = []
-
-                for (var i = 0, n = result.length; i < n; i++) {
-                    $log.log(result[i][0]);
-                    if (result[i][0].hasOwnProperty('_id')) {
-
-                        tagIDArray.push(result[i]._id)
-                    }
-                }
-
-                encodedObject.push({
-                    name: 'tags',
-                    value: tagIDArray
-                })
-                $log.log(encodedObject);
-                resolve(encodedObject);
+                resolve(queryArray);
             })
+        })
+    }
 
+    self.urlEncode = function(queryObject){
+        return new Promise(function(resolve,reject){
+            queryKeywordService.urlEncode(queryObject.name,queryObject.value).then(function(result){
+                resolve(result);
+            })
         });
-
-
-
-
     }
 
 

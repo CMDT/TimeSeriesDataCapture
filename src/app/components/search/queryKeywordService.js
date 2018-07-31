@@ -1,10 +1,10 @@
-app.service('queryKeywordService', ['$log','dtFormatterService', function ($log,dtFormatterService) {
+app.service('queryKeywordService', ['$log', 'dtFormatterService', function ($log, dtFormatterService) {
 
     var self = this;
 
     var keywords = [];
 
-    function keyword(name,regex,singleton = true,uiEncode,urlEncode){
+    function keyword(name, regex, singleton = true, uiEncode, urlEncode) {
         this.name = name;
         this.regex = regex;
         this.singleton = singleton;
@@ -13,46 +13,49 @@ app.service('queryKeywordService', ['$log','dtFormatterService', function ($log,
     }
 
     //date
-    var date = new keyword('date',/\d{1,2}\/\d{1,2}\/\d{4}/g,true,function(date){return dtFormatterService.dateDecode(date)},function(date){return dtFormatterService.dateEncode(date)});
+    var date = new keyword('date', /\d{1,2}\/\d{1,2}\/\d{4}/g, true, function (date) { return Promise.resolve(dtFormatterService.dateDecode(date)) }, function (date) { return Promise.resolve(dtFormatterService.dateEncode(date)) });
     keywords.push(date);
     //time
-    var time = new keyword('timeStamp',/(?:2[0-3]|[01]?[0-9]):[0-5][0-9]:[0-5][0-9]/g,true,function(time){return dtFormatterService.timeDecode(time)},function(time){return dtFormatterService.timeEncode(time)});
+    var time = new keyword('timeStamp', /(?:2[0-3]|[01]?[0-9]):[0-5][0-9]:[0-5][0-9]/g, true, function (time) { return Promise.resolve(dtFormatterService.timeDecode(time)) }, function (time) { return Promise.resolve(dtFormatterService.timeEncode(time)) });
     keywords.push(time);
     //tag
-    var tag = new keyword('tags',/\b[a-z]{1,20}\b/g,false,function(tag){return tag},function(tag){return tag});
+    var tag = new keyword('tags', /\b[a-z]{1,20}\b/g, false, function (tag) { return Promise.resolve(tag) }, function (tag) { return tag });
     keywords.push(tag);
 
 
-    self.getKeywords = function(){
+    self.getKeywords = function () {
         return keywords;
     }
 
-    self.uiEncode = function(keyword,value){
-        for(var i=0, n = keywords.length;i<n;i++){
-            if(keyword === keywords[i]){
-                if(keywords[i].hasOwnProperty('uiEncode')){
+    self.uiEncode = function (keyword, value) {
+        for (var i = 0, n = keywords.length; i < n; i++) {
+            if (keyword === keywords[i]) {
+                if (keywords[i].hasOwnProperty('uiEncode')) {
                     return uiEncode(value);
                 }
             }
         }
-
         return value;
     }
 
-    self.urlEncode = function(keyword,value){
-        for(var i=0, n = keywords.length;i<n;i++){
-           
-            if(keyword == keywords[i].name){
-                $log.log(keyword + ' ' +keywords[i].name )
-                if(keywords[i].hasOwnProperty('urlEncode')){
-                    return keywords[i].urlEncode(value);
+    self.urlEncode = function (keyword, value) {
+        return new Promise(function (resolve, reject) {
+            for (var i = 0, n = keywords.length; i < n; i++) {
+                if (keyword == keywords[i].name) {
+                    if (keywords[i].singleton) {
+                        value = [value[0]];
+                    }
+                    const promisesToResolve = value.map(keywords[i].urlEncode);
+                    Promise.all(promisesToResolve).then(function (result) {
+                        $log.log(result);
+                        resolve(result);
+                    })
+
                 }
             }
-        }
-
-        return value;
+        })
     }
-  
-    
-    
+
+
+
 }])

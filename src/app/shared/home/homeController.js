@@ -1,4 +1,4 @@
-app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationService', 'oneDriveAuthenticationService', 'searchPageService', function ($scope, $log, $filter, authenticationService, oneDriveAuthenticationService, searchPageService) {
+app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationService', 'oneDriveAuthenticationService', 'searchPageService','dtFormatterService', function ($scope, $log, $filter, authenticationService, oneDriveAuthenticationService, searchPageService,dtFormatterService) {
 
     $scope.login = function () {
         authenticationService.login();
