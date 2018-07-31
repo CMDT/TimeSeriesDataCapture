@@ -1,7 +1,7 @@
 app.service('tagPredictionService', ['$log', '$http', function ($log, $http) {
 
   
-    this.getTagID = function(tag){
+    this.getTagId = function(tag){
         var config = {
             params  : {
                 tags:tag
@@ -15,7 +15,7 @@ app.service('tagPredictionService', ['$log', '$http', function ($log, $http) {
         return $http.get(url,config);
     }
 
-    this.getTagIDs = function(tagArray){
+    this.getTagIds = function(tagArray){
         return new Promise(function(resolve,reject){
             const tagIdPromises = tagArray.map(self.getTagID);
             Promise.all(tagIdPromises).then(function (result) {

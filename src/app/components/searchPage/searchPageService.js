@@ -59,11 +59,11 @@ app.service('searchPageService', ['$log', 'tagPredictionService', 'searchService
 
     self.tagPrediction = function (tag) {
         return new Promise(function (resolve, reject) {
-            $tagPredictionService.getTagID(tag).then(function (result) {
+            /*$tagPredictionService.getTagID(tag).then(function (result) {
                 resolve(result.data);
             }).catch(function (error) {
                 $log.log(error);
-            });
+            });*/
         });
     }
 
