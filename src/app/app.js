@@ -12,6 +12,11 @@ function config($stateProvider) {
   var homeState = {
     name: 'home',
     url: '/home/?query',
+    params : {
+      query: {
+        dynamic:true
+      }
+    },
     templateUrl: 'app/shared/home/homeView.html',
     controller: 'homeController',
     resolve: {

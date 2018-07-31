@@ -1,4 +1,4 @@
-app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationService', 'oneDriveAuthenticationService', 'searchPageService','dtFormatterService', function ($scope, $log, $filter, authenticationService, oneDriveAuthenticationService, searchPageService,dtFormatterService) {
+app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationService', 'oneDriveAuthenticationService', 'searchPageService', 'dtFormatterService', '$state', '$stateParams', function ($scope, $log, $filter, authenticationService, oneDriveAuthenticationService, searchPageService, dtFormatterService, $state, $stateParams) {
 
     $scope.login = function () {
         authenticationService.login();
@@ -6,7 +6,7 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
 
     $scope.search = '';
     $scope.results = [];
-   
+
     $scope.loginOneDrive = function () {
         oneDriveAuthenticationService.login();
     }
@@ -24,10 +24,7 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
 
     $scope.searchClick = function () {
         if ($scope.search.length > 0) {
-            searchPageService.search($scope.search).then(function(result){
-                $scope.results = result;
-                $scope.$apply();
-            })   
+            $state.go('.', { query: $scope.search });
         }
     }
 
@@ -38,6 +35,18 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
     $scope.timeDecode = function (time) {
         return dtFormatterService.timeDecode(time);
     }
+
+    this.uiOnParamsChanged = function (newParams) {
+        searchPageService.search(newParams.query).then(function (result) {
+            $scope.results = result;
+            $scope.$apply();
+        })
+    }
+
+    this.uiOnParamsChanged($stateParams);
+    $scope.search = $stateParams.query;
+
+
 
 
 

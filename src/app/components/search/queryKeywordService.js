@@ -47,7 +47,6 @@ app.service('queryKeywordService', ['$log', 'dtFormatterService','tagPredictionS
                     }
                     const promisesToResolve = value.map(keywords[i].urlEncode);
                     Promise.all(promisesToResolve).then(function (result) {
-                        $log.log(result);
                         resolve(result);
                     })
                 }
