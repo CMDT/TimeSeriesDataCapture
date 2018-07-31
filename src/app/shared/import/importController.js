@@ -5,7 +5,7 @@ app.controller('importController', ['$scope', '$log','$mdDialog', function ($sco
           templateUrl: 'app/shared/import/importPanel.html',
           parent: angular.element(document.h1),
           targetEvent: ev,
-          clickOutsideToClose:true,
+          clickOutsideToClose:false,
           fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
         })
         .then(function(answer) {

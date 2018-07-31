@@ -38,26 +38,9 @@ app.service('dtFormatterService', ['$log', function ($log) {
         return decodeTime;
     }
 
-    self.dateExtract = function(value){
-        var dateRegex = /\d{1,2}\/\d{1,2}\/\d{4}/;
-        var dateArray = (dateRegex.exec(value));
-        return dateArray
-    }
+   
 
-    self.timeExtract = function(value){
-        var timeRegex = /(?:2[0-3]|[01]?[0-9]):[0-5][0-9]:[0-5][0-9]/;
-        var timeArray = (timeRegex.exec(value));
-        return timeArray;
-    }
-
-    self.tagEncode = function(tags){
-        var tagsEncoded = '';
-        for(var i=0, n= (tags.length-1);i<n;i++){
-            tagsEncoded += tags[i] + ','
-        }
-        tagsEncoded += tags[tags.length-1]
-        return tagsEncoded;
-    }
+    
 
 
     

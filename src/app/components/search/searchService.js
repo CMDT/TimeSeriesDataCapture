@@ -2,47 +2,8 @@ app.service('searchService', ['$log', '$http', 'queryKeywordService', function (
 
     var self = this;
 
-
-    self.searchExtract = function (search) {
-        var query = []
-        var keywords = queryKeywordService.getKeywords();
-        for (var i = 0, n = keywords.length; i < n; i++) {
-            var regexResult = search.match(keywords[i].regex);
-            if (regexResult != null) {
-                query.push({
-                    name : keywords[i].name,
-                    value: regexResult
-                })
-            }
-        }
-        return query;
-    }
-
-    self.queryUrlEncode = function(queryObject){
-        
-       
-        for(var i=0, n= queryObject.length;i<n;i++){
-           
-            for(var j=0, k=queryObject[i].value.length;j<k;j++){
-               
-                var test = queryKeywordService.urlEncode(queryObject[i].name,queryObject[i].value[j]);
-               
-                
-            }
-        }
-
-        return queryObject;
-
-    }
-
-
-
-    self.searchRequest = function (tags, date, time) {
-        if (tags == null && date == null && time == null) {
-            return ([]);
-        }
-
-
+    
+    self.searchRequest = function (queryArray) {
         var config = {
             params: {},
             responseType: 'json'
@@ -50,26 +11,26 @@ app.service('searchService', ['$log', '$http', 'queryKeywordService', function (
 
         var url = 'http://10.182.45.87:8000/apis/search';
 
-
-        if (tags != null) {
-            config['params']['tags'] = tags;
+        for(var i=0,n=queryArray.length;i<n;i++){
+            var value = queryArray[i].value;
+            if(value.length > 1){
+                config.params[queryArray[i].name] = self.queryParamArray(value);
+            }else{
+                config.params[queryArray[i].name] = value[0];
+            }
         }
-        if (date != null) {
-            config['params']['date'] = date;
-        }
-        if (time != null) {
-            config['params']['timeStamp'] = time;
-        }
-
         $log.log('request');
         return $http.get(url, config);
-
     }
 
-    self.tagArrayParse = function(tagArray){
-        var tags = ''
-        for(var i=0,n=tagArray.length;i<n;i++){
-            
+    self.queryParamArray = function(param){
+        var parseParam = '';
+        for(var i=0,n=param.length-1;i<n;i++){
+            parseParam += param[i] + ',';
         }
+        parseParam += param[param.length-1];
+        return parseParam;
     }
+
+    
 }])

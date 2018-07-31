@@ -4,22 +4,24 @@ app.service('queryKeywordService', ['$log','dtFormatterService', function ($log,
 
     var keywords = [];
 
-    function keyword(name,regex,uiEncode,urlEncode){
+    function keyword(name,regex,singleton = true,uiEncode,urlEncode){
         this.name = name;
         this.regex = regex;
+        this.singleton = singleton;
         this.uiEncode = uiEncode;
         this.urlEncode = urlEncode;
     }
 
     //date
-    var date = new keyword('date',/\d{1,2}\/\d{1,2}\/\d{4}/g,function(date){return dtFormatterService.dateDecode(date)},function(date){return dtFormatterService.dateEncode(date)});
+    var date = new keyword('date',/\d{1,2}\/\d{1,2}\/\d{4}/g,true,function(date){return dtFormatterService.dateDecode(date)},function(date){return dtFormatterService.dateEncode(date)});
     keywords.push(date);
     //time
-    var time = new keyword('time',/(?:2[0-3]|[01]?[0-9]):[0-5][0-9]:[0-5][0-9]/g,function(time){return dtFormatterService.timeDecode(time)},function(time){return dtFormatterService.timeEncode(time)});
+    var time = new keyword('timeStamp',/(?:2[0-3]|[01]?[0-9]):[0-5][0-9]:[0-5][0-9]/g,true,function(time){return dtFormatterService.timeDecode(time)},function(time){return dtFormatterService.timeEncode(time)});
     keywords.push(time);
     //tag
-    var tag = new keyword('tag',/\b[a-z]{1,20}\b/g,function(tag){return tag},function(tag){return tag});
+    var tag = new keyword('tags',/\b[a-z]{1,20}\b/g,false,function(tag){return tag},function(tag){return tag});
     keywords.push(tag);
+
 
     self.getKeywords = function(){
         return keywords;

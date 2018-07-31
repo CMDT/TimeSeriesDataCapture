@@ -15,6 +15,18 @@ app.service('tagPredictionService', ['$log', '$http', function ($log, $http) {
         return $http.get(url,config);
     }
 
-    
-    
+    this.getTagIDs = function(tagArray){
+        return new Promise(function(resolve,reject){
+            const tagIdPromises = tagArray.map(self.getTagID);
+            Promise.all(tagIdPromises).then(function (result) {
+                var parsedResult = [];
+                for (var i = 0, n = result.length; i < n; i++) {
+                    parsedResult.push(result[i][0]);
+                }
+                resolve(parsedResult);
+            })
+        });
+    }
+
+
 }])
