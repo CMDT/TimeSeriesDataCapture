@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngMaterial','jsTag']);
+var app = angular.module('app', ['ui.router', 'ngMaterial','jsTag','siyfion.sfTypeahead']);
 
 
 app.config(config);
@@ -34,7 +34,7 @@ function config($stateProvider) {
     controller: 'importController'
   }
 
-
+  
 
 
   $stateProvider.state(callbackState);

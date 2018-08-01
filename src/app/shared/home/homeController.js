@@ -24,7 +24,7 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
 
     $scope.searchClick = function () {
 
-
+        $log.log($scope.tags.tags)
         if (Object.keys($scope.tags.tags).length > 0) {
             $state.go('.', {
                 query: $scope.extractTags()
@@ -72,10 +72,43 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
         $scope.tags = new JSTagsCollection([]);
     }
 
-    // Export jsTags options, inlcuding our own tags object
-    $scope.jsTagOptions = {
-        'tags': $scope.tags
-    };
+  // Export jsTags options, inlcuding our own tags object
+  $scope.jsTagOptions = {
+    'tags': $scope.tags
+  };
+
+  // **** Typeahead code **** //
+
+  // Build suggestions array
+  var suggestions = ['gold','silver'];
+  suggestions = suggestions.map(function(item) { return { "suggestion": item } });
+ 
+  // Instantiate the bloodhound suggestion engine
+  var suggestions = new Bloodhound({
+    datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.suggestion); },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: suggestions
+  });
+
+
+  // Initialize the bloodhound suggestion engine
+  suggestions.initialize();
+
+  // Single dataset example
+  $scope.exampleData = {
+    displayKey: 'suggestion',
+    source: suggestions.ttAdapter()
+  };
+
+  // Typeahead options object
+  $scope.exampleOptions = {
+    hint: false,
+    highlight: true
+  };
+
+
+
+  
 
 
 
