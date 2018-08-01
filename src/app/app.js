@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngMaterial']);
+var app = angular.module('app', ['ui.router', 'ngMaterial','jsTag']);
 
 
 app.config(config);
@@ -18,10 +18,7 @@ function config($stateProvider) {
       }
     },
     templateUrl: 'app/shared/home/homeView.html',
-    controller: 'homeController',
-    resolve: {
-    
-    }
+    controller: 'homeController'
   }
 
   var callbackState = {

@@ -9,9 +9,9 @@ md-dialog {
     width: 80%;
 }
 
-.search input{
-    height: 50px;
+.search js-tag .jt-editor{
     width: 50%;
+    display: inline-block !important;
 
 }
 
