@@ -3,7 +3,6 @@ app.controller('importPanelController', ['$scope','$rootScope', '$log', '$mdDial
 
     $scope.$on('$locationChangeStart', function () {
         $rootScope.actualLocation = $location.path();
-        console.log(event);
         event.preventDefault();
         history.forward();
       });

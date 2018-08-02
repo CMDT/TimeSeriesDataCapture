@@ -11,7 +11,7 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
     $scope.search = function (query) {
         searchPageService.search(query).then(function (result) {
             for(var i=0,n=result.length;i<n;i++){
-                result[i].selected = true;
+                result[i].selected = false;
             }
             $scope.results = result;
             $scope.$apply();
@@ -86,6 +86,7 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
 
     
     $scope.searchClick = function () {
+       
         if (Object.keys($scope.tags.tags).length > 0) {
             $state.go('.', {
                 query: $scope.extractTags()

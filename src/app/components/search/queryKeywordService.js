@@ -22,7 +22,8 @@ app.service('queryKeywordService', ['$log', 'dtFormatterService','tagPredictionS
     var tag = new keyword('tags', /\b[a-z]{1,20}\b/g, false, function (tag) { return Promise.resolve(tag) },function tagUiEncode(tag){
         return new Promise(function(resolve,reject){
             tagPredictionService.getTagId(tag).then(function(result){
-                if(result.data.length>0){
+                console.log(result);
+                if(result.data.length>0 != undefined){
                     resolve(result.data[0]._id);
                 }
             })

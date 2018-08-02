@@ -56,8 +56,18 @@ app.service('searchPageService', ['$log', 'tagPredictionService', 'searchService
     }
 
     self.queryUrlDecode = function(queryArray){
-        
+        return new Promise(function(resolve,reject){
+            const promisesToResolve = queryArray.map(self.urlDecode);
+            Promise.all(promisesToResolve).then(function(result){
+                for(var i=0,n=queryArray.length;i<n;i++){
+                    queryArray[i].value = result[i]
+                }
+                resolve(queryArray);
+                
+            })
+        });
     }
+    
 
 
    
