@@ -58,7 +58,6 @@ function onAuthCallback() {
   if (token)
   {
     setCookie(token, expiry);
-    console.log(window);
     window.opener.onAuthenticated(token, window);
   }
 }

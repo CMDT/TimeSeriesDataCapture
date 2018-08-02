@@ -19,7 +19,15 @@ app.service('queryKeywordService', ['$log', 'dtFormatterService','tagPredictionS
     var time = new keyword('timeStamp', /(?:2[0-3]|[01]?[0-9]):[0-5][0-9]:[0-5][0-9]/g, true, function (time) { return Promise.resolve(dtFormatterService.timeDecode(time)) }, function (time) { return Promise.resolve(dtFormatterService.timeEncode(time)) });
     keywords.push(time);
     //tag
-    var tag = new keyword('tags', /\b[a-z]{1,20}\b/g, false, function (tag) { return Promise.resolve(tag) }, function (tag) {return new Promise(function(resolve,reject){tagPredictionService.getTagId(tag).then(function(result){resolve(result.data[0]._id);});}) });
+    var tag = new keyword('tags', /\b[a-z]{1,20}\b/g, false, function (tag) { return Promise.resolve(tag) },function tagUiEncode(tag){
+        return new Promise(function(resolve,reject){
+            tagPredictionService.getTagId(tag).then(function(result){
+                if(result.data.length>0){
+                    resolve(result.data[0]._id);
+                }
+            })
+        })
+    });
     keywords.push(tag);
 
 

@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngMaterial','jsTag','siyfion.sfTypeahead']);
+var app = angular.module('app', ['ui.router', 'ngMaterial', 'jsTag', 'siyfion.sfTypeahead']);
 
 
 app.config(config);
@@ -12,10 +12,10 @@ function config($stateProvider) {
   var homeState = {
     name: 'home',
     url: '/home/?query',
-    params : {
+    params: {
       query: {
-        dynamic:true
-      }
+        dynamic: true
+      },
     },
     templateUrl: 'app/shared/home/homeView.html',
     controller: 'homeController'
@@ -34,7 +34,7 @@ function config($stateProvider) {
     controller: 'importController'
   }
 
-  
+
 
 
   $stateProvider.state(callbackState);
@@ -42,6 +42,7 @@ function config($stateProvider) {
   $stateProvider.state(importState);
 
 }
+
 
 
 

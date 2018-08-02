@@ -6,7 +6,6 @@ app.service('searchPageService', ['$log', 'tagPredictionService', 'searchService
         return new Promise(function (resolve, reject) {
             var queryObject = self.searchExtract(query);
             self.queryUrlEncode(queryObject).then(function (result) {
-    
                 searchService.searchRequest(result).then(function(result){
                     resolve(result.data);
                 })
@@ -56,17 +55,12 @@ app.service('searchPageService', ['$log', 'tagPredictionService', 'searchService
         });
     }
 
-
-    self.tagPrediction = function (tag) {
-        return new Promise(function (resolve, reject) {
-            /*$tagPredictionService.getTagID(tag).then(function (result) {
-                resolve(result.data);
-            }).catch(function (error) {
-                $log.log(error);
-            });*/
-        });
+    self.queryUrlDecode = function(queryArray){
+        
     }
 
+
+   
 
 
 }])

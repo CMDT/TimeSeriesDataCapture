@@ -1,4 +1,4 @@
-<body ng-controller="importPanelController">
+<div ng-controller="importPanelController">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h4>Import</h4>
@@ -8,30 +8,38 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-list ng-repeat='result in results' flex>
-        <md-list-item class="md-2-line" ng-click="secondPage()">
-            <md-icon ng-if='result.type == "run"' md-svg-src="../../assets/img/runIcon.svg" aria-label="Run Icon"></md-icon>
-            <md-icon ng-if='result.type == "folder"' md-svg-src="../../assets/img/folderIcon.svg" aria-label="Run Icon"></md-icon>
-            <div class="md-list-item-text">
-                <h4>{{result.name}}</h4>
-            </div>
-            <div ng-if='result.type == "run"'>
-                <md-checkbox aria-label="Checkbox 1">
-                </md-checkbox>
-                <md-button>
-                    <md-icon md-svg-src="../../assets/img/previewIcon.svg" aria-label="Folder Icon"></md-icon>
-                </md-button>
-            </div>
-    </md-list>
-    <md-dialog-actions layout="row">
+    <div ng-if='preview'>
+        <md-list ng-repeat='result in results' flex>
+            <md-list-item class="md-2-line" ng-click="secondPage()">
+                <md-icon ng-if='result.type == "run"' md-svg-src="../../assets/img/runIcon.svg" aria-label="Run Icon"></md-icon>
+                <md-icon ng-if='result.type == "folder"' md-svg-src="../../assets/img/folderIcon.svg" aria-label="Run Icon"></md-icon>
+                <div class="md-list-item-text">
+                    <h4>{{result.name}}</h4>
+                </div>
+                <div ng-if='result.type == "run"'>
+                    <md-checkbox aria-label="Checkbox 1">
+                    </md-checkbox>
+                    <md-button>
+                        <md-icon md-svg-src="../../assets/img/previewIcon.svg" aria-label="Preview Icon" ng-click="previewChange()"></md-icon>
+                    </md-button>
+                </div>
+        </md-list>
+        <md-dialog-actions layout="row">
 
 
-        <md-button ng-click="cancel()" >
-            Cancel
+            <md-button ng-click="cancel()">
+                Cancel
+            </md-button>
+            <md-button>
+                Confirm
+            </md-button>
+        </md-dialog-actions>
+    </div>
+
+    <div ng-if='!preview'>
+        <h1>GRAPH</h1>
+        <md-button ng-click="previewChange()">
+            back
         </md-button>
-        <md-button>
-            Confirm
-        </md-button>
-    </md-dialog-actions>
-
-</body>
+    </div>
+</div>
