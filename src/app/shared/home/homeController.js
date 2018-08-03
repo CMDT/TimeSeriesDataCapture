@@ -86,12 +86,10 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
 
     
     $scope.searchClick = function () {
+        $state.go('.', {
+            query: encodeURI('gold')
+        });
        
-        if (Object.keys($scope.tags.tags).length > 0) {
-            $state.go('.', {
-                query: $scope.extractTags()
-            });
-        }
     }
 
     $scope.extractTags = function () {
