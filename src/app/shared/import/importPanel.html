@@ -8,9 +8,9 @@
             </md-button>
         </div>
     </md-toolbar>
-    <div ng-if='preview'>
-        <md-list ng-repeat='result in results' flex>
-            <md-list-item class="md-2-line" ng-click="secondPage()">
+    <div ng-show='preview'>
+        <md-list ng-repeat='result in activePage' flex>
+            <md-list-item class="md-2-line" ng-click="changePage()">
                 <md-icon ng-if='result.type == "run"' md-svg-src="../../assets/img/runIcon.svg" aria-label="Run Icon"></md-icon>
                 <md-icon ng-if='result.type == "folder"' md-svg-src="../../assets/img/folderIcon.svg" aria-label="Run Icon"></md-icon>
                 <div class="md-list-item-text">
@@ -36,7 +36,7 @@
         </md-dialog-actions>
     </div>
 
-    <div ng-if='!preview'>
+    <div ng-show='!preview'>
         <h1>GRAPH</h1>
         <md-button ng-click="previewChange()">
             back
