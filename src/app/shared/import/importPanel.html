@@ -1,6 +1,7 @@
 <div ng-controller="importPanelController">
     <md-toolbar>
         <div class="md-toolbar-tools">
+            <md-button ng-show="activePage.parent != undefined">Back</md-button>
             <h4>Import</h4>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="cancel()">

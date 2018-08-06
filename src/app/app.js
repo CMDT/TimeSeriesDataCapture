@@ -43,7 +43,7 @@ function config($stateProvider) {
 app.run(run);
 
 run.$inject = [
-  '$rootScope'
+  '$rootScope','$transitions'
 ]
 
 function run($rootScope){

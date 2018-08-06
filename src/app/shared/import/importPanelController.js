@@ -1,19 +1,11 @@
-app.controller('importPanelController', ['$scope', '$log', '$mdDialog', '$location', 'getFolderService', 'folderBrowserService', function ($scope, $log, $mdDialog, $location, getFolderService, folderBrowserService) {
+app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFolderService', '$window', '$location', function ($scope, $log, $mdDialog, getFolderService, $window, $location) {
 
 
     var self = this;
 
     $scope.activePage;
 
-
-    $scope.$on('$locationChangeStart', function () {
-        event.previewChange();
-        $log.log(event);
-        
-    });
-
-
-
+  
     self.getComponents = function (folderId) {
         getFolderService.getFolder(folderId).then(function (result) {
             $log.log(result);
