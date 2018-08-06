@@ -34,13 +34,20 @@ function config($stateProvider) {
     controller: 'importController'
   }
 
-
-
-
   $stateProvider.state(callbackState);
   $stateProvider.state(homeState);
   $stateProvider.state(importState);
 
+}
+
+app.run(run);
+
+run.$inject = [
+  '$rootScope'
+]
+
+function run($rootScope){
+  $rootScope.url = 'http://10.182.45.87:8000';
 }
 
 

@@ -39,7 +39,7 @@ app.service('authenticationService',['$log',function($log){
 
         
             localStorage.setItem('accessToken',authResult.idToken);
-            console.log(profile);
+            console.log(authResult.idToken);
 
 
             

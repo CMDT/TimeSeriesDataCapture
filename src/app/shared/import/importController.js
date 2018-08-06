@@ -1,4 +1,4 @@
-app.controller('importController', ['$scope', '$log', '$mdDialog', function ($scope, $log, $mdDialog) {
+app.controller('importController', ['$scope', '$log', '$mdDialog','getFolderService', function ($scope, $log, $mdDialog,getFolderService) {
 
     $scope.showAdvanced = function (ev) {
         $mdDialog.show({
@@ -10,6 +10,14 @@ app.controller('importController', ['$scope', '$log', '$mdDialog', function ($sc
               
             })
             
+    }
+
+    $scope.test = function(){
+        getFolderService.getFolder().then(function(result){
+            $log.log(result);
+        }).catch(function(error){
+            $log.error(error);
+        });
     }
 
     
