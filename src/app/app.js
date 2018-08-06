@@ -47,7 +47,7 @@ run.$inject = [
 ]
 
 function run($rootScope){
-  $rootScope.url = 'http://10.182.45.87:8000';
+  $rootScope.url = 'http://192.168.2.1:8000';
 }
 
 

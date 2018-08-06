@@ -19,7 +19,6 @@ app.service('folderBrowserService', ['$log', function ($log) {
     self.createFolder = function(id,data){
         var folder = new folderStruct(id,data,undefined,undefined);
         folders.set(folder.id,folder);
-        $log.log(folders);
         return folder.id;
     }
 
