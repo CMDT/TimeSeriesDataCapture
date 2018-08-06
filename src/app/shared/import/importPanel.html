@@ -18,7 +18,7 @@
                     <h4>{{result.name}}</h4>
                 </div>
                 <div ng-if='result.type == "run"'>
-                    <md-checkbox aria-label="Checkbox 1">
+                    <md-checkbox ng-model="selected[result.name]" aria-label="Checkbox">
                     </md-checkbox>
                     <md-button>
                         <md-icon md-svg-src="../../assets/img/previewIcon.svg" aria-label="Preview Icon" ng-click="previewChange()"></md-icon>
