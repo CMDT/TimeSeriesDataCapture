@@ -1,45 +1,25 @@
-app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFolderService', '$window', '$location', function ($scope, $log, $mdDialog, getFolderService, $window, $location) {
+app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFolderService','folderBreadcrumbService', function ($scope, $log, $mdDialog, getFolderService,folderBreadcrumbService) {
 
 
     var self = this;
+   
+    
 
-    $scope.selected = {
+    $scope.activePage = [];
 
+
+    $scope.breadcrumb = [];
+
+    self.getBreadCrumb = function(){
+        $scope.breadcrumb = folderBreadcrumbService.getPath();
+    
     }
 
-    $scope.activePage = {
-        data: []
-    }
-
-    $scope.activePage.data = [{
-        name: 20180422,
-        type: 'run'
-    }, {
-        name: 20180421,
-        type: 'run'
-    }, {
-        name: 'Documents',
-        type: 'folder'
-    }, {
-        name: 'Runs',
-        type: 'folder'
-    }];
-
-    $scope.select = function (id) {
-        if ($scope.selected.hasOwnProperty(id)) {
-            delete $scope.selected[id];
-        } else {
-            $scope.selected[id] = true;
-        }
-
-        $log.log($scope.selected);
-    }
-
-
+    
     self.getComponents = function (folderId) {
         getFolderService.getFolder(folderId).then(function (result) {
-            $log.log(result);
             $scope.activePage = result;
+            rootfolderId = result.id;
             $scope.$apply();
         })
     }
@@ -54,15 +34,18 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
 
     $scope.cancel = function () {
         $mdDialog.cancel();
+        folderBreadcrumbService.home();
     };
 
     $scope.previewChange = function () {
-        //$scope.preview = !$scope.preview;
-        $log.log($scope.selected);
+        $scope.preview = !$scope.preview;
+       
     }
     $scope.preview = false;
 
 
-    //self.getComponents();
+    self.getComponents();
+    self.getBreadCrumb();
+
 
 }])

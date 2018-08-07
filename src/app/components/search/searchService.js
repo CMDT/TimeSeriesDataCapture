@@ -9,7 +9,7 @@ app.service('searchService', ['$log', '$http', 'queryKeywordService', function (
             responseType: 'json'
         }
 
-        var url = 'http://10.182.45.87:8000/apis/search';
+        var url = $rootScope.url + '/apis/search';
 
         for(var i=0,n=queryArray.length;i<n;i++){
             var value = queryArray[i].value;
@@ -20,6 +20,7 @@ app.service('searchService', ['$log', '$http', 'queryKeywordService', function (
                 config.params[queryArray[i].name] = value[0];
             }
         }
+        $log.log(url);
         return $http.get(url, config);
     }
 

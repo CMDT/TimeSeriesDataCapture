@@ -9,6 +9,7 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
     }
 
     $scope.search = function (query) {
+        
         searchPageService.search(query).then(function (result) {
             for(var i=0,n=result.length;i<n;i++){
                 result[i].selected = false;
@@ -28,11 +29,13 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
 
 
     if ($stateParams.query != undefined) {
+       
         $scope.search($stateParams.query);
         $scope.addTagsInput($stateParams.query);
     }
 
 
+    $scope.tags = new JSTagsCollection();
 
     // Export jsTags options, inlcuding our own tags object
     $scope.jsTagOptions = {
@@ -86,12 +89,14 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
 
     
     $scope.searchClick = function () {
+        $log.log($scope);
         $state.go('.', {
-            query: encodeURI('gold')
+            query: encodeURI($scope.extractTags())
         });
        
     }
 
+    
     $scope.extractTags = function () {
         var query = '';
         Object.keys($scope.tags.tags).forEach(function (key, index) {

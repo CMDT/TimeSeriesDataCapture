@@ -37,3 +37,9 @@ md-dialog {
     position: relative;
     left: 13%;
 }
+
+.breadcrumb{
+    display: flex;
+    flex-wrap: wrap;
+}
+

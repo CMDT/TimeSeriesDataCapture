@@ -1,17 +1,33 @@
-app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserService', function ($log, $rootScope, $http, folderBrowserService) {
+app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserService', 'folderBreadcrumbService', function ($log, $rootScope, $http, folderBrowserService, folderBreadcrumbService) {
 
     var self = this;
-
+    var rootfolderId;
     var activefolderId = undefined;
     self.getFolder = function (folderId) {
         return new Promise(function (resolve, reject) {
-            
-            var folder = folderBrowserService.getFolder(folderId);
+
+            var id = folderId || rootfolderId;
+            var folder = folderBrowserService.getFolder(id);
             if (folder != undefined) {
-                activefolderId = folderId;
+                activefolderId = folder.id;
+                folderBreadcrumbService.goTo(folder.id);
                 resolve(folder);
+                return;
             }
 
+            self.componentsRequest(folderId).then(function(result){
+                var newFolder = self.newFolder(folderId, result.data.folders);
+                if(folderId == undefined){
+                    rootfolderId = newFolder.id;
+                }
+                folderBreadcrumbService.goTo(newFolder.id);
+                resolve(newFolder);
+            })
+        })
+    }
+
+    self.componentsRequest = function (folderId) {
+        return new Promise(function (resolve, reject) {
             var config = {
                 params: {},
                 headers: {},
@@ -21,19 +37,19 @@ app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserSe
             config.params.folderID = folderId;
 
             var url = $rootScope.url + '/apis/components';
+            $log.log(url);
 
-            $http.get(url, config).then(function(result){
-                resolve(self.newFolder(folderId,result.data.folders));
+            $http.get(url, config).then(function (result) {
+                resolve(result);
             });
         })
-
     }
 
-    self.newFolder = function (folderId,data) {
-        var newFolderId = folderBrowserService.createFolder(folderId,data);
+    self.newFolder = function (folderId, data) {
+        var newFolderId = folderBrowserService.createFolder(folderId, data);
 
-        if(activefolderId != undefined){
-            folderBrowserService.addChildren(activefolderId,[newFolderId]);
+        if (activefolderId != undefined) {
+            folderBrowserService.addChildren(activefolderId, [newFolderId]);
         }
 
         activefolderId = newFolderId;

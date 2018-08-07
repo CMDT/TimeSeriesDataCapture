@@ -1,7 +1,6 @@
 <div ng-controller="importPanelController">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <md-button ng-show="activePage.parent != undefined">Back</md-button>
             <h4>Import</h4>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="cancel()">
@@ -10,6 +9,15 @@
         </div>
     </md-toolbar>
     <div ng-show='!preview'>
+        <div class='breadcrumb'>
+            <div ng-repeat='element in breadcrumb'>
+                    <md-button ng-show ='$first'><md-icon  md-svg-src="../../assets/img/homeIcon.svg" aria-label="Run Icon"></md-icon></md-button>
+                <md-button ng-show='!$first'>
+                    {{element}}
+                </md-button>
+                <md-icon ng-hide='$last'>></md-icon>
+            </div>
+        </div>
         <md-list ng-repeat='result in activePage.data' flex>
             <md-list-item class="md-2-line" ng-click="componentClick(result)">
                 <md-icon ng-if='result.type == "run"' md-svg-src="../../assets/img/runIcon.svg" aria-label="Run Icon"></md-icon>
@@ -18,7 +26,7 @@
                     <h4>{{result.name}}</h4>
                 </div>
                 <div ng-if='result.type == "run"'>
-                    <md-checkbox ng-model="selected[result.name]" aria-label="Checkbox">
+                    <md-checkbox aria-label="Checkbox 1">
                     </md-checkbox>
                     <md-button>
                         <md-icon md-svg-src="../../assets/img/previewIcon.svg" aria-label="Preview Icon" ng-click="previewChange()"></md-icon>
