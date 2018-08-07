@@ -15,6 +15,10 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
     
     }
 
+    $scope.breadcrumbSelect = function(element){
+        self.getComponents(element.name,element.id);
+    }
+
     
     self.getComponents = function (folderName,folderId) {
         getFolderService.getFolder(folderName,folderId).then(function (result) {

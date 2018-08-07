@@ -11,9 +11,11 @@
     <div ng-show='!preview'>
         <div class='breadcrumb'>
             <div ng-repeat='element in breadcrumb'>
-                    <md-button ng-show ='$first'><md-icon  md-svg-src="../../assets/img/homeIcon.svg" aria-label="Run Icon"></md-icon></md-button>
-                <md-button ng-show='!$first'>
-                    {{element}}
+                <md-button ng-click='breadcrumbSelect(element)' ng-show='$first'>
+                    <md-icon md-svg-src="../../assets/img/homeIcon.svg" aria-label="Run Icon"></md-icon>
+                </md-button>
+                <md-button ng-click='breadcrumbSelect(element)' ng-show='!$first'>
+                    {{element.name}}
                 </md-button>
                 <md-icon ng-hide='$last'>></md-icon>
             </div>
