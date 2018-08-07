@@ -24,7 +24,7 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
         getFolderService.getFolder(folderName,folderId).then(function (result) {
             $scope.activePage = result;
             rootfolderId = result.id;
-            $scope.$apply();
+            $scope.$apply();                                                     
         })
     }
 

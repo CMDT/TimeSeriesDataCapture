@@ -20,8 +20,8 @@
                 <md-icon ng-hide='$last'>></md-icon>
             </div>
         </div>
-        <md-list ng-repeat='result in activePage.data' flex>
-            <md-list-item class="md-2-line" ng-click="componentClick(result)">
+        <md-list flex>
+            <md-list-item class="md-2-line" ng-click="componentClick(result)" ng-repeat='result in activePage.data'>
                 <md-icon ng-if='result.type == "run"' md-svg-src="../../assets/img/runIcon.svg" aria-label="Run Icon"></md-icon>
                 <md-icon ng-if='result.type == "folder"' md-svg-src="../../assets/img/folderIcon.svg" aria-label="Run Icon"></md-icon>
                 <div class="md-list-item-text">
@@ -34,6 +34,7 @@
                         <md-icon md-svg-src="../../assets/img/previewIcon.svg" aria-label="Preview Icon" ng-click="previewChange()"></md-icon>
                     </md-button>
                 </div>
+                </md-list-item>
         </md-list>
         <md-dialog-actions layout="row">
 

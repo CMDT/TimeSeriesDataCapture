@@ -17,7 +17,6 @@ app.service('folderBreadcrumbService', ['$log', function ($log) {
                 for(var j=path.length-1;j>i;j--){
                     path.pop();
                 }
-                $log.log(path);
                 return true
             }
         }
