@@ -16,8 +16,8 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
     }
 
     
-    self.getComponents = function (folderId) {
-        getFolderService.getFolder(folderId).then(function (result) {
+    self.getComponents = function (folderName,folderId) {
+        getFolderService.getFolder(folderName,folderId).then(function (result) {
             $scope.activePage = result;
             rootfolderId = result.id;
             $scope.$apply();
@@ -26,7 +26,7 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
 
     $scope.componentClick = function (component) {
         if (component.type === 'folder') {
-            self.getComponents(component.id);
+            self.getComponents(component.name,component.id);
         }
     }
 

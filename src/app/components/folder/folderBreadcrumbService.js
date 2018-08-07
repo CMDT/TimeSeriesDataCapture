@@ -5,7 +5,6 @@ app.service('folderBreadcrumbService', ['$log', function ($log) {
     var path = [];
 
     self.goTo = function (folderName) {
-        $log.log(folderName);
         path.push(folderName);
     }
 

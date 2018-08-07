@@ -3,25 +3,23 @@ app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserSe
     var self = this;
     var rootfolderId;
     var activefolderId = undefined;
-    self.getFolder = function (folderId) {
+    self.getFolder = function (folderName,folderId) {
         return new Promise(function (resolve, reject) {
-
             var id = folderId || rootfolderId;
             var folder = folderBrowserService.getFolder(id);
             if (folder != undefined) {
                 activefolderId = folder.id;
-                folderBreadcrumbService.goTo(folder.id);
-                resolve(folder);
-                return;
+                folderBreadcrumbService.goTo(folder.name);
+                return resolve(folder);
             }
 
             self.componentsRequest(folderId).then(function(result){
-                var newFolder = self.newFolder(folderId, result.data.folders);
+                var newFolder = self.newFolder(folderId,folderName,result.data.folders);
                 if(folderId == undefined){
                     rootfolderId = newFolder.id;
                 }
-                folderBreadcrumbService.goTo(newFolder.id);
-                resolve(newFolder);
+                folderBreadcrumbService.goTo(newFolder.name);
+                return resolve(newFolder);
             })
         })
     }
@@ -45,8 +43,8 @@ app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserSe
         })
     }
 
-    self.newFolder = function (folderId, data) {
-        var newFolderId = folderBrowserService.createFolder(folderId, data);
+    self.newFolder = function (folderId,folderName,data) {
+        var newFolderId = folderBrowserService.createFolder(folderId,folderName,data);
 
         if (activefolderId != undefined) {
             folderBrowserService.addChildren(activefolderId, [newFolderId]);

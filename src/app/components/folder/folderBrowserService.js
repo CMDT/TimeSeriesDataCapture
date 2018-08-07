@@ -4,8 +4,9 @@ app.service('folderBrowserService', ['$log', function ($log) {
 
     var folders = new Map();
 
-    function folderStruct(id=uniqueId(),data={},children=[],parent) {
+    function folderStruct(id=uniqueId(),name='root',data={},children=[],parent) {
         this.id=id;
+        this.name=name;
         this.data=data;
         this.children=children;
         this.parent=parent;
@@ -16,8 +17,8 @@ app.service('folderBrowserService', ['$log', function ($log) {
         return 'id-' + Math.random().toString(36).substr(2, 16);
     };
 
-    self.createFolder = function(id,data){
-        var folder = new folderStruct(id,data,undefined,undefined);
+    self.createFolder = function(id,name,data){
+        var folder = new folderStruct(id,name,data,undefined,undefined);
         folders.set(folder.id,folder);
         return folder.id;
     }
