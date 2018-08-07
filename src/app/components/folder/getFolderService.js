@@ -9,7 +9,7 @@ app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserSe
             var folder = folderBrowserService.getFolder(id);
             if (folder != undefined) {
                 activefolderId = folder.id;
-                folderBreadcrumbService.goTo({id:folder.id,name:folder.name});
+                folderBreadcrumbService.navigate({id:folder.id,name:folder.name});
                 return resolve(folder);
             }
 
@@ -18,7 +18,7 @@ app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserSe
                 if(folderId == undefined){
                     rootfolderId = newFolder.id;
                 }
-                folderBreadcrumbService.goTo({id:newFolder.id,name:newFolder.name});
+                folderBreadcrumbService.navigate({id:newFolder.id,name:newFolder.name});
                 return resolve(newFolder);
             })
         })

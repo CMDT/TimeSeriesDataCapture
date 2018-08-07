@@ -4,7 +4,7 @@ app.service('folderBreadcrumbService', ['$log', function ($log) {
 
     var path = [];
 
-    self.goTo = function (folderObject) {
+    self.navigate = function (folderObject) {
         if(self.backTo(folderObject)){
             return;
         }
