@@ -44,5 +44,10 @@ md-dialog {
     background-color: rgba(220,224,251,1);
 }
 
+.data {
+    display: flex;
+    flex-direction: row;
+}
+
 
 

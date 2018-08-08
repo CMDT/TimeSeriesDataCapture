@@ -26,6 +26,7 @@ app.service('folderBreadcrumbService', ['$log', function ($log) {
         path = [];
     }
 
+    
     self.getPath = function(){
         return path;
     }

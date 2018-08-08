@@ -36,7 +36,7 @@ app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserSe
             runRequestService.getRunPreview(runId).then(function(result){
                 var newFolder = self.newFolder(runId,runName,result.data);
                 activefolderId = newFolder.id;
-                folderBreadcrumbService.navigate({id: newFolder.id, name: newFolder.name});
+                //folderBreadcrumbService.navigate({id: newFolder.id, name: newFolder.name});
                 return resolve(newFolder);
             })
         })
@@ -51,6 +51,13 @@ app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserSe
         } else {
             return (undefined);
         }
+    }
+
+    self.clearCache = function(){
+        rootfolderId = undefined;
+        activefolderId = undefined;
+        folderBrowserService.clearCache();
+        folderBreadcrumbService.home();
     }
 
 

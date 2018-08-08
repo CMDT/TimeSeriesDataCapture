@@ -30,11 +30,11 @@
                 <div ng-if='result.type == "run"'>
                     <md-checkbox aria-label="Checkbox 1">
                     </md-checkbox>
-                    <md-button>
-                        <md-icon md-svg-src="../../assets/img/previewIcon.svg" aria-label="Preview Icon" ng-click="previewChange()"></md-icon>
+                    <md-button ng-click="previewChange(result)">
+                        <md-icon md-svg-src="../../assets/img/previewIcon.svg" aria-label="Preview Icon"></md-icon>
                     </md-button>
                 </div>
-                </md-list-item>
+            </md-list-item>
         </md-list>
         <md-dialog-actions layout="row">
 
@@ -50,8 +50,23 @@
 
     <div ng-show='preview'>
         <h1>GRAPH</h1>
-        <md-button ng-click="previewChange()">
-            back
+        <div class='data'>
+            <md-list>
+                <h4>Time</h4>
+                <md-list-item ng-repeat="point in activePage.data.Time">{{point}}</md-list-item>
+            </md-list>
+            <md-list>
+                <h4>T(Environment)</h4>
+                <md-list-item ng-repeat="point in activePage.data.Environment">{{point}}</md-list-item>
+            </md-list>
+            <md-list>
+                <h4>T(Copper)</h4>
+                <md-list-item ng-repeat="point in activePage.data.Copper">{{point}}</md-list-item>
+            </md-list>
+            
+        </div>
+        <md-button flex ng-click="previewChange()">
+            Back
         </md-button>
     </div>
 </div>

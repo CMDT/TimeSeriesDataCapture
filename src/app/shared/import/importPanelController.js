@@ -1,66 +1,76 @@
-app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFolderService','folderBreadcrumbService', function ($scope, $log, $mdDialog, getFolderService,folderBreadcrumbService) {
+app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFolderService', 'folderBreadcrumbService', function ($scope, $log, $mdDialog, getFolderService, folderBreadcrumbService) {
 
 
     var self = this;
-   
-    
+
+
 
     $scope.activePage = [];
     $scope.breadcrumb = [];
     $scope.preview = false;
 
-    self.getBreadCrumb = function(){
+    self.getBreadCrumb = function () {
         $scope.breadcrumb = folderBreadcrumbService.getPath();
-    
+
     }
 
-    $scope.breadcrumbSelect = function(element){
-        self.getComponents(element.name,element.id);
+    $scope.breadcrumbSelect = function (element) {
+        self.getComponents(element.name, element.id);
     }
 
-    
-    self.getComponents = function (folderName,folderId) {
-        getFolderService.getFolder(folderName,folderId).then(function (result) {
+
+    self.getComponents = function (folderName, folderId) {
+        getFolderService.getFolder(folderName, folderId).then(function (result) {
             $scope.activePage = result;
-            
-            $scope.$apply();                                                     
+            $scope.$apply();
         })
     }
 
-    self.getRun = function(runName,runId){
-        $scope.preview = true;
-        getFolderService.getRun(runName,runId).then(function(result){
+    self.getRun = function (runName, runId) {
+        
+        getFolderService.getRun(runName, runId).then(function (result) {
+            $log.log(result);
             var r = result.data
-            r['Time'] = r['Time'].slice(0,10);
-            r['T(Setpoint)'] = r['T(Setpoint)'].slice(0,10);
-            r['T(Copper)'] = r['T(Copper)'].slice(0,10);
-            r['T(Cell1)'] = r['T(Cell1)'].slice(0,10);
-            r['T(Cell2)'] = r['T(Cell2)'].slice(0,10);
-            r['T(Environment)'] = r['T(Environment)'].slice(0,10);
-            r['DAC'] = r['DAC'].slice(0,10);
-
-            $scope.activePage = r;
+            r['Time'] = r['Time'].slice(0, 10);
+            r['Setpoint'] = r['T(Setpoint)'].slice(0, 10);
+            r['Copper'] = r['T(Copper)'].slice(0, 10);
+            r['Cell1'] = r['T(Cell1)'].slice(0, 10);
+            r['Environment'] = r['T(Environment)'].slice(0, 10);
+            r['DAC'] = r['DAC'].slice(0, 10);
+            result.data = r;
+            if ($scope.preview) {
+                $scope.activePage = result;
+                $log.log(result);
+                $scope.$apply();
+            }
         })
     }
 
     $scope.componentClick = function (component) {
         if (component.type === 'folder') {
-            self.getComponents(component.name,component.id);
-        }else if(component.type === 'run'){
-            self.getRun(component.name,component.id);
-        }
+            self.getComponents(component.name, component.id);
+        } 
     }
 
 
 
     $scope.cancel = function () {
         $mdDialog.cancel();
-        folderBreadcrumbService.home();
+        getFolderService.clearCache();
     };
 
-    $scope.previewChange = function () {
-        $scope.preview = !$scope.preview;
-       
+    $scope.previewChange = function(component) {
+        
+        if ($scope.preview) {
+            $scope.preview = false;
+            self.getComponents(undefined, $scope.activePage.parent);
+        }else{
+            $scope.preview = true;
+            self.getRun(component.name, component.id);
+        }
+        $log.log('preview-change : ' + $scope.preview);
+        //$scope.preview = !$scope.preview;
+
     }
 
 
