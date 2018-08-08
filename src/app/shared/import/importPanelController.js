@@ -13,80 +13,30 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
         $scope.breadcrumb = folderBreadcrumbService.getPath();
     }
 
-    $scope.breadcrumbSelect = function (folder) {
-        self.getComponents(folder);
+    $scope.pathChange = function(component){
+        $log.log(component);
+        folderBreadcrumbService.navigate(component);
+        $scope.breadcrumb = folderBreadcrumbService.getPath();
+        $scope.getComponent($scope.breadcrumb[$scope.breadcrumb.length-1]);
     }
 
-
-    self.getComponents = function (folder) {
-        $log.log(folder);
-        getFolderService.getFolder(folder, $scope.activePage.parent).then(function (result) {
-            $scope.activePage = result;
-            $scope.$apply();
-        })
-
+    $scope.getComponent = function(component){
+    
     }
 
-    self.getRun = function (run) {
+  
 
-        getFolderService.getRun(run).then(function (result) {
-            $log.log(result);
-            var r = result.data
-            r['Time'] = r['Time'].slice(0, 10);
-            r['Setpoint'] = r['T(Setpoint)'].slice(0, 10);
-            r['Copper'] = r['T(Copper)'].slice(0, 10);
-            r['Cell1'] = r['T(Cell1)'].slice(0, 10);
-            r['Environment'] = r['T(Environment)'].slice(0, 10);
-            r['DAC'] = r['DAC'].slice(0, 10);
-            result.data = r;
-            if ($scope.preview) {
-                $scope.activePage = result;
-                $log.log(result);
-                $scope.$apply();
-            }
-        })
+
+    var root = {
+        id: '-1',
+        name: 'root',
+        type: 'folder'
     }
 
-    $scope.componentClick = function (component) {
-        if (component.type === 'folder') {
-            self.getComponents(component);
-        }
-    }
-
-    $scope.runClick = function (component) {
-
-        if ($scope.preview) {
-            $scope.preview = false;
-            getFolderService.up().then(function (result) {
-                $scope.activePage = result;
-                $scope.$apply();
-            })
-        } else {
-            self.getRun(component);
-            $scope.preview = true;
-        }
-
-    }
+    getFolderService.setRootFolder(root.id);
+    $scope.pathChange(root);
+    
 
 
-    $scope.cancel = function () {
-        $mdDialog.cancel();
-        getFolderService.clearCache();
-    };
-
-
-
-    self.getRootFolder = function () {
-        getFolderService.getFolder({ name: 'root' }).then(function (result) {
-            $scope.activePage = result;
-            getFolderService.setRootFolder(result.id);
-            $scope.$apply();
-        })
-    }
-
-
-    self.getRootFolder();
-    self.getBreadCrumb();
-
-
+   
 }])
