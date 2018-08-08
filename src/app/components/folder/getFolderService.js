@@ -1,67 +1,102 @@
-app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserService', 'folderBreadcrumbService','runRequestService', function ($log, $rootScope, $http, folderBrowserService, folderBreadcrumbService,runRequestService) {
+app.service('getFolderService', ['$scope','$log', '$rootScope', '$http', 'folderBrowserService', 'folderBreadcrumbService', 'runRequestService', function ($scope,$log, $rootScope, $http, folderBrowserService, folderBreadcrumbService, runRequestService) {
 
     var self = this;
-    var rootfolderId;
-    var activefolderId = undefined;
-    self.getFolder = function (folderName, folderId) {
-        return new Promise(function (resolve, reject) {
-            var id = folderId || rootfolderId;
-            
-            var cache = self.checkCache(id);
+    var rootFolderId;
 
-            if(cache != undefined){
-                return resolve(cache);
+
+    self.setRootFolder = function (folderId) {
+        rootFolderId = folderId
+    }
+
+
+    self.up = function () {
+        return new Promise(function (resolve, reject) {
+            var path = folderBreadcrumbService.getPath();
+            self.getFolder(path[path.length - 2]).then(function (result) {
+                return resolve(result);
+            })
+        })
+
+
+    }
+
+    self.getFolder = function (folderObject) {
+
+        return new Promise(function (resolve, reject) {
+            if (folderObject.hasOwnProperty('id')) {
+                var folder = self.getComponentCacheById(folderObject.id);
+                if (folder != undefined) {
+                    folderBreadcrumbService.navigate({ name: folder.name, id: folder.id })
+                    return resolve(folder);
+                }
             }
 
-            self.componentsRequest(folderId).then(function (result) {
-                var newFolder = self.newFolder(folderId, folderName, result.data.folders);
-                if (folderId == undefined) {
-                    rootfolderId = newFolder.id;
-                }
-                activefolderId = newFolder.id;
-                folderBreadcrumbService.navigate({ id: newFolder.id, name: newFolder.name });
+            var id = folderObject.id;
+            if (rootFolderId == folderObject.id) {
+                id = undefined;
+            }
+
+            self.getComponentFromServer(id, 'folder').then(function (result) {
+                var newFolder = self.newFolder(folderObject.id, folderObject.name, result.data.folders);
+                folderBreadcrumbService.navigate({ name: newFolder.name, id: newFolder.id })
+                return resolve(newFolder);
+            })
+        });
+    }
+
+    self.getRun = function (runObject) {
+        return new Promise(function (resolve, reject) {
+            var run = self.getComponentCacheById(runObject.id);
+            if (run != undefined) {
+                folderBreadcrumbService.navigate({ name: run.name, id: run.id })
+                return resolve(run);
+            }
+
+            self.getComponentFromServer(runObject.id, 'run').then(function (result) {
+                var newFolder = self.newFolder(runObject.id, runObject.name, result.data);
+                folderBreadcrumbService.navigate({ name: newFolder.name, id: newFolder.id })
                 return resolve(newFolder);
             })
         })
     }
 
-    self.getRun = function (runName, runId) {
-        return new Promise(function (resolve, reject) {
-            var cache = self.checkCache(runId);
+    self.getComponentCacheById = function (componentId) {
+        return folderBrowserService.getFolder(componentId);
+    }
 
-            if(cache != undefined){
-                return resolve(cache);
+    self.getComponentFromServer = function (componentId, type) {
+        return new Promise(function (resolve, reject) {
+            if (type === 'folder') {
+                self.folderRequest(componentId).then(function (result) {
+                    return resolve(result)
+                })
             }
 
-            runRequestService.getRunPreview(runId).then(function(result){
-                var newFolder = self.newFolder(runId,runName,result.data);
-                activefolderId = newFolder.id;
-                //folderBreadcrumbService.navigate({id: newFolder.id, name: newFolder.name});
-                return resolve(newFolder);
-            })
-        })
+            if (type === 'run') {
+                runRequestService.getRunPreview(componentId).then(function (result) {
+                    return resolve(result);
+                })
+            }
+        });
     }
 
     self.checkCache = function (folderId) {
         var folder = folderBrowserService.getFolder(folderId);
         if (folder != undefined) {
-            activefolderId = folder.id;
-            folderBreadcrumbService.navigate({ id: folder.id, name: folder.name });
             return (folder);
         } else {
             return (undefined);
         }
     }
 
-    self.clearCache = function(){
-        rootfolderId = undefined;
-        activefolderId = undefined;
+    self.clearCache = function () {
+        rootFolderId = undefined;
         folderBrowserService.clearCache();
         folderBreadcrumbService.home();
     }
 
 
-    self.componentsRequest = function (folderId) {
+    self.folderRequest = function (folderId) {
         return new Promise(function (resolve, reject) {
             var config = {
                 params: {},
@@ -80,17 +115,19 @@ app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserSe
         })
     }
 
-    self.newFolder = function (folderId, folderName, data) {
+    self.newFolder = function (folderId, folderName, data, parentId) {
         var newFolderId = folderBrowserService.createFolder(folderId, folderName, data);
 
-        if (activefolderId != undefined) {
-            folderBrowserService.addChildren(activefolderId, [newFolderId]);
+        if (parentId != undefined) {
+            folderBrowserService.addChildren(parentId, [newFolderId]);
         }
 
-        activefolderId = newFolderId;
         return folderBrowserService.getFolder(newFolderId);
     }
 
 
+    /*=====================================================*/
+
+    
 
 }])

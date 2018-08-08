@@ -19,7 +19,16 @@ app.service('folderBrowserService', ['$log', function ($log) {
     };
 
     function checkCacheLimit() {
-       
+       if(folders.size >= cacheLimit){
+           var deleteNum = folders.size - cacheLimit
+           for(let folder of folders){
+               if(deleteNum <=0){
+                   break;
+               }
+               folders.delete(folder[0]);
+               deleteNum --;
+           }
+       }
     }
 
     self.createFolder = function (id, name, data) {
@@ -27,7 +36,6 @@ app.service('folderBrowserService', ['$log', function ($log) {
 
         checkCacheLimit();
         folders.set(folder.id, folder);
-        $log.log(folders);
         return folder.id;
     }
 

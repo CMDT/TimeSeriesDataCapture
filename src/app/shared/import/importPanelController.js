@@ -11,24 +11,25 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
 
     self.getBreadCrumb = function () {
         $scope.breadcrumb = folderBreadcrumbService.getPath();
-
     }
 
-    $scope.breadcrumbSelect = function (element) {
-        self.getComponents(element.name, element.id);
+    $scope.breadcrumbSelect = function (folder) {
+        self.getComponents(folder);
     }
 
 
-    self.getComponents = function (folderName, folderId) {
-        getFolderService.getFolder(folderName, folderId).then(function (result) {
+    self.getComponents = function (folder) {
+        $log.log(folder);
+        getFolderService.getFolder(folder, $scope.activePage.parent).then(function (result) {
             $scope.activePage = result;
             $scope.$apply();
         })
+
     }
 
-    self.getRun = function (runName, runId) {
-        
-        getFolderService.getRun(runName, runId).then(function (result) {
+    self.getRun = function (run) {
+
+        getFolderService.getRun(run).then(function (result) {
             $log.log(result);
             var r = result.data
             r['Time'] = r['Time'].slice(0, 10);
@@ -48,10 +49,24 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
 
     $scope.componentClick = function (component) {
         if (component.type === 'folder') {
-            self.getComponents(component.name, component.id);
-        } 
+            self.getComponents(component);
+        }
     }
 
+    $scope.runClick = function (component) {
+
+        if ($scope.preview) {
+            $scope.preview = false;
+            getFolderService.up().then(function (result) {
+                $scope.activePage = result;
+                $scope.$apply();
+            })
+        } else {
+            self.getRun(component);
+            $scope.preview = true;
+        }
+
+    }
 
 
     $scope.cancel = function () {
@@ -59,23 +74,18 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
         getFolderService.clearCache();
     };
 
-    $scope.previewChange = function(component) {
-        
-        if ($scope.preview) {
-            $scope.preview = false;
-            self.getComponents(undefined, $scope.activePage.parent);
-        }else{
-            $scope.preview = true;
-            self.getRun(component.name, component.id);
-        }
-        $log.log('preview-change : ' + $scope.preview);
-        //$scope.preview = !$scope.preview;
 
+
+    self.getRootFolder = function () {
+        getFolderService.getFolder({ name: 'root' }).then(function (result) {
+            $scope.activePage = result;
+            getFolderService.setRootFolder(result.id);
+            $scope.$apply();
+        })
     }
 
 
-
-    self.getComponents();
+    self.getRootFolder();
     self.getBreadCrumb();
 
 

@@ -30,7 +30,7 @@
                 <div ng-if='result.type == "run"'>
                     <md-checkbox aria-label="Checkbox 1">
                     </md-checkbox>
-                    <md-button ng-click="previewChange(result)">
+                    <md-button ng-click="runClick(result)">
                         <md-icon md-svg-src="../../assets/img/previewIcon.svg" aria-label="Preview Icon"></md-icon>
                     </md-button>
                 </div>
@@ -65,7 +65,7 @@
             </md-list>
             
         </div>
-        <md-button flex ng-click="previewChange()">
+        <md-button flex ng-click="runClick(activePage)">
             Back
         </md-button>
     </div>
