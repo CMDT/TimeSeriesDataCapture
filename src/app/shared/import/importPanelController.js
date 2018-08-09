@@ -60,8 +60,6 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
         } else {
             selected[runId] = true;
         }
-
-        $log.log(selected);
     }
 
     $scope.selectedAllToggle = function () {

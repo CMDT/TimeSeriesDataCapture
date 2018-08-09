@@ -2,7 +2,7 @@ app.service('folderBrowserService', ['$log', function ($log) {
 
     var self = this;
 
-    cacheLimit = 4;
+    cacheLimit = 10;
     var folders = new Map();
 
     function folderStruct(id = uniqueId(), name = 'root', data = {}, children = [], parent) {

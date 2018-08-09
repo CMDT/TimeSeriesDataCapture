@@ -12,15 +12,15 @@
     <div ng-show='!preview'>
         <div class='breadcrumb'>
             <div ng-repeat='element in breadcrumb'>
-                <md-button ng-click='folderClick(element)' ng-show='$first'>
+                <md-button ng-click='folderClick(element)' ng-show='$first' ng-disabled="$last">
                     <md-icon md-svg-src="../../assets/img/homeIcon.svg" aria-label="Run Icon"></md-icon>
                 </md-button>
-                <md-button ng-click='folderClick(element)' ng-show='!$first'>
+                <md-button ng-click='folderClick(element)' ng-show='!$first' ng-disabled="$last">
                     {{element.name}}
                 </md-button>
                 <md-icon ng-hide='$last'>></md-icon>
             </div>
-            <md-checkbox ng-checked="selectedAllIsChecked()" ng-click="selectedAllToggle()" aria-label='select all checkbox' ></md-checkbox>
+            <md-checkbox md-no-ink='false' ng-checked="selectedAllIsChecked()" ng-click="selectedAllToggle()" aria-label='select all checkbox' ></md-checkbox>
         </div>
 
         <md-list flex>
@@ -34,7 +34,7 @@
                     <md-button ng-click="previewToggle(result)">
                         <md-icon md-svg-src="../../assets/img/previewIcon.svg" aria-label="Preview Icon"></md-icon>
                     </md-button>
-                    <md-checkbox ng-click="selectedToggle(result.id)" ng-checked="exists(result.id)" aria-label="Checkbox 1">
+                    <md-checkbox md-no-ink='false' ng-click="selectedToggle(result.id)" ng-checked="exists(result.id)" aria-label="Checkbox 1">
                     </md-checkbox>
 
                 </div>
@@ -69,7 +69,7 @@
             </md-list>
 
         </div>
-        <md-button flex ng-click="previewToggle()">
+        <md-button ng-click="previewToggle()">
             Back
         </md-button>
     </div>

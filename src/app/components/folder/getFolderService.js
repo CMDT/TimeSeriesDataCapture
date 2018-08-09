@@ -1,4 +1,4 @@
-app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserService', 'runRequestService', function ($log, $rootScope, $http, folderBrowserService, runRequestService) {
+app.service('getFolderService', ['$log', 'folderBrowserService', 'runRequestService', 'componentIdsService', function ($log, folderBrowserService, runRequestService, componentIdsService) {
 
     var self = this;
     var rootFolderId;
@@ -9,21 +9,21 @@ app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserSe
     }
 
 
-   self.getComponent = function(componentObject){
-       return new Promise(function(resolve,reject){
-           if(componentObject.type === 'folder'){
-               self.getFolder(componentObject).then(function(result){
-                   return resolve(result);
-               })
-           }
+    self.getComponent = function (componentObject) {
+        return new Promise(function (resolve, reject) {
+            if (componentObject.type === 'folder') {
+                self.getFolder(componentObject).then(function (result) {
+                    return resolve(result);
+                })
+            }
 
-           if(componentObject.type === 'run'){
-               self.getRun(componentObject).then(function(result){
-                   return resolve(result);
-               })
-           }
-       })
-   }
+            if (componentObject.type === 'run') {
+                self.getRun(componentObject).then(function (result) {
+                    return resolve(result);
+                })
+            }
+        })
+    }
 
     self.getFolder = function (folderObject) {
 
@@ -68,8 +68,8 @@ app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserSe
     self.getComponentFromServer = function (componentId, type) {
         return new Promise(function (resolve, reject) {
             if (type === 'folder') {
-                self.folderRequest(componentId).then(function (result) {
-                    return resolve(result)
+                componentIdsService.getComponentIds(componentId).then(function (result) {
+                    return resolve(result);
                 })
             }
 
@@ -96,24 +96,7 @@ app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserSe
     }
 
 
-    self.folderRequest = function (folderId) {
-        return new Promise(function (resolve, reject) {
-            var config = {
-                params: {},
-                headers: {},
-                responseType: 'json'
-            }
-            config.headers.Authorization = 'Bearer ' + localStorage.getItem('accessToken');
-            config.params.folderID = folderId;
 
-            var url = $rootScope.url + '/apis/components';
-            $log.log(url);
-
-            $http.get(url, config).then(function (result) {
-                resolve(result);
-            });
-        })
-    }
 
     self.newFolder = function (folderId, folderName, data, parentId) {
         var newFolderId = folderBrowserService.createFolder(folderId, folderName, data);
@@ -126,8 +109,8 @@ app.service('getFolderService', ['$log', '$rootScope', '$http', 'folderBrowserSe
     }
 
 
-  
 
- 
+
+
 
 }])
