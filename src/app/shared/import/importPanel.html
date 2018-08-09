@@ -3,6 +3,7 @@
         <div class="md-toolbar-tools">
             <h4>Import</h4>
             <span flex></span>
+
             <md-button class="md-icon-button" ng-click="cancel()">
                 X
             </md-button>
@@ -11,28 +12,31 @@
     <div ng-show='!preview'>
         <div class='breadcrumb'>
             <div ng-repeat='element in breadcrumb'>
-                <md-button ng-click='pathChange(element)' ng-show='$first'>
+                <md-button ng-click='folderClick(element)' ng-show='$first'>
                     <md-icon md-svg-src="../../assets/img/homeIcon.svg" aria-label="Run Icon"></md-icon>
                 </md-button>
-                <md-button ng-click='pathChange(element)' ng-show='!$first'>
+                <md-button ng-click='folderClick(element)' ng-show='!$first'>
                     {{element.name}}
                 </md-button>
                 <md-icon ng-hide='$last'>></md-icon>
             </div>
+            <md-checkbox ng-checked="selectedAllIsChecked()" ng-click="selectedAllToggle()" aria-label='select all checkbox' ></md-checkbox>
         </div>
+
         <md-list flex>
-            <md-list-item class="md-2-line" ng-click="pathChange(result)" ng-repeat='result in activePage.data'>
+            <md-list-item class="md-2-line" ng-click="folderClick(result)" ng-repeat='result in activePage.data'>
                 <md-icon ng-if='result.type == "run"' md-svg-src="../../assets/img/runIcon.svg" aria-label="Run Icon"></md-icon>
                 <md-icon ng-if='result.type == "folder"' md-svg-src="../../assets/img/folderIcon.svg" aria-label="Run Icon"></md-icon>
                 <div class="md-list-item-text">
                     <h4>{{result.name}}</h4>
                 </div>
                 <div ng-if='result.type == "run"'>
-                    <md-checkbox aria-label="Checkbox 1">
-                    </md-checkbox>
                     <md-button ng-click="previewToggle(result)">
                         <md-icon md-svg-src="../../assets/img/previewIcon.svg" aria-label="Preview Icon"></md-icon>
                     </md-button>
+                    <md-checkbox ng-click="selectedToggle(result.id)" ng-checked="exists(result.id)" aria-label="Checkbox 1">
+                    </md-checkbox>
+
                 </div>
             </md-list-item>
         </md-list>
@@ -42,7 +46,7 @@
             <md-button ng-click="cancel()">
                 Cancel
             </md-button>
-            <md-button>
+            <md-button ng-click="confirm()">
                 Confirm
             </md-button>
         </md-dialog-actions>
@@ -63,7 +67,7 @@
                 <h4>T(Copper)</h4>
                 <md-list-item ng-repeat="point in activePage.data.Copper">{{point}}</md-list-item>
             </md-list>
-            
+
         </div>
         <md-button flex ng-click="previewToggle()">
             Back
