@@ -1,4 +1,4 @@
-app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFolderService', 'folderBreadcrumbService', function ($scope, $log, $mdDialog, getFolderService, folderBreadcrumbService) {
+app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFolderService', 'folderBreadcrumbService','algorithmsService','oneDriveAuthenticationService', function ($scope, $log, $mdDialog, getFolderService, folderBreadcrumbService,algorithmsService,oneDriveAuthenticationService) {
 
     var self = this;
     var selectedMap = new Map();
@@ -33,7 +33,7 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
 
             $scope.activePage = result;
             $scope.$apply();
-        })
+        });
     }
 
 
@@ -41,6 +41,7 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
         if (component.type === 'folder') {
             pathChange(component);
         }
+        
     }
 
     $scope.previewToggle = function (component) {
@@ -50,6 +51,11 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
         } else {
             $scope.preview = true;
             pathChange(component);
+            
+            algorithmsService.getAllAlgorithms().then(function(result){
+                $scope.activePage.algorithms = result.data;
+                $scope.$apply();
+            })
         }
     }
 
@@ -104,6 +110,7 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
     $scope.cancel = function () {
         getFolderService.clearCache();
         $mdDialog.cancel();
+
     }
 
     $scope.confirm = function () {

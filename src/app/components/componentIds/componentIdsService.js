@@ -1,4 +1,4 @@
-app.service('componentIdsService', ['$rootScope','$log','$http', function ($rootScope, $log, $http) {
+app.service('componentIdsService', ['$rootScope','$log','$http','authenticationService','oneDriveAuthenticationService', function ($rootScope, $log, $http,authenticationService,oneDriveAuthenticationService) {
 
     var self = this;
 
@@ -19,6 +19,8 @@ app.service('componentIdsService', ['$rootScope','$log','$http', function ($root
 
             $http.get(url, config).then(function (result) {
                 resolve(result);
+            }).catch(function(error){
+                reject(error);
             });
         })
     }

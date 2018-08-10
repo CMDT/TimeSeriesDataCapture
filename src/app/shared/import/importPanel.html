@@ -68,7 +68,11 @@
                 <md-list-item ng-repeat="point in activePage.data.Copper">{{point}}</md-list-item>
             </md-list>
 
+            <md-list>
+                <md-list-item ng-repeat='algorithm in activePage.algorithms'>{{algorithm.name}}</md-list-item>
+            </md-list>
         </div>
+        
         <md-button ng-click="previewToggle()">
             Back
         </md-button>

@@ -9,54 +9,36 @@ app.service('getFolderService', ['$log', 'folderBrowserService', 'runRequestServ
     }
 
 
-    self.getComponent = function (componentObject) {
-        return new Promise(function (resolve, reject) {
-            if (componentObject.type === 'folder') {
-                self.getFolder(componentObject).then(function (result) {
-                    return resolve(result);
-                })
+
+    self.getComponent = function (componentObject){
+        return new Promise(function(resolve,reject){
+            var component = self.getComponentCacheById(componentObject.id);
+            if(component != undefined){
+                return resolve(component);
             }
 
-            if (componentObject.type === 'run') {
-                self.getRun(componentObject).then(function (result) {
-                    return resolve(result);
-                })
-            }
-        })
-    }
-
-    self.getFolder = function (folderObject) {
-
-        return new Promise(function (resolve, reject) {
-            if (folderObject.hasOwnProperty('id')) {
-                var folder = self.getComponentCacheById(folderObject.id);
-                if (folder != undefined) {
-                    return resolve(folder);
+            var id = componentObject.id;
+            if(componentObject.type === 'folder'){
+                if(rootFolderId == componentObject.id){
+                    id = undefined;
                 }
             }
 
-            var id = folderObject.id;
-            if (rootFolderId == folderObject.id) {
-                id = undefined;
-            }
-
-            self.getComponentFromServer(id, 'folder').then(function (result) {
-                var newFolder = self.newFolder(folderObject.id, folderObject.name, result.data.folders);
+            self.getComponentFromServer(id,componentObject.type).then(function(result){
+                var data = result
+                if(componentObject.type === 'run'){
+                    data = result.data;
+                }else if(componentObject.type === 'folder'){
+                    data = result.data.folders;
+                }
+                
+                var newFolder = self.newFolder(componentObject.id,componentObject.name,data);
+                $log.log(newFolder);
                 return resolve(newFolder);
-            })
-        });
-    }
-
-    self.getRun = function (runObject) {
-        return new Promise(function (resolve, reject) {
-            var run = self.getComponentCacheById(runObject.id);
-            if (run != undefined) {
-                return resolve(run);
-            }
-
-            self.getComponentFromServer(runObject.id, 'run').then(function (result) {
-                var newFolder = self.newFolder(runObject.id, runObject.name, result.data);
-                return resolve(newFolder);
+            }).catch(function(error){
+                if(error === 'fileStorageUnAuthenticated'){
+                    
+                }
             })
         })
     }
@@ -70,12 +52,16 @@ app.service('getFolderService', ['$log', 'folderBrowserService', 'runRequestServ
             if (type === 'folder') {
                 componentIdsService.getComponentIds(componentId).then(function (result) {
                     return resolve(result);
+                }).catch(function(error){
+                    reject(error);
                 })
             }
 
             if (type === 'run') {
                 runRequestService.getRunPreview(componentId).then(function (result) {
                     return resolve(result);
+                }).catch(function(error){
+                    reject(error);
                 })
             }
         });
@@ -100,9 +86,6 @@ app.service('getFolderService', ['$log', 'folderBrowserService', 'runRequestServ
             $log.log(result);
         })
     }
-
-
-
 
     self.newFolder = function (folderId, folderName, data, parentId) {
         var newFolderId = folderBrowserService.createFolder(folderId, folderName, data);
