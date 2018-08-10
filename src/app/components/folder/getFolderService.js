@@ -1,4 +1,4 @@
-app.service('getFolderService', ['$log', 'folderBrowserService', 'runRequestService', 'componentIdsService', function ($log, folderBrowserService, runRequestService, componentIdsService) {
+app.service('getFolderService', ['$log', 'folderBrowserService', 'runRequestService', 'componentIdsService','oneDriveAuthenticationService', function ($log, folderBrowserService, runRequestService, componentIdsService,oneDriveAuthenticationService) {
 
     var self = this;
     var rootFolderId;
@@ -37,7 +37,7 @@ app.service('getFolderService', ['$log', 'folderBrowserService', 'runRequestServ
                 return resolve(newFolder);
             }).catch(function(error){
                 if(error === 'fileStorageUnAuthenticated'){
-                    
+                    oneDriveAuthenticationService.login();
                 }
             })
         })

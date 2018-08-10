@@ -1,4 +1,4 @@
-app.service('componentIdsService', ['$rootScope','$log','$http','authenticationService','oneDriveAuthenticationService', function ($rootScope, $log, $http,authenticationService,oneDriveAuthenticationService) {
+app.service('componentIdsService', ['$rootScope','$log','$http','authenticationService', function ($rootScope, $log, $http,authenticationService) {
 
     var self = this;
 
@@ -20,7 +20,16 @@ app.service('componentIdsService', ['$rootScope','$log','$http','authenticationS
             $http.get(url, config).then(function (result) {
                 resolve(result);
             }).catch(function(error){
-                reject(error);
+                if(error.status === 401){
+
+                    if(error.data != null){
+                        if(error.data.message === 'Authorization failed: Un-authorized'){
+                           reject('fileStorageUnAuthenticated')
+                        }
+                    }else{
+                        $log.log('login to Auth0');
+                    }
+                }
             });
         })
     }

@@ -1,4 +1,4 @@
-app.controller('importController', ['$scope', '$log', '$mdDialog', 'getFolderService','$transitions', function ($scope, $log, $mdDialog, getFolderService, $transitions) {
+app.controller('importController', ['$scope', '$log', '$mdDialog', 'getFolderService', '$transitions', 'oneDriveAuthenticationService', function ($scope, $log, $mdDialog, getFolderService, $transitions, oneDriveAuthenticationService) {
 
     $scope.showAdvanced = function (ev) {
         $mdDialog.show({
@@ -13,17 +13,14 @@ app.controller('importController', ['$scope', '$log', '$mdDialog', 'getFolderSer
     }
 
     $scope.test = function () {
-        getFolderService.getFolder().then(function (result) {
-            $log.log(result);
-        }).catch(function (error) {
-            $log.error(error);
-        });
+        windowObjectReference = window.open("http://www.cnn.com/");
+        $log.log(windowObjectReference);
     }
 
 
-    
-    
 
-   
+
+
+
 
 }])

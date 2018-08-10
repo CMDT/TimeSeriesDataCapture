@@ -30,6 +30,8 @@
 //
 // subsequent calls to odauth() will usually complete immediately without the
 // popup because the cookie is still fresh.
+
+
 function odauth(wasClicked) {
   ensureHttps();
   var token = getTokenFromCookie();
@@ -242,10 +244,8 @@ function popup(url) {
               "toolbar=no",
               "menubar=no",
               "scrollbars=yes"];
+  console.log(url);
   var popup = window.open(url, "oauth", features.join(","));
-  if (!popup) {
-    alert("failed to pop up auth window");
-  }
-
-  popup.focus();
+  console.log(window);
+  
 }

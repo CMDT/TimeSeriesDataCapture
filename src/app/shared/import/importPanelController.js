@@ -1,4 +1,4 @@
-app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFolderService', 'folderBreadcrumbService','algorithmsService','oneDriveAuthenticationService', function ($scope, $log, $mdDialog, getFolderService, folderBreadcrumbService,algorithmsService,oneDriveAuthenticationService) {
+app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFolderService', 'folderBreadcrumbService','algorithmsService', function ($scope, $log, $mdDialog, getFolderService, folderBreadcrumbService,algorithmsService,) {
 
     var self = this;
     var selectedMap = new Map();

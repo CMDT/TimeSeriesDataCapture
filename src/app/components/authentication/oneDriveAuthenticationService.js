@@ -1,5 +1,5 @@
 
-app.service('oneDriveAuthenticationService',['$log','$window',function($log,$window){
+app.service('oneDriveAuthenticationService',['$log','odauthService','$window',function($log,odauthService,$window){
 
     var appInfo = {
         "clientId": '1a67f6f4-db2a-4298-8cf8-72946ac50669',
@@ -24,8 +24,8 @@ app.service('oneDriveAuthenticationService',['$log','$window',function($log,$win
     this.login = function login() {
   
         $log.log('logging into OneDrive');
-        provideAppInfo(appInfo);
-        challengeForAuth();
+        odauthService.provideAppInfo(appInfo);
+        odauthService.challengeForAuth();
       
         return false;
     }
