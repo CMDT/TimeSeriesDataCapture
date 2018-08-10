@@ -33,13 +33,17 @@
     <script id="odauth" src="assets/js/odauth.js"></script>
 
 
+    <!--d3-->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
 
+    <!--app-->
     <script src="./app/app.js"></script>
 
     <!--controllers-->
     <script src="./app/shared/home/homeController.js"></script>
     <script src='./app/shared/import/importController.js'></script>
     <script src="./app/shared/import/importPanelController.js"></script>
+    <script src='./app/shared/view/viewController.js'></script>
 
 
     <!--components-->
@@ -71,6 +75,7 @@
 
     <a ui-sref="home">Hello</a>
     <a ui-sref='import'>Import</a>
+    <a ui-sref='view'>View</a>
 
 
     <ui-view></ui-view>

@@ -23,23 +23,26 @@ app.service('componentIdsService', ['$rootScope','$log','$http', function ($root
         })
     }
 
-    self.postComponentIds = function (componentIds) {
+    self.postComponentIds = function (components) {
         return new Promise(function (resolve, reject) {
             var config = {
-                params: {},
                 headers: {},
                 responseType: 'json'
             }
             config.headers.Authorization = 'Bearer ' + localStorage.getItem('accessToken');
-            config.params.componentIDs = componentIds;
+           
 
             var url = $rootScope.url + '/apis/components';
             $log.log(url);
 
-            $http.post(url, config).then(function (result) {
+            $http.post(url,components, config).then(function (result) {
                 resolve(result);
             });
         })
     }
+
+    
+
+   
 
 }])

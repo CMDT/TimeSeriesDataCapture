@@ -1,8 +1,7 @@
 app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFolderService', 'folderBreadcrumbService', function ($scope, $log, $mdDialog, getFolderService, folderBreadcrumbService) {
 
     var self = this;
-
-    var selected = {}
+    var selectedMap = new Map();
 
     $scope.activePage = [];
     $scope.breadcrumb = [];
@@ -55,10 +54,10 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
     }
 
     $scope.selectedToggle = function (runId) {
-        if (selected.hasOwnProperty(runId)) {
-            delete selected[runId];
+        if (selectedMap.get(runId) != undefined) {
+            selectedMap.delete(runId);
         } else {
-            selected[runId] = true;
+            selectedMap.set(runId,{id: runId});
         }
     }
 
@@ -67,25 +66,25 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
         if (!$scope.selectedAllIsChecked()) {
             for (var i = 0, n = activePageData.length; i < n; i++) {
                 if (activePageData[i].type === 'run') {
-                    selected[activePageData[i].id] = true;
+                    selectedMap.set(activePageData[i].id,{id:activePageData[i].id});
                 }
             }
         } else {
             for (var i = 0, n = activePageData.length; i < n; i++) {
-                delete selected[activePageData[i].id];
+                selectedMap.delete(activePageData[i].id)
             }
         }
     }
 
     $scope.selectedAllIsChecked = function () {
-        if(!($scope.activePage.hasOwnProperty('id'))){
+        if(!($scope.activePage.hasOwnProperty('data'))){
             return false;
         }
 
         var activePageData = $scope.activePage.data;
 
         for (var i = 0, n = activePageData.length; i < n; i++) {
-            if (activePageData[i].type === 'run' && !(selected.hasOwnProperty(activePageData[i].id))) {
+            if (activePageData[i].type === 'run' && (selectedMap.get(activePageData[i].id) == undefined)) {
                 return false;
             }
         }
@@ -95,16 +94,27 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
    
 
     $scope.exists = function (runId) {
-        return selected.hasOwnProperty(runId);
+        if(selectedMap.get(runId) != undefined){
+            return true;
+        }
+
+        return false
     }
 
     $scope.cancel = function () {
-        $log.log($scope.breadcrumb);
+        getFolderService.clearCache();
         $mdDialog.cancel();
     }
 
     $scope.confirm = function () {
-        $log.log(selected);
+        var runArray = [];
+
+        selectedMap.forEach(run => {
+            runArray.push(run);
+        });
+
+        getFolderService.importRuns(runArray);
+        $scope.cancel();
     }
 
     var root = {

@@ -95,6 +95,12 @@ app.service('getFolderService', ['$log', 'folderBrowserService', 'runRequestServ
         folderBrowserService.clearCache();
     }
 
+    self.importRuns = function(runs){
+        componentIdsService.postComponentIds(runs).then(function(result){
+            $log.log(result);
+        })
+    }
+
 
 
 

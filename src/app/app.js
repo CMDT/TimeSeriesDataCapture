@@ -34,10 +34,17 @@ function config($stateProvider) {
     controller: 'importController'
   }
 
+  var viewState = {
+    name: 'view',
+    url: '/view',
+    templateUrl: 'app/shared/view/viewView.html',
+    controller: 'viewController'
+  }
+
   $stateProvider.state(callbackState);
   $stateProvider.state(homeState);
   $stateProvider.state(importState);
-
+  $stateProvider.state(viewState);
 }
 
 app.run(run);
