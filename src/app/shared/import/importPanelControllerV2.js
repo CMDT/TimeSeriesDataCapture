@@ -1,4 +1,4 @@
-app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFolderService', 'folderBreadcrumbService','algorithmsService','selectionService', function ($scope, $log, $mdDialog, getFolderService, folderBreadcrumbService,algorithmsService,selectionService) {
+app.controller('importPanelControllerV2', ['$scope', '$log', '$mdDialog','$filter', 'getFolderService', 'folderBreadcrumbService','algorithmsService','selectionService', function ($scope, $log, $mdDialog,$filter, getFolderService, folderBreadcrumbService,algorithmsService,selectionService) {
 
     var self = this;
     var selectedMap = new Map();
@@ -6,8 +6,6 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
     $scope.activePage = [];
     $scope.breadcrumb = [];
     $scope.preview = false;
-
-
 
     var pathChange = function (component) {
         folderBreadcrumbService.navigate(component);
@@ -29,19 +27,15 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
                 r['DAC'] = r['DAC'].slice(0, 10);
                 result.data = r;
             }
-
-
             $scope.activePage = result;
             $scope.$apply();
         });
     }
 
-
     $scope.folderClick = function (component) {
         if (component.type === 'folder') {
             pathChange(component);
         }
-        
     }
 
     $scope.previewToggle = function (component) {
@@ -60,24 +54,19 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
     }
 
     $scope.selectedToggle = function (runId) {
-        if (selectedMap.get(runId) != undefined) {
-            selectedMap.delete(runId);
-        } else {
-            selectedMap.set(runId,{id: runId});
-        }
+        selectionService.selectedToggle(runId);
     }
 
-    $scope.selectedAllToggle = function () {
-        var activePageData = $scope.activePage.data;
-        if (!$scope.selectedAllIsChecked()) {
-            for (var i = 0, n = activePageData.length; i < n; i++) {
-                if (activePageData[i].type === 'run') {
-                    selectedMap.set(activePageData[i].id,{id:activePageData[i].id});
-                }
+    $scope.selectedAllToggle = function(){
+        var components = $scope.activePage.data;
+        if(!$scope.selectedAllIsChecked()){
+            var runs = $filter('runFilter')(components);
+            for(var i=0,n=runs.length;i<n;i++){
+                selectionService.addSelected(runs[i].id,runs[i].data);
             }
-        } else {
-            for (var i = 0, n = activePageData.length; i < n; i++) {
-                selectedMap.delete(activePageData[i].id)
+        }else{
+            for(var i=0,n=components.length;i<n;i++){
+                selectionService.removeSelected(components[i].id);
             }
         }
     }
@@ -87,14 +76,10 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
             return false;
         }
 
-        var activePageData = $scope.activePage.data;
-
-        for (var i = 0, n = activePageData.length; i < n; i++) {
-            if (activePageData[i].type === 'run' && (selectedMap.get(activePageData[i].id) == undefined)) {
-                return false;
-            }
-        }
-        return true;
+        var components = $scope.activePage.data;
+        var runs = $filter('runFilter')(components);
+        var runsIds = $filter('componentIdFilter')(runs);
+        return selectionService.isSelectedAll(runsIds);
     }
 
    
@@ -103,7 +88,6 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
         if(selectedMap.get(runId) != undefined){
             return true;
         }
-
         return false
     }
 
@@ -115,11 +99,9 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
 
     $scope.confirm = function () {
         var runArray = [];
-
         selectedMap.forEach(run => {
             runArray.push(run);
         });
-
         getFolderService.importRuns(runArray);
         $scope.cancel();
     }
@@ -143,10 +125,4 @@ app.controller('importPanelController', ['$scope', '$log', '$mdDialog', 'getFold
     } else {
         pathChange(root);
     }
-
-
-
-
-
-
 }])
