@@ -11,10 +11,12 @@ app.controller('viewController', ['$scope', '$log', 'runRequestService', functio
     var height = 500 - margin.top - margin.bottom;
 
 
+    var trendLineColors = []
 
     // set the ranges
     var x = d3.scaleLinear().range([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
+    var z = d3.scaleOrdinal(['#8cc2d0','#152e34']);
 
 
     var xAxis = d3.axisBottom(x);
@@ -22,6 +24,7 @@ app.controller('viewController', ['$scope', '$log', 'runRequestService', functio
 
     var endZoomVector = d3.zoomIdentity.scale(1).translate(0, 0);
 
+    var parseTime = d3.timeParse("%s");
 
     var line = d3.line()
         .x(function (d) { return x(d.Time); })
@@ -103,7 +106,7 @@ app.controller('viewController', ['$scope', '$log', 'runRequestService', functio
             var results = [];
             for (var i = 0, n = result.length; i < n; i++) {
                 var resultArray = dataObjectToArray(result[i].data.runData);
-                results.push({ id: 1, values: resultArray });
+                results.push({ id: i, values: resultArray });
             }
             drawGraph(results);
         })
@@ -132,7 +135,7 @@ app.controller('viewController', ['$scope', '$log', 'runRequestService', functio
             d3.max(runsData, function (c) { return d3.max(c.values, function (d) { return d.Time }) })
         ];
         x.domain(d3.extent(xDomain));
-
+        z.domain(runsData.map(function(r){return r.id}))
 
         y.domain([
             d3.min(runsData, function (c) { return d3.min(c.values, function (d) { return d.RTH; }); }),
@@ -154,11 +157,18 @@ app.controller('viewController', ['$scope', '$log', 'runRequestService', functio
         var runs = graph.selectAll(".run")
             .data(runsData)
             .enter().append("g")
-            .attr("class", "run");
+            .attr("class", function(d){
+                return 'run' + d.id;
+            })
+            .on('click',function(d){
+                d3.select(this).moveToFront();
+            });
 
         runs.append("path")
             .attr("class", "line")
             .attr("d", function (d) { return line(d.values); })
+            .style("stroke", function(d) { return z(d.id); })
+           
     }
 
     function zoomed() {
@@ -202,8 +212,14 @@ app.controller('viewController', ['$scope', '$log', 'runRequestService', functio
         var locked = (lock.attr('locked') == 1)
         locked ? image.attr('xlink:href', './assets/img/lock_unlocked.svg') : image.attr('xlink:href', './assets/img/lock_locked.svg')
         locked ? locked = 0 : locked = 1;
-        lock.attr('locked', locked);
+        lock.attr('locked', locked);        
     }
+
+    d3.selection.prototype.moveToFront = function() {  
+        return this.each(function(){
+          this.parentNode.appendChild(this);
+        });
+      };
 
 
 
