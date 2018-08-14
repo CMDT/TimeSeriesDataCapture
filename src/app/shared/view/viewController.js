@@ -20,7 +20,7 @@ app.controller('viewController', ['$scope', '$log', 'runRequestService', functio
     var xAxis = d3.axisBottom(x);
     var yAxis = d3.axisLeft(y);
 
-    var endZoomVector;
+    var endZoomVector = d3.zoomIdentity.scale(1).translate(0, 0);
 
 
     var line = d3.line()
@@ -95,7 +95,7 @@ app.controller('viewController', ['$scope', '$log', 'runRequestService', functio
         });
 
 
-    getData(['2B497C4DAFF48A9C!160','2B497C4DAFF48A9C!178'])
+    getData(['2B497C4DAFF48A9C!160', '2B497C4DAFF48A9C!178'])
 
     function getData(idArray) {
         var getRunPromises = idArray.map(runRequestService.getRun);
@@ -103,7 +103,7 @@ app.controller('viewController', ['$scope', '$log', 'runRequestService', functio
             var results = [];
             for (var i = 0, n = result.length; i < n; i++) {
                 var resultArray = dataObjectToArray(result[i].data.runData);
-                results.push({id:1, values: resultArray});
+                results.push({ id: 1, values: resultArray });
             }
             drawGraph(results);
         })
@@ -128,11 +128,11 @@ app.controller('viewController', ['$scope', '$log', 'runRequestService', functio
 
     function drawGraph(runsData) {
         var xDomain = [
-            d3.min(runsData, function(c){return d3.min(c.values,function(d){return d.Time})}),
-            d3.max(runsData, function(c){return d3.max(c.values, function(d) {return d.Time})})
+            d3.min(runsData, function (c) { return d3.min(c.values, function (d) { return d.Time }) }),
+            d3.max(runsData, function (c) { return d3.max(c.values, function (d) { return d.Time }) })
         ];
         x.domain(d3.extent(xDomain));
-        
+
 
         y.domain([
             d3.min(runsData, function (c) { return d3.min(c.values, function (d) { return d.RTH; }); }),
@@ -144,11 +144,11 @@ app.controller('viewController', ['$scope', '$log', 'runRequestService', functio
         graph.append("g")
             .attr("class", "axis axis--x")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
+            .call(xAxis);
 
         graph.append("g")
             .attr("class", "axis axis--y")
-            .call(d3.axisLeft(y))
+            .call(yAxis)
 
 
         var runs = graph.selectAll(".run")
@@ -164,41 +164,23 @@ app.controller('viewController', ['$scope', '$log', 'runRequestService', functio
     function zoomed() {
         var t = d3.event.transform;
 
+        var isZooming = endZoomVector.k != t.k;
+        $log.log(isZooming);
 
-        if(endZoomVector != undefined){
-            if(endZoomVector.k != t.k){
-                $log.log('zooming');
-            }else if(endZoomVector.k == t.k){
-                $log.log('panning');
-            }
-        }
-
-       
         var xIsLocked = (xLock.attr('locked') == 1);
         var yIsLocked = (yLock.attr('locked') == 1);
 
-        if (xIsLocked) {
-            if (endZoomVector != undefined) {
-                t.x = endZoomVector.x;
-
-            } else {
-                t.x = 0;
-            }
-        }
-
-        if (yIsLocked) {
-            if (endZoomVector != undefined) {
-                t.y = endZoomVector.y
-            } else {
-                t.y = 0;
-            }
-        }
-
+        t.x = xIsLocked && !isZooming ? endZoomVector.x : t.x;
+        t.y = yIsLocked && !isZooming ? endZoomVector.y : t.y;
+        
         var xt = t.rescaleX(x);
         var yt = t.rescaleY(y);
 
-        //graph.select('.axis--x').call(xAxis.scale(xt));
-        //graph.select('.axis--y').call(yAxis.scale(yt));
+        if (isZooming) {
+            graph.select('.axis--x').call(xAxis.scale(xt));
+            graph.select('.axis--y').call(yAxis.scale(yt));
+        }
+
 
         var line = d3.line()
             .x(function (d) {
