@@ -3,11 +3,21 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
     var self = this;
     const type = d3.annotationBadge;
     var annotations = [];
-    var x;
-    var y;
+    
+
+   
+    var margin = {
+        top: 50,
+        right: 50,
+        bottom: 50,
+        left: 50
+    }
+    var width = 960 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
+   
 
 
-    function annotation(title = self.titleGen(), data = {}) {
+    function annotationBadge(title = self.titleGen(), data = {}) {
         this.title = title;
         this.data = data;
         this.note = {
@@ -15,11 +25,10 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
             title : title
         };
         this.subject = {
-            test: 'A',
+            text: title,
             x: 'left',
             y: 'top'
         };
-        this.hidden = false;
     }
 
     function annotationLabel(description,x,y){
@@ -32,6 +41,7 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
         this.ny = y - 200,
         this.x = x;
         this.y = y;
+        this.hidden = false;
     }
 
     self.setX = function(xR){
@@ -43,37 +53,41 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
     }
 
     self.addAnnotation = function(title,data,description){
-        var newAnnotation = new annotation(title,data,description);
+        $log.log(self.titleGen());
+        var newAnnotation = new annotationBadge(title,data,description);
         var newAnnotationLabel = new annotationLabel(description,undefined,undefined);
-        annotations = {
+    
+        annotations.push({
             annotation: newAnnotation,
-            label : newAnnotationLabel
+            label: newAnnotationLabel
+        })
+    }
+
+    self.getAnnotations = function(){
+        $log.log($filter('graphAnnotationFilter')(annotations))
+        return ($filter('graphAnnotationFilter')(annotations));
+    }
+
+    self.getAnnotationsLabel = function(){
+        return ($filter('graphAnnotationLabelFilter')(annotations));
+    }
+
+    self.annotationClick = function(title){
+        for(var i=0,n=annotations.length;i<n;i++){
+            if(annotations.annotationBadge.title === title){
+                annotations.annotationLabel.hidden = true;
+            }
         }
     }
 
-    self.makeAnnotations = function(element){
-        element.append('g').attr('class','annotation-group').call(makeAnnotations);
-    }
-
-    const makeAnnotations = d3.annotation()
-        .notePadding(15)
-        .type(type)
-        .accessors({
-            x: d=> x(d.Time),
-            y: d=> y(d.RTH)
-        })
-
-    self.removeAnnotation = function(title){
-        annotations.removeAnnotation(title);
-    }
-
+   
    
 
     
 
     self.titleGen = function(){
         asciiA = 65;
-        asciiValue = asciiA + annotations.size;
+        asciiValue = asciiA + annotations.length;
         return String.fromCharCode(asciiValue);
     }
 

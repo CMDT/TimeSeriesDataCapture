@@ -1,6 +1,6 @@
 app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAnnotationService', function ($log,runRequestService,timeSeriesAnnotationService) {
 
-  
+
     // set the dimensions and margins of the graph
     var margin = {
         top: 50,
@@ -67,8 +67,7 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
         .attr("height", height);
 
 
-    var textBox = graph.append('g')
-        .attr('class', 'annotationTextBox-group')
+    var annotationGroup = graph.append('g').attr('class', 'annotation-group');
 
 
     //yLock
@@ -100,59 +99,6 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
         .on('click', function () {
             lockToggle(xLock);
         });
-
-
-
-    const type = d3.annotationBadge;
-
-    const annotations = [{
-        note: {
-            label: "Label",
-            title: 'A'
-        },
-        data: {
-            Time: 12739,
-            RTH: 0.08616
-        },
-        subject: {
-            text: 'A',
-            x: 'left',
-            y: 'top',
-            descriptionView: false
-        }
-    }, {
-        note: {
-            label: "Label",
-            title: 'A'
-        },
-        data: {
-            Time: 9740,
-            RTH: 0.0821470
-        },
-        subject: {
-            text: 'B',
-            x: 'left',
-            y: 'top',
-            descriptionView: false
-        }
-    }]
-
-
-
-
-
-
-    const makeAnnotations = d3.annotation()
-        .notePadding(15)
-        .type(type)
-        .accessors({
-            x: d => x(d.Time),
-            y: d => y(d.RTH)
-        })
-        .annotations(annotations)
-        .on('subjectclick', annotationClick)
-
-
 
     getData(['2B497C4DAFF48A9C!160', '2B497C4DAFF48A9C!178'])
 
@@ -227,15 +173,26 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
             .attr("d", function (d) { return line(d.values); })
             .style("stroke", function (d) { return z(d.id); })
 
-        timeSeriesAnnotationService.setX(x);
-        timeSeriesAnnotationService.setY(y);
-        timeSeriesAnnotationService.addAnnotation(undefined,{Time: 12739,RTH: 0.08616},'hi there');
-        timeSeriesAnnotationService.makeAnnotations(graph);
+ 
+        timeSeriesAnnotationService.addAnnotation(undefined,{Time: 14000,RTH: 0.08616},'hi there');
+        timeSeriesAnnotationService.addAnnotation(undefined,{Time: 14001,RTH: 0.0933},'hello there');
+        annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
+        
+        
 
+    }
 
-        /* graph.append('g').attr('class', 'annotation-group')
-            .call(makeAnnotations); */
-
+    function annotationBadgeRender(annotations){
+        var makeAnnotations = d3.annotation()
+        .notePadding(15)
+        .type(d3.annotationBadge)
+        .accessors({
+            x: d => x(d.Time),
+            y: d => y(d.RTH)
+        })
+        .annotations(annotations)
+        .on('subjectclick', annotationClick)
+        annotationGroup.call(makeAnnotations);
     }
 
     function zoomed() {
@@ -274,12 +231,12 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
 
         var makeAnnotations = d3.annotation()
             .notePadding(15)
-            .type(type)
+            .type(d3.annotationBadge)
             .accessors({
                 x: d => xt(d.Time),
                 y: d => yt(d.RTH)
             })
-            .annotations(annotations)
+            .annotations(timeSeriesAnnotationService.getAnnotations())
             .on('subjectclick', annotationClick)
 
 
@@ -297,6 +254,7 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
     }
 
     function annotationClick(annotation) {
+        $log.log(annotation)
         annotation.subject.descriptionView = !annotation.subject.descriptionView;
         $log.log(annotation);
         createAnnotationText(annotation);
