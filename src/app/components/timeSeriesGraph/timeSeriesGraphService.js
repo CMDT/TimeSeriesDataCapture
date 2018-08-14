@@ -58,7 +58,7 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
 
 
 
-    svg.call(zoom);
+    //svg.call(zoom);
 
     svg.append("defs").append("clipPath")
         .attr("id", "clip")
@@ -174,8 +174,8 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
             .style("stroke", function (d) { return z(d.id); })
 
  
-        timeSeriesAnnotationService.addAnnotation(undefined,{Time: 14000,RTH: 0.08616},'hi there');
-        timeSeriesAnnotationService.addAnnotation(undefined,{Time: 14001,RTH: 0.0933},'hello there');
+        timeSeriesAnnotationService.addAnnotation(undefined,{Time: 14000,RTH: 0.08616},'hi there from A');
+        timeSeriesAnnotationService.addAnnotation(undefined,{Time: 18000,RTH: 0.0933},'hello there from B');
         annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
         
         
@@ -237,7 +237,7 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
                 y: d => yt(d.RTH)
             })
             .annotations(timeSeriesAnnotationService.getAnnotations())
-            .on('subjectclick', annotationClick)
+            .on('click', annotationClick)
 
 
         graph.select('.annotation-group').call(makeAnnotations)
@@ -254,31 +254,32 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
     }
 
     function annotationClick(annotation) {
-        annotation.subject.descriptionView = !annotation.subject.descriptionView;
-        $log.log(annotation);
-        createAnnotationText(annotation);
+        timeSeriesAnnotationService.getAnnotations()
+        if(annotation.subject.label.hidden){
+            renderAnnotationLabel(annotation.subject.label,annotation._x,annotation._y);
+            annotation.subject.label.hidden = false;
+        }else{
+           //remove label
+           annotation.subject.label.hidden = true;
+        }
+        
     }
 
-    function createAnnotationText(annotation) {
+    function renderAnnotationLabel(annotationLabel,x,y) {
        
         const type = d3.annotationLabel
-        const annotations = [{
-            note: {
-                label: 'Longer to show text wrapping',
-                bgPadding: 200,
-                title: 'Annotations'
-            },
-            nx: annotation._x +20,
-            ny: annotation._y - 200,
-            x: annotation._x,
-            y: annotation._y
-        }]
+        
+
+        annotationLabel.nx = x + 20;
+        annotationLabel.ny = y - 200;
+        annotationLabel.x = x;
+        annotationLabel.y = y;
         
         var makeAnnotations = d3.annotation()
             
             .notePadding(15)
             .type(type)
-            .annotations(annotations);
+            .annotations([annotationLabel]);
 
             graph.append('g').attr('class','.annotationText-group').call(makeAnnotations)
 

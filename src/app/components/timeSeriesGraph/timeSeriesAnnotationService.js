@@ -29,7 +29,7 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
         this.ny = y - 200,
         this.x = x;
         this.y = y;
-        this.hidden = false;
+        this.hidden = true;
     }
 
     self.setX = function(xR){
@@ -50,6 +50,7 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
     }
 
     self.getAnnotations = function(){
+        $log.log(annotations);
         return annotations;
     }
 
