@@ -163,7 +163,17 @@ app.controller('viewController', ['$scope', '$log', 'runRequestService', functio
 
     function zoomed() {
         var t = d3.event.transform;
-        $log.log(t);
+
+
+        if(endZoomVector != undefined){
+            if(endZoomVector.k != t.k){
+                $log.log('zooming');
+            }else if(endZoomVector.k == t.k){
+                $log.log('panning');
+            }
+        }
+
+       
         var xIsLocked = (xLock.attr('locked') == 1);
         var yIsLocked = (yLock.attr('locked') == 1);
 
