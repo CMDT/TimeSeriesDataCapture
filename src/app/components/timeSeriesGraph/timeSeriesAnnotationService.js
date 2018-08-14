@@ -1,23 +1,9 @@
 app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$filter) {
 
     var self = this;
-    const type = d3.annotationBadge;
     var annotations = [];
     
-
-   
-    var margin = {
-        top: 50,
-        right: 50,
-        bottom: 50,
-        left: 50
-    }
-    var width = 960 - margin.left - margin.right;
-    var height = 500 - margin.top - margin.bottom;
-   
-
-
-    function annotationBadge(title = self.titleGen(), data = {}) {
+   function annotationBadge(title = self.titleGen(), data = {},label) {
         this.title = title;
         this.data = data;
         this.note = {
@@ -27,8 +13,10 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
         this.subject = {
             text: title,
             x: 'left',
-            y: 'top'
+            y: 'top',
+            label: label
         };
+        
     }
 
     function annotationLabel(description,x,y){
@@ -54,18 +42,15 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
 
     self.addAnnotation = function(title,data,description){
         $log.log(self.titleGen());
-        var newAnnotation = new annotationBadge(title,data,description);
+        
         var newAnnotationLabel = new annotationLabel(description,undefined,undefined);
+        var newAnnotation = new annotationBadge(title,data,newAnnotationLabel);
     
-        annotations.push({
-            annotation: newAnnotation,
-            label: newAnnotationLabel
-        })
+        annotations.push(newAnnotation)
     }
 
     self.getAnnotations = function(){
-        $log.log($filter('graphAnnotationFilter')(annotations))
-        return ($filter('graphAnnotationFilter')(annotations));
+        return annotations;
     }
 
     self.getAnnotationsLabel = function(){

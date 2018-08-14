@@ -254,7 +254,6 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
     }
 
     function annotationClick(annotation) {
-        $log.log(annotation)
         annotation.subject.descriptionView = !annotation.subject.descriptionView;
         $log.log(annotation);
         createAnnotationText(annotation);
