@@ -55,7 +55,8 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
 
 
 
-    svg.call(zoom);
+    svg.call(zoom)
+    .on("dblclick.zoom", null);
 
     d3.select('body')
         .on('keydown', function () {
@@ -299,8 +300,17 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
     }
 
     function annotationClick(annotation) {
-        $log.log(annotation);
-        timeSeriesAnnotationService.getAnnotations()
+        
+
+        var annotations = timeSeriesAnnotationService.getAnnotations();
+        
+        for(var i=0,n=annotations.length;i<n;i++){
+            if(annotations[i].title !== annotation.subject.text){
+                annotations[i].subject.label.hidden = true;
+            }
+        }
+        
+
         if (annotation.subject.label.hidden) {
             renderAnnotationLabel(annotation.subject.label, annotation._x, annotation._y);
             annotation.subject.label.hidden = false;
@@ -308,6 +318,8 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
             annotationLabelGroup.select('.annotations').remove();
             annotation.subject.label.hidden = true;
         }
+
+        $log.log(timeSeriesAnnotationService.getAnnotationLabels());
     }
 
     d3.selection.prototype.moveToFront = function () {
