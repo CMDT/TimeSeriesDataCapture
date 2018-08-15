@@ -4,7 +4,7 @@ app.filter('annotationLabelFilter',function(){
 
         for(var i=0,n=annotationArray.length;i<n;i++){
            if(!(annotationArray[i].subject.label.hidden)){
-               filterAnnotationArray.push(annotationArray[i]);
+               filterAnnotationArray.push(annotationArray[i].subject.label);
            }
         }
         return filterAnnotationArray;

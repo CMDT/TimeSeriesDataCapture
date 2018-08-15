@@ -18,16 +18,13 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
         
     }
 
-    function annotationLabel(description,x,y){
+    function annotationLabel(description,data){
         this.note = {
             label: description,
             bgPadding: 200,
             title: 'Annotations'
         },
-        this.nx = x + 20,
-        this.ny = y - 200,
-        this.x = x;
-        this.y = y;
+        this.data = data
         this.hidden = true;
     }
 
@@ -42,7 +39,7 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
     self.addAnnotation = function(title,data,description){
         $log.log(self.titleGen());
         
-        var newAnnotationLabel = new annotationLabel(description,undefined,undefined);
+        var newAnnotationLabel = new annotationLabel(description,data);
         var newAnnotation = new annotationBadge(title,data,newAnnotationLabel);
     
         annotations.push(newAnnotation)
@@ -91,6 +88,10 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
             annotations[i].subject.label.hidden = false;
         }
     }
+
+    self.annotationEdit = function(text){
+       
+    } 
 
    
    

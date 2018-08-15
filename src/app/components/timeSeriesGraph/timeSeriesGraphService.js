@@ -190,7 +190,7 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
             .style("stroke", function (d) { return z(d.id); })
 
 
-        timeSeriesAnnotationService.addAnnotation(undefined, { Time: 14000, RTH: 0.08616 }, 'hi there from A');
+        timeSeriesAnnotationService.addAnnotation(undefined, { Time: 14000, RTH: 0.08616 }, 'hi there from A sdffadsfdsfdsfsdfdf ');
         timeSeriesAnnotationService.addAnnotation(undefined, { Time: 18005, RTH: 0.0933 }, 'hello there from B');
         annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
 
@@ -198,43 +198,100 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
 
     }
 
-    function annotationBadgeRender(annotations) {
+    function annotationBadgeRender(annotations, t) {
+        var xt = endZoomVector.rescaleX(x);
+        var yt = endZoomVector.rescaleY(y);
+
+        if (t != undefined) {
+            xt = t.rescaleX(x);
+            yt = t.rescaleY(y);
+        }
+
         var lastTime = - 1;
         var makeAnnotations = d3.annotation()
             .notePadding(15)
             .type(d3.annotationBadge)
             .accessors({
-                x: d => x(d.Time),
-                y: function (d) {
-                    var y = -10;
-                    if ((d.Time - lastTime) < 10) {
-                        y = -40
-                    }
-                    lastTime = d.Time;
-                    return y;
-                }
+                x: d => xt(d.Time),
+                y: d => -10
+                
             })
             .annotations(annotations)
             .on('subjectclick', annotationClick)
         annotationGroup.call(makeAnnotations);
     }
 
-    function annotationLabelRender(annotationLabel, x, y) {
-        
+    function annotationLabelRender(annotationLabel, t) {
+        var xt = endZoomVector.rescaleX(x);
+        var yt = endZoomVector.rescaleY(y);
 
-        annotationLabel.nx = x;
-        annotationLabel.ny = y - 50;
-        annotationLabel.x = x;
-        annotationLabel.y = y - 40;
+        if (t != undefined) {
+            xt = t.rescaleX(x);
+            yt = t.rescaleY(y);
+        }
 
         var makeAnnotations = d3.annotation()
             .notePadding(15)
             .type(d3.annotationLabel)
-            .annotations([annotationLabel]);
+            .accessors({
+                x: d => xt(d.Time),
+                y: d => -120
+            })
+            .annotations(annotationLabel);
 
 
         annotationLabelGroup.call(makeAnnotations)
+        $log.log(annotationLabelGroup.select('.annotations').select('g').attr('editMode'));
+        if (annotationLabelGroup.select('.annotations').select('g').attr('editMode') != 'true') {
+            annotationLabelGroup.select('.annotations').select('g')
+                .append('g')
+                .attr('class', 'edit button')
+                .attr('transform', 'translate(' + (50) + ',' + -20 + ')')
+                .append('svg:image')
+                .attr('xlink:href', './assets/img/lock_unlocked.svg')
+                .attr('width', '30')
+                .attr('height', '30')
+                .on('click', annotationEditMode)
+                .call(d3.drag()
+                    .on("drag", annotationDrag));
+                
+        } else {
+            var noteLabel = annotationLabelGroup.select('.annotations')
+                .select('g').select('.annotation-note')
+                .select('.annotation-note-content')
+                .select('.annotation-note-label')
 
+            var text = '';
+
+            noteLabel.selectAll('tspan')
+                .each(function (d) {
+                    text += d.note.label;
+                });
+        }
+
+
+
+
+    }
+
+    function annotationDrag(d){
+       var circle = annotationLabelGroup.select('g').select('circle');
+       circle.attr('cx',d3.event.x);
+       var label = circle.attr('label');
+       var annotationBadge = timeSeriesAnnotationService.getAnnotation(label);
+       var xCor = x.invert(d3.event.x);
+       annotationBadge.data.Time = xCor;
+       annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
+        /*  $log.log(x.invert((d.annotations[0]._x)));
+        $log.log(d);
+        d.annotations[0].data.Time = d3.event.x + d.annotations[0].data.Time;
+        annotationBadgeRender(timeSeriesAnnotationService.getAnnotations()); */
+    }
+
+    function annotationEditMode() {
+        annotationLabelGroup.select('.annotations').select('g')
+            .attr('editMode', 'true')
+        annotationLabelRender(timeSeriesAnnotationService.getAnnotationLabels())
     }
 
     function zoomed() {
@@ -272,18 +329,27 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
                     return line(d.values);
                 });
         }
-        var makeAnnotationLabels = d3.annotation()
+
+
+
+        annotationBadgeRender(timeSeriesAnnotationService.getAnnotations(), t);
+        var makeAnnotationsLabels = d3.annotation()
             .notePadding(15)
-            .type(d3.annotationBadge)
+            .type(d3.annotationLabel)
             .accessors({
                 x: d => xt(d.Time),
-                y: d => -10
+                y: d => -120
             })
-            .annotations(timeSeriesAnnotationService.getAnnotations())
-            .on('subjectclick', annotationClick)
+            .annotations(timeSeriesAnnotationService.getAnnotationLabels());
+
+        annotationLabelGroup.call(makeAnnotationsLabels)
 
 
-        annotationGroup.call(makeAnnotationLabels)
+
+
+
+
+
         endZoomVector = t;
 
 
@@ -298,20 +364,30 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
     }
 
     function annotationClick(annotation) {
-        var isHidden = timeSeriesAnnotationService.getAnnotation(annotation.subject.text).subject.label.hidden;
-        
+         $log.log(annotation);
+       annotationLabelGroup.append('g')
+        .append('circle')
+        .attr('cx',annotation._x)
+        .attr('cy',annotation._y-70)
+        .attr('r',15)
+        .attr('label',annotation.note.title)
+        .style('stroke','black')
+        .call(d3.drag()
+                    .on("drag", annotationDrag));
+         /* var isHidden = timeSeriesAnnotationService.getAnnotation(annotation.subject.text).subject.label.hidden;
+        annotationLabelGroup.select('.annotations').remove();
+
         $log.log(isHidden);
         timeSeriesAnnotationService.annotationLabelHideAll();
 
-        if(isHidden){
+        if (isHidden) {
             $log.log('showing');
-            annotationLabelRender(annotation.subject.label,annotation._x,annotation._y);
+            annotationLabelRender([annotation.subject.label]);
             timeSeriesAnnotationService.annotationLabelShow(annotation.subject.text);
-        }else{
+        } else {
             $log.log('removing');
-            annotationLabelGroup.select('.annotations').remove();
             timeSeriesAnnotationService.annotationLabelHide(annotation.subject.text);
-        }
+        } */
     }
 
     d3.selection.prototype.moveToFront = function () {
