@@ -56,7 +56,7 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
 
 
     svg.call(zoom)
-    .on("dblclick.zoom", null);
+        .on("dblclick.zoom", null);
 
     d3.select('body')
         .on('keydown', function () {
@@ -81,8 +81,8 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
         .attr("height", height);
 
 
-    
-    var annotationLabelGroup = graph.append('g').attr('class','annotationLabel-group');
+
+    var annotationLabelGroup = graph.append('g').attr('class', 'annotationLabel-group');
     var annotationGroup = graph.append('g').attr('class', 'annotation-group');
 
 
@@ -219,27 +219,25 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
         annotationGroup.call(makeAnnotations);
     }
 
-    function renderAnnotationLabel(annotationLabel, x, y) {
-        const type = d3.annotationLabel
+    function annotationLabelRender(annotationLabel, x, y) {
+        
 
         annotationLabel.nx = x;
-        annotationLabel.ny = y - 50 ;
+        annotationLabel.ny = y - 50;
         annotationLabel.x = x;
-        annotationLabel.y = y-40;
+        annotationLabel.y = y - 40;
 
         var makeAnnotations = d3.annotation()
-
             .notePadding(15)
-            .type(type)
-            .annotations([annotationLabel]); 
-        
-            
-            annotationLabelGroup.call(makeAnnotations)
+            .type(d3.annotationLabel)
+            .annotations([annotationLabel]);
+
+
+        annotationLabelGroup.call(makeAnnotations)
 
     }
 
     function zoomed() {
-        $log.log(ctrlDown);
         var t = d3.event.transform;
 
         var isZooming = endZoomVector.k != t.k;
@@ -254,25 +252,25 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
         var yt = t.rescaleY(y);
 
         var line = d3.line()
-        .x(function (d) {
-            return xt(d.Time);
-        })
-        .y(function (d) {
-            return yt(d.RTH);
-        })
+            .x(function (d) {
+                return xt(d.Time);
+            })
+            .y(function (d) {
+                return yt(d.RTH);
+            })
 
         if (isZooming || ctrlDown) {
             graph.select('.axis--x').call(xAxis.scale(xt));
             graph.select('.axis--y').call(yAxis.scale(yt));
             graph.selectAll('.line')
-            .attr('d', function (d) {
-                return line(d.values);
-            });
-        }else{
+                .attr('d', function (d) {
+                    return line(d.values);
+                });
+        } else {
             graph.select('.line')
-            .attr('d', function (d) {
-                return line(d.values);
-            });
+                .attr('d', function (d) {
+                    return line(d.values);
+                });
         }
         var makeAnnotationLabels = d3.annotation()
             .notePadding(15)
@@ -285,7 +283,7 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
             .on('subjectclick', annotationClick)
 
 
-        graph.select('.annotation-group').call(makeAnnotationLabels)
+        annotationGroup.call(makeAnnotationLabels)
         endZoomVector = t;
 
 
@@ -300,26 +298,17 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
     }
 
     function annotationClick(annotation) {
-        
 
-        var annotations = timeSeriesAnnotationService.getAnnotations();
-        
-        for(var i=0,n=annotations.length;i<n;i++){
-            if(annotations[i].title !== annotation.subject.text){
-                annotations[i].subject.label.hidden = true;
-            }
-        }
-        
+        var isHidden = annotation.subject.label.hidden;
+        timeSeriesAnnotationService.annotationLabelHideAll();
 
-        if (annotation.subject.label.hidden) {
-            renderAnnotationLabel(annotation.subject.label, annotation._x, annotation._y);
-            annotation.subject.label.hidden = false;
-        } else {
+        if(isHidden){
+            annotationLabelRender(annotation.subject.label,annotation._x,annotation._y);
+            timeSeriesAnnotationService.annotationLabelShow(annotation.subject.text);
+        }else{
             annotationLabelGroup.select('.annotations').remove();
-            annotation.subject.label.hidden = true;
+            timeSeriesAnnotationService.annotationLabelHide(annotation.subject.text);
         }
-
-        $log.log(timeSeriesAnnotationService.getAnnotationLabels());
     }
 
     d3.selection.prototype.moveToFront = function () {

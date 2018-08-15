@@ -53,14 +53,32 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
     }
 
     self.getAnnotationLabels = function(){
-        return ($filter('graphAnnotationLabelFilter')(annotations));
+        return ($filter('annotationLabelFilter')(annotations));
     }
 
-    self.annotationClick = function(title){
+    self.annotationLabelHide = function(title){
         for(var i=0,n=annotations.length;i<n;i++){
-            if(annotations.annotationBadge.title === title){
-                annotations.annotationLabel.hidden = true;
+            if(annotations[i].title === title){
+                annotations[i].subject.label.hidden = true;
             }
+        }
+    }
+
+    self.annotationLabelHideAll = function(){
+        for(var i=0,n=annotations.length;i<n;i++){
+            annotations[i].subject.label.hidden = true;
+        }
+    }
+
+    self.annotationLabelShow = function(title){
+        for(var i=0,n=annotations.length;i<n;i++){
+            annotations[i].subject.label.hidden = false;
+        }
+    }
+
+    self.annotationLabelShowAll = function(){
+        for(var i=0,n=annotations.length;i<n;i++){
+            annotations[i].subject.label.hidden = false;
         }
     }
 
