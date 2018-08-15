@@ -298,14 +298,17 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
     }
 
     function annotationClick(annotation) {
-
-        var isHidden = annotation.subject.label.hidden;
+        var isHidden = timeSeriesAnnotationService.getAnnotation(annotation.subject.text).subject.label.hidden;
+        
+        $log.log(isHidden);
         timeSeriesAnnotationService.annotationLabelHideAll();
 
         if(isHidden){
+            $log.log('showing');
             annotationLabelRender(annotation.subject.label,annotation._x,annotation._y);
             timeSeriesAnnotationService.annotationLabelShow(annotation.subject.text);
         }else{
+            $log.log('removing');
             annotationLabelGroup.select('.annotations').remove();
             timeSeriesAnnotationService.annotationLabelHide(annotation.subject.text);
         }
