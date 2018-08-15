@@ -12,7 +12,6 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
         };
         this.subject = {
             text: title,
-            x: 'left',
             y: 'top',
             label: label
         };
@@ -50,11 +49,10 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
     }
 
     self.getAnnotations = function(){
-        $log.log(annotations);
         return annotations;
     }
 
-    self.getAnnotationsLabel = function(){
+    self.getAnnotationLabels = function(){
         return ($filter('graphAnnotationLabelFilter')(annotations));
     }
 
