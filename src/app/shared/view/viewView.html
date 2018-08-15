@@ -7,11 +7,26 @@
         clip-path: url(#clip);
     }
 
-   /*  .annotation-group {
+    /*  .annotation-group {
         clip-path: url(#clip);
     } */
-    
 </style>
 
 <svg width="960" height="550"></svg>
 
+<md-card class='annotation-preview'>
+    <span class="md-headline">{{annotationTitle}}
+        <md-icon ng-if='!annotationEditMode' md-svg-src="../../assets/img/homeIcon.svg" aria-label="Run Icon"
+            ng-click='annotationEdit()'></md-icon>
+    </span>
+
+    <md-card-title-media>
+        <div ng-if='!annotationEditMode' class="md-media-lg card-media">
+            <p>{{annotationDescription}}</p>
+        </div>
+        <input ng-if='annotationEditMode' ng-model='annotationDescription' type='text'> </input>
+    </md-card-title-media>
+    <md-card-actions ng-if='annotationEditMode' layout="row" layout-align="end center">
+        <md-button>Confirm</md-button>
+    </md-card-actions>
+</md-card>
