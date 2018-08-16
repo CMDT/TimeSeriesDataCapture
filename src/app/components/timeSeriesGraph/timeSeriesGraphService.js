@@ -198,6 +198,7 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
     }
 
     function annotationBadgeRender(annotations, t) {
+        $log.log(annotations);
         var xt = endZoomVector.rescaleX(x);
         var yt = endZoomVector.rescaleY(y);
 
@@ -230,33 +231,37 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
             yt = t.rescaleY(y);
         }
 
-        annotationLabelGroup.selectAll('g')
-            .each(function (d) {
-                var circle = d3.select(this).select('circle');
-                var label = circle.attr('label');
-                var annotationBadge = timeSeriesAnnotationService.getAnnotation(label);
-                var cx = xt(annotationBadge.data.Time);
-                circle.attr('cx', cx);
-            })
 
-
+        if (annotationInEdit != undefined) {
+            var label = annotationLabelGroup.select('g').attr('label')
+            annotationLabelGroup.selectAll('g')
+                .each(function (d) {
+                    var image = d3.select(this).select('image');
+                    var imageWidth = image.attr('width');
+                    var annotationBadge = timeSeriesAnnotationService.getAnnotation(label);
+                    var x = xt(annotationBadge.data.Time);
+                    image.attr('x', (x - (imageWidth / 2)));
+                })
+        }
 
     }
 
     function annotationDrag(d) {
-        var circle;
+
         annotationLabelGroup.selectAll('g')
             .each(function (d) {
-                circle = d3.select(this).select('circle');
-                circle.attr('cx', d3.event.x);
+                var image = d3.select(this).select('image');
+                var imageWidth = image.attr('width');
+                image.attr('x', (d3.event.x - (imageWidth / 2)));
             })
 
 
-        var label = circle.attr('label');
+        var label = annotationLabelGroup.select('g').attr('label');
         var annotationBadge = timeSeriesAnnotationService.getAnnotation(label);
 
         var xt = endZoomVector.rescaleX(x);
         var Time = xt.invert(d3.event.x);
+        $log.log(Time);
         annotationBadge.data.Time = Time;
         annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
 
@@ -293,7 +298,7 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
                 .attr('d', function (d) {
                     return line(d.values);
                 });
-        } else {
+        } else if(annotationInEdit ){
             graph.select('.line')
                 .attr('d', function (d) {
                     return line(d.values);
@@ -321,34 +326,50 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
         return annotationInEdit;
     }
 
+    function dragended(d) {
+        d3.select(this).classed("active", false);
+      }
+
     function annotationClickEdit(annotation) {
+
+        var width = 30;
+        var height = 30;
+        var xt = endZoomVector.rescaleX(x);
+        var xCor = (xt(annotation.data.Time));
         annotationLabelGroup.selectAll('g').remove();
         annotationLabelGroup.append('g')
             .attr('class', 'move')
-            .append('circle')
-            .attr('cx', annotation._x)
-            .attr('cy', annotation._y - 70)
-            .attr('r', 15)
             .attr('label', annotation.note.title)
-            .style('stroke', 'black')
+            .append('svg:image')
+            .attr('x', (xCor - (width / 2)))
+            .attr('y', annotation._y - 70)
+            .attr('xlink:href', './assets/img/arrow_down.svg')
+            .attr('width', width)
+            .attr('height', height)
             .call(d3.drag()
-                .on("drag", annotationDrag));
+                .on('drag', annotationDrag)
+                .on('end',dragended))
+
+
         annotationLabelGroup.append('g')
             .attr('class', 'confirm')
-            .append('circle')
-            .attr('cx', annotation._x)
-            .attr('cy', annotation._y - 110)
-            .attr('r', 15)
-            .attr('label', annotation.note.title)
-            .style('stroke', 'red')
+            .append('svg:image')
+            .attr('x', (xCor - (width / 2)))
+            .attr('y', annotation._y - 110)
+            .attr('xlink:href', './assets/img/stop.svg')
+            .attr('width', width)
+            .attr('height', height)
             .on('click', annotationPosEditConfirm)
     }
 
     function annotationPosEditConfirm(d) {
-        var circle = annotationLabelGroup.select('g').select('circle');
-        var cx = circle.attr('cx');
+        var image = annotationLabelGroup.select('g').select('image');
+        var cx = parseFloat(image.attr('x'));
+        cx += (parseFloat(image.attr('width')))/2;
+        $log.log(cx);
         var xt = endZoomVector.rescaleX(x);
         var Time = xt.invert(cx);
+        $log.log(Time);
         annotationInEdit.data.Time = Time
         annotationLabelGroup.selectAll('g').remove();
         showAnnotation();
@@ -362,9 +383,12 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
 
         }).catch(function (annotation) {
             if (annotation != undefined) {
+                $log.log(annotation);
                 annotationClickEdit(annotation)
+            }else{
+                annotationInEdit = undefined;
             }
-
+            
             annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
         })
     }

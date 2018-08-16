@@ -10,6 +10,7 @@ app.controller('annotationPreviewController', ['$scope', '$log','$mdDialog','tim
     $scope.annotationDescription = annotation.data.description;
     $scope.editMode = false;
 
+    $log.log(annotation.data);
     if(savedAnnotation != undefined){
         if(savedAnnotation.data.Time != annotation.data.Time){
             timeSeriesAnnotationService.updateAnnotation(annotation.note.title,annotation.data);
