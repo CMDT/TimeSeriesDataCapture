@@ -1,4 +1,4 @@
-app.service('timeSeriesGraphService', ['$log','$mdDialog', 'runRequestService', 'timeSeriesAnnotationService', function ($log,$mdDialog, runRequestService, timeSeriesAnnotationService) {
+app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService', 'timeSeriesAnnotationService', function ($log, $mdDialog, runRequestService, timeSeriesAnnotationService) {
 
 
     var self = this;
@@ -195,9 +195,6 @@ app.service('timeSeriesGraphService', ['$log','$mdDialog', 'runRequestService', 
         timeSeriesAnnotationService.addAnnotation(undefined, { Time: 14000, RTH: 0.08616 }, 'hi there from A sdffadsfdsfdsfsdfdf ');
         timeSeriesAnnotationService.addAnnotation(undefined, { Time: 18005, RTH: 0.0933 }, 'hello there from B');
         annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
-
-
-
     }
 
     function annotationBadgeRender(annotations, t) {
@@ -216,15 +213,15 @@ app.service('timeSeriesGraphService', ['$log','$mdDialog', 'runRequestService', 
             .accessors({
                 x: d => xt(d.Time),
                 y: d => -10
-                
+
             })
             .annotations(annotations)
             .on('subjectclick', annotationClick)
         annotationGroup.call(makeAnnotations);
     }
 
-  
-    function annotationLabelRender(t){
+
+    function annotationLabelRender(t) {
         var xt = endZoomVector.rescaleX(x);
         var yt = endZoomVector.rescaleY(y);
 
@@ -233,32 +230,43 @@ app.service('timeSeriesGraphService', ['$log','$mdDialog', 'runRequestService', 
             yt = t.rescaleY(y);
         }
 
-        var circle = annotationLabelGroup.select('g').select('circle');
+        annotationLabelGroup.selectAll('g')
+            .each(function (d) {
+                var circle = d3.select(this).select('circle');
+                var label = circle.attr('label');
+                var annotationBadge = timeSeriesAnnotationService.getAnnotation(label);
+                var cx = xt(annotationBadge.data.Time);
+                circle.attr('cx', cx);
+            })
+
+
+
+    }
+
+    function annotationDrag(d) {
+        var circle;
+        annotationLabelGroup.selectAll('g')
+            .each(function (d) {
+                circle = d3.select(this).select('circle');
+                circle.attr('cx', d3.event.x);
+            })
+
+
         var label = circle.attr('label');
         var annotationBadge = timeSeriesAnnotationService.getAnnotation(label);
-        var cx = xt(annotationBadge.data.Time);
-        circle.attr('cx',cx);
+
+        var xt = endZoomVector.rescaleX(x);
+        var Time = xt.invert(d3.event.x);
+        annotationBadge.data.Time = Time;
+        annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
 
     }
 
-    function annotationDrag(d){
-       var circle = annotationLabelGroup.select('g').select('circle');
-       circle.attr('cx',d3.event.x);
-       var label = circle.attr('label');
-       var annotationBadge = timeSeriesAnnotationService.getAnnotation(label);
-       
-       var xt = endZoomVector.rescaleX(x);
-       var Time = xt.invert(d3.event.x);
-       annotationBadge.data.Time = Time;
-       annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
-     
-    }
 
-  
 
     function zoomed() {
         var t = d3.event.transform;
-       
+
         var isZooming = endZoomVector.k != t.k;
 
         var xIsLocked = (xLock.attr('locked') == 1);
@@ -292,7 +300,7 @@ app.service('timeSeriesGraphService', ['$log','$mdDialog', 'runRequestService', 
                 });
         }
         annotationBadgeRender(timeSeriesAnnotationService.getAnnotations(), t);
-        //annotationLabelRender(t);
+        annotationLabelRender(t);
         endZoomVector = t;
     }
 
@@ -304,36 +312,59 @@ app.service('timeSeriesGraphService', ['$log','$mdDialog', 'runRequestService', 
         lock.attr('locked', locked);
     }
 
-    function annotationClick(annotation){
+    function annotationClick(annotation) {
         annotationInEdit = annotation;
         showAnnotation(annotation);
     }
 
-    self.getAnnotationInEdit = function(){
+    self.getAnnotationInEdit = function () {
         return annotationInEdit;
     }
 
     function annotationClickEdit(annotation) {
         annotationLabelGroup.selectAll('g').remove();
-       annotationLabelGroup.append('g')
-        .append('circle')
-        .attr('cx',annotation._x)
-        .attr('cy',annotation._y-70)
-        .attr('r',15)
-        .attr('label',annotation.note.title)
-        .style('stroke','black')
-        .call(d3.drag()
-                    .on("drag", annotationDrag));
+        annotationLabelGroup.append('g')
+            .attr('class', 'move')
+            .append('circle')
+            .attr('cx', annotation._x)
+            .attr('cy', annotation._y - 70)
+            .attr('r', 15)
+            .attr('label', annotation.note.title)
+            .style('stroke', 'black')
+            .call(d3.drag()
+                .on("drag", annotationDrag));
+        annotationLabelGroup.append('g')
+            .attr('class', 'confirm')
+            .append('circle')
+            .attr('cx', annotation._x)
+            .attr('cy', annotation._y - 110)
+            .attr('r', 15)
+            .attr('label', annotation.note.title)
+            .style('stroke', 'red')
+            .on('click', annotationPosEditConfirm)
     }
 
-    function showAnnotation(annotation) {
+    function annotationPosEditConfirm(d) {
+        var circle = annotationLabelGroup.select('g').select('circle');
+        var cx = circle.attr('cx');
+        var xt = endZoomVector.rescaleX(x);
+        var Time = xt.invert(cx);
+        annotationInEdit.data.Time = Time
+        annotationLabelGroup.selectAll('g').remove();
+        showAnnotation();
+    }
+
+    function showAnnotation() {
         $mdDialog.show({
             templateUrl: 'app/components/timeSeriesGraph/annotationPreview.html',
             parent: angular.element(document.body),
             clickOutsideToClose: true,
 
-        }).catch(function(){
-            $log.log('close');
+        }).catch(function (annotation) {
+            if (annotation != undefined) {
+                annotationClickEdit(annotation)
+            }
+
             annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
         })
     }

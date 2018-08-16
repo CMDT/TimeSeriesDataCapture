@@ -24,6 +24,14 @@ app.service('timeSeriesAnnotationService', ['$log', '$filter', function ($log, $
         annotations.push(newAnnotation)
     }
 
+    self.removeAnnotation = function(title){
+        for(var i=0,n=annotations.length;i<n;i++){
+            if(annotations[i].title === title){
+                annotations = annotations.splice(i,1);
+            }
+        }
+    }
+
     self.getAnnotations = function () {
         return annotations;
     }
@@ -40,6 +48,7 @@ app.service('timeSeriesAnnotationService', ['$log', '$filter', function ($log, $
         for(var i=0,n=annotations.length;i<n;i++){
             if(annotations[i].title === title){
                 annotations[i].data = updateData;
+                return annotations[i];
             }
         }
     }
