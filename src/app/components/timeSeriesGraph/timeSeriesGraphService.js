@@ -1,6 +1,8 @@
 app.service('timeSeriesGraphService', ['$log','$mdDialog', 'runRequestService', 'timeSeriesAnnotationService', function ($log,$mdDialog, runRequestService, timeSeriesAnnotationService) {
 
 
+    var self = this;
+    var annotationInEdit;
     // set the dimensions and margins of the graph
     var margin = {
         top: 150,
@@ -303,7 +305,12 @@ app.service('timeSeriesGraphService', ['$log','$mdDialog', 'runRequestService', 
     }
 
     function annotationClick(annotation){
-        showAnnotation();
+        annotationInEdit = annotation;
+        showAnnotation(annotation);
+    }
+
+    self.getAnnotationInEdit = function(){
+        return annotationInEdit;
     }
 
     function annotationClickEdit(annotation) {
@@ -319,13 +326,15 @@ app.service('timeSeriesGraphService', ['$log','$mdDialog', 'runRequestService', 
                     .on("drag", annotationDrag));
     }
 
-    function showAnnotation(ev) {
+    function showAnnotation(annotation) {
         $mdDialog.show({
-            templateUrl: 'app/shared/import/importPanel.html',
+            templateUrl: 'app/components/timeSeriesGraph/annotationPreview.html',
             parent: angular.element(document.body),
-            targetEvent: ev,
-            clickOutsideToClose: false,
+            clickOutsideToClose: true,
 
+        }).catch(function(){
+            $log.log('close');
+            annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
         })
     }
 

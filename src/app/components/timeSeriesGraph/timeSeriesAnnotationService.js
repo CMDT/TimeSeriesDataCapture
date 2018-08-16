@@ -36,6 +36,14 @@ app.service('timeSeriesAnnotationService', ['$log', '$filter', function ($log, $
         }
     }
 
+    self.updateAnnotation = function(title,updateData){
+        for(var i=0,n=annotations.length;i<n;i++){
+            if(annotations[i].title === title){
+                annotations[i].data = updateData;
+            }
+        }
+    }
+
     self.titleGen = function () {
         asciiA = 65;
         asciiValue = asciiA + annotations.length;

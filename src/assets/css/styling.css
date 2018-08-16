@@ -55,27 +55,24 @@ md-dialog {
     flex-direction: row;
 }
 
-.annotation-preview{
-    padding: 2%;
-    min-width:25%;
+.annotation-preview {
+    min-width: 50%;
     width: fit-content;
-    margin-left: 10%;
 }
 
-.annotation-preview md-icon{
-    float : right;
+.annotation-description {
+    padding: 2%;
 }
 
-.annotation-preview span {
-    padding-bottom: 3%;
+.annotation-edit-box{
+    width: 100%;
+    max-width: 100%;
+    height: 90px;
+    max-height: 150px;
 }
 
-.annotation-preview input {
-    padding: 3%;
-    width: 90%;
-    height: 40px;
+.md-button.md-small{
+    min-width:1%
 }
-
-
 
 
