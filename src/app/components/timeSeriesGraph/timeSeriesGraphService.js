@@ -127,7 +127,13 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
             for (var i = 0, n = result.length; i < n; i++) {
                 var resultArray = dataObjectToArray(result[i].data.runData);
                 results.push({ id: i, values: resultArray });
+                var annotationObject = result[i].data.annotations;
+                var annotationIds = Object.keys(annotationObject);
+                for(var i=0,n=annotationIds.length;i<n;i++){
+                    timeSeriesAnnotationService.addAnnotation(undefined, { Time: annotationObject[annotationIds[i]].xcoordinate, RTH: 0.08616, id:annotationIds[i] }, annotationObject[annotationIds[i]].description);
+                }
             }
+            $log.log(result);
             drawGraph(results);
         })
     }
@@ -191,9 +197,8 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
             .attr("d", function (d) { return line(d.values); })
             .style("stroke", function (d) { return z(d.id); })
 
-
-        timeSeriesAnnotationService.addAnnotation(undefined, { Time: 14000, RTH: 0.08616 }, 'hi there from A sdffadsfdsfdsfsdfdf ');
-        timeSeriesAnnotationService.addAnnotation(undefined, { Time: 18005, RTH: 0.0933 }, 'hello there from B');
+        
+       
         annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
     }
 

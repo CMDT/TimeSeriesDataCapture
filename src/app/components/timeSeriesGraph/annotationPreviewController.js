@@ -10,10 +10,12 @@ app.controller('annotationPreviewController', ['$scope', '$log','$mdDialog','tim
     $scope.annotationDescription = annotation.data.description;
     $scope.editMode = false;
 
-    $log.log(annotation.data);
+    $log.log(savedAnnotation);
     if(savedAnnotation != undefined){
+        $log.log('hit');
         if(savedAnnotation.data.Time != annotation.data.Time){
-            timeSeriesAnnotationService.updateAnnotation(annotation.note.title,annotation.data);
+            var updatedannotation = timeSeriesAnnotationService.updateAnnotation(annotation.note.title,annotation.data);
+            $log.log(updatedannotation);
         }
     }
 
@@ -29,7 +31,7 @@ app.controller('annotationPreviewController', ['$scope', '$log','$mdDialog','tim
             RTH : annotation.data.RTH,
             description : $scope.annotationDescription
         }
-        timeSeriesAnnotationService.updateAnnotation(annotation.note.title,newData);
+        var updatedannotation = timeSeriesAnnotationService.updateAnnotation(annotation.note.title,newData);
         annotation.data = newData;
         $scope.editMode = false;
     }
@@ -40,6 +42,7 @@ app.controller('annotationPreviewController', ['$scope', '$log','$mdDialog','tim
     }
 
     $scope.annotationPosEdit = function(){
+        $log.log(annotation);
         savedAnnotation = annotation;
         $mdDialog.cancel(annotation);
     }
