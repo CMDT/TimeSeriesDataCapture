@@ -3,7 +3,7 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
     var self = this;
     var annotations = [];
     
-   function annotationBadge(title = self.titleGen(), data = {},label) {
+   function annotationBadge(title = self.titleGen(), data = {},description) {
         this.title = title;
         this.data = data;
         this.note = {
@@ -13,21 +13,12 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
         this.subject = {
             text: title,
             y: 'top',
-            label: label
         };
+        this.description = description;
         
     }
 
-    function annotationLabel(description,data){
-        this.note = {
-            label: description,
-            bgPadding: 200,
-            title: 'Annotations'
-        },
-        this.data = data
-        this.hidden = true;
-    }
-
+   
     self.setX = function(xR){
         x = xR;
     }
@@ -37,10 +28,7 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
     }
 
     self.addAnnotation = function(title,data,description){
-        $log.log(self.titleGen());
-        
-        var newAnnotationLabel = new annotationLabel(description,data);
-        var newAnnotation = new annotationBadge(title,data,newAnnotationLabel);
+        var newAnnotation = new annotationBadge(title,data,description);
     
         annotations.push(newAnnotation)
     }
@@ -57,47 +45,8 @@ app.service('timeSeriesAnnotationService', ['$log','$filter', function ($log,$fi
         }
     }
 
-    self.getAnnotationLabels = function(){
-        return ($filter('annotationLabelFilter')(annotations));
-    }
 
-    self.annotationLabelHide = function(title){
-        for(var i=0,n=annotations.length;i<n;i++){
-            if(annotations[i].title === title){
-                annotations[i].subject.label.hidden = true;
-            }
-        }
-    }
-
-    self.annotationLabelHideAll = function(){
-        for(var i=0,n=annotations.length;i<n;i++){
-            annotations[i].subject.label.hidden = true;
-        }
-    }
-
-    self.annotationLabelShow = function(title){
-        for(var i=0,n=annotations.length;i<n;i++){
-            if(annotations[i].title === title){
-                annotations[i].subject.label.hidden = false;
-            }
-        }
-    }
-
-    self.annotationLabelShowAll = function(){
-        for(var i=0,n=annotations.length;i<n;i++){
-            annotations[i].subject.label.hidden = false;
-        }
-    }
-
-    self.annotationEdit = function(text){
-       
-    } 
-
-   
-   
-
-    
-
+      
     self.titleGen = function(){
         asciiA = 65;
         asciiValue = asciiA + annotations.length;

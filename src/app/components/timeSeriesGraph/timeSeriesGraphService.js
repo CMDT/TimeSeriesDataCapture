@@ -1,23 +1,23 @@
-app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAnnotationService', function ($log,runRequestService,timeSeriesAnnotationService) {
+app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesAnnotationService', function ($log, runRequestService, timeSeriesAnnotationService) {
 
 
     // set the dimensions and margins of the graph
     var margin = {
-        top: 50,
+        top: 150,
         right: 50,
         bottom: 50,
-        left: 50
+        left: 100
     }
     var width = 960 - margin.left - margin.right;
-    var height = 500 - margin.top - margin.bottom;
+    var height = 550 - margin.top - margin.bottom;
 
 
-    var trendLineColors = []
+    var trendLineColors = ['#8cc2d0', '#152e34']
 
     // set the ranges
     var x = d3.scaleLinear().range([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
-    var z = d3.scaleOrdinal(['#8cc2d0', '#152e34']);
+    var z = d3.scaleOrdinal(trendLineColors);
 
 
     var xAxis = d3.axisBottom(x);
@@ -25,7 +25,7 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
 
     var endZoomVector = d3.zoomIdentity.scale(1).translate(0, 0);
 
-    var parseTime = d3.timeParse("%s");
+    var ctrlDown = false;
 
     var line = d3.line()
         .x(function (d) { return x(d.Time); })
@@ -34,10 +34,7 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
 
     var zoom = d3.zoom()
         .on('zoom', zoomed)
-        .on('end', function () {
-            var t = d3.event.transform;
-            endZoomVector = t;
-        })
+
 
 
     var svg = d3.select('svg');
@@ -58,7 +55,24 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
 
 
 
-    //svg.call(zoom);
+    svg.call(zoom)
+        .on("dblclick.zoom", null);
+
+    d3.select('body')
+        .on('keydown', function () {
+            $log.log(d3.event.keyCode);
+            if (d3.event.keyCode === 16) {
+                $log.log('keyPress');
+                ctrlDown = true;
+            }
+        })
+    d3.select('body')
+        .on('keyup', function () {
+            if (d3.event.keyCode === 16) {
+                $log.log('keyUp');
+                ctrlDown = false;
+            }
+        })
 
     svg.append("defs").append("clipPath")
         .attr("id", "clip")
@@ -67,12 +81,14 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
         .attr("height", height);
 
 
+
+    var annotationLabelGroup = graph.append('g').attr('class', 'annotationLabel-group');
     var annotationGroup = graph.append('g').attr('class', 'annotation-group');
 
 
     //yLock
     var yLock = svg.append('g')
-        .attr('transform', 'translate(' + (35) + ',' + (0) + ')')
+        .attr('transform', 'translate(' + (margin.left * 0.85) + ',' + (margin.top * 0.6) + ')')
         .attr('class', 'y-lock')
         .attr('locked', 0)
 
@@ -88,7 +104,7 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
 
     //xLock
     var xLock = svg.append('g')
-        .attr('transform', 'translate(' + (width + 60) + ',' + (height + 35) + ')')
+        .attr('transform', 'translate(' + (width + margin.left * 1.2) + ',' + (height + margin.top * 0.8) + ')')
         .attr('class', 'x-lock')
         .attr('locked', 0)
 
@@ -132,7 +148,6 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
 
 
     function drawGraph(runsData) {
-        
         var xDomain = [
             d3.min(runsData, function (c) { return d3.min(c.values, function (d) { return d.Time }) }),
             d3.max(runsData, function (c) { return d3.max(c.values, function (d) { return d.Time }) })
@@ -174,31 +189,74 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
             .attr("d", function (d) { return line(d.values); })
             .style("stroke", function (d) { return z(d.id); })
 
- 
-        timeSeriesAnnotationService.addAnnotation(undefined,{Time: 14000,RTH: 0.08616},'hi there from A');
-        timeSeriesAnnotationService.addAnnotation(undefined,{Time: 18000,RTH: 0.0933},'hello there from B');
+
+        timeSeriesAnnotationService.addAnnotation(undefined, { Time: 14000, RTH: 0.08616 }, 'hi there from A sdffadsfdsfdsfsdfdf ');
+        timeSeriesAnnotationService.addAnnotation(undefined, { Time: 18005, RTH: 0.0933 }, 'hello there from B');
         annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
-        
-        
+
+
 
     }
 
-    function annotationBadgeRender(annotations){
+    function annotationBadgeRender(annotations, t) {
+        var xt = endZoomVector.rescaleX(x);
+        var yt = endZoomVector.rescaleY(y);
+
+        if (t != undefined) {
+            xt = t.rescaleX(x);
+            yt = t.rescaleY(y);
+        }
+
+        var lastTime = - 1;
         var makeAnnotations = d3.annotation()
-        .notePadding(15)
-        .type(d3.annotationBadge)
-        .accessors({
-            x: d => x(d.Time),
-            y: d => y(d.RTH)
-        })
-        .annotations(annotations)
-        .on('subjectclick', annotationClick)
+            .notePadding(15)
+            .type(d3.annotationBadge)
+            .accessors({
+                x: d => xt(d.Time),
+                y: d => -10
+                
+            })
+            .annotations(annotations)
+            .on('subjectclick', annotationClick)
         annotationGroup.call(makeAnnotations);
     }
 
+  
+    function annotationLabelRender(t){
+        var xt = endZoomVector.rescaleX(x);
+        var yt = endZoomVector.rescaleY(y);
+
+        if (t != undefined) {
+            xt = t.rescaleX(x);
+            yt = t.rescaleY(y);
+        }
+
+        var circle = annotationLabelGroup.select('g').select('circle');
+        var label = circle.attr('label');
+        var annotationBadge = timeSeriesAnnotationService.getAnnotation(label);
+        var cx = xt(annotationBadge.data.Time);
+        circle.attr('cx',cx);
+
+    }
+
+    function annotationDrag(d){
+       var circle = annotationLabelGroup.select('g').select('circle');
+       circle.attr('cx',d3.event.x);
+       var label = circle.attr('label');
+       var annotationBadge = timeSeriesAnnotationService.getAnnotation(label);
+       
+       var xt = endZoomVector.rescaleX(x);
+       var Time = xt.invert(d3.event.x);
+       annotationBadge.data.Time = Time;
+       annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
+     
+    }
+
+  
+
     function zoomed() {
         var t = d3.event.transform;
-
+       
         var isZooming = endZoomVector.k != t.k;
 
         var xIsLocked = (xLock.attr('locked') == 1);
@@ -210,12 +268,6 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
         var xt = t.rescaleX(x);
         var yt = t.rescaleY(y);
 
-        if (isZooming) {
-            graph.select('.axis--x').call(xAxis.scale(xt));
-            graph.select('.axis--y').call(yAxis.scale(yt));
-        }
-
-
         var line = d3.line()
             .x(function (d) {
                 return xt(d.Time);
@@ -224,24 +276,29 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
                 return yt(d.RTH);
             })
 
-        graph.selectAll('.line')
-            .attr('d', function (d) {
-                return line(d.values);
-            });
+        if (isZooming || ctrlDown) {
+            graph.select('.axis--x').call(xAxis.scale(xt));
+            graph.select('.axis--y').call(yAxis.scale(yt));
+            graph.selectAll('.line')
+                .attr('d', function (d) {
+                    return line(d.values);
+                });
+        } else {
+            graph.select('.line')
+                .attr('d', function (d) {
+                    return line(d.values);
+                });
+        }
 
 
-        var makeAnnotations = d3.annotation()
-            .notePadding(15)
-            .type(d3.annotationBadge)
-            .accessors({
-                x: d => xt(d.Time),
-                y: d => yt(d.RTH)
-            })
-            .annotations(timeSeriesAnnotationService.getAnnotations())
-            .on('click', annotationClick)
+
+        annotationBadgeRender(timeSeriesAnnotationService.getAnnotations(), t);
+        annotationLabelRender(t);
 
 
-        graph.select('.annotation-group').call(makeAnnotations)
+
+
+        endZoomVector = t;
 
 
     }
@@ -255,35 +312,17 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
     }
 
     function annotationClick(annotation) {
-        timeSeriesAnnotationService.getAnnotations()
-        if(annotation.subject.label.hidden){
-            renderAnnotationLabel(annotation.subject.label,annotation._x,annotation._y);
-            annotation.subject.label.hidden = false;
-        }else{
-           //remove label
-           annotation.subject.label.hidden = true;
-        }
-        
-    }
-
-    function renderAnnotationLabel(annotationLabel,x,y) {
-       
-        const type = d3.annotationLabel
-        
-
-        annotationLabel.nx = x + 20;
-        annotationLabel.ny = y - 200;
-        annotationLabel.x = x;
-        annotationLabel.y = y;
-        
-        var makeAnnotations = d3.annotation()
-            
-            .notePadding(15)
-            .type(type)
-            .annotations([annotationLabel]);
-
-            graph.append('g').attr('class','.annotationText-group').call(makeAnnotations)
-
+        annotationLabelGroup.selectAll('g').remove();
+       annotationLabelGroup.append('g')
+        .append('circle')
+        .attr('cx',annotation._x)
+        .attr('cy',annotation._y-70)
+        .attr('r',15)
+        .attr('label',annotation.note.title)
+        .style('stroke','black')
+        .call(d3.drag()
+                    .on("drag", annotationDrag));
+      
     }
 
     d3.selection.prototype.moveToFront = function () {
@@ -291,6 +330,4 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService','timeSeriesAn
             this.parentNode.appendChild(this);
         });
     };
-
-
 }])

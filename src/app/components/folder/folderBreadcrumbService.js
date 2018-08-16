@@ -1,4 +1,4 @@
-app.service('BreadcrumbService', ['$log', function ($log) {
+app.service('folderBreadcrumbService', ['$log', function ($log) {
 
     var self = this;
 
