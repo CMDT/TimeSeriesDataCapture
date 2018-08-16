@@ -1,4 +1,4 @@
-app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesAnnotationService', function ($log, runRequestService, timeSeriesAnnotationService) {
+app.service('timeSeriesGraphService', ['$log','$mdDialog', 'runRequestService', 'timeSeriesAnnotationService', function ($log,$mdDialog, runRequestService, timeSeriesAnnotationService) {
 
 
     // set the dimensions and margins of the graph
@@ -289,18 +289,9 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
                     return line(d.values);
                 });
         }
-
-
-
         annotationBadgeRender(timeSeriesAnnotationService.getAnnotations(), t);
-        annotationLabelRender(t);
-
-
-
-
+        //annotationLabelRender(t);
         endZoomVector = t;
-
-
     }
 
     function lockToggle(lock) {
@@ -311,7 +302,11 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
         lock.attr('locked', locked);
     }
 
-    function annotationClick(annotation) {
+    function annotationClick(annotation){
+        showAnnotation();
+    }
+
+    function annotationClickEdit(annotation) {
         annotationLabelGroup.selectAll('g').remove();
        annotationLabelGroup.append('g')
         .append('circle')
@@ -322,7 +317,16 @@ app.service('timeSeriesGraphService', ['$log', 'runRequestService', 'timeSeriesA
         .style('stroke','black')
         .call(d3.drag()
                     .on("drag", annotationDrag));
-      
+    }
+
+    function showAnnotation(ev) {
+        $mdDialog.show({
+            templateUrl: 'app/shared/import/importPanel.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: false,
+
+        })
     }
 
     d3.selection.prototype.moveToFront = function () {

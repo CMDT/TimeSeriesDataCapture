@@ -9,7 +9,6 @@ app.controller('importController', ['$scope', '$log', '$mdDialog', 'getFolderSer
             clickOutsideToClose: false,
 
         })
-
     }
 
     $scope.test = function () {
