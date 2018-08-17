@@ -128,12 +128,15 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
 
             for (var i = 0, n = result.length; i < n; i++) {
                 var resultArray = dataObjectToArray(result[i].data.runData);
-                results.push({ id: i, values: resultArray });
+                results.push({ id: result[i].data.id, values: resultArray });
 
                 var annotationGroupId = timeSeriesAnnotationService.addAnnotationGroup(result[i].data.id);
-                extractAnnotations(annotationGroupId,result[i].data.annotations);
+                extractAnnotations(annotationGroupId, result[i].data.annotations);
 
             }
+
+            timeSeriesAnnotationService.addAnnotationGroup('2B497C4DAFF48A9C!178');
+            timeSeriesAnnotationService.addAnnotation('2B497C4DAFF48A9C!178', '16884', { Time: 4000, RTH: 0, description: 'Hi there' }, undefined);
 
             drawGraph(results);
         })
@@ -145,10 +148,10 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
         for (var j = 0, m = annotationIds.length; j < m; j++) {
             var data = {
                 Time: annotationObject[annotationIds[j]].xcoordinate,
-                description: annotationObject[annotationIds[j]].description, 
+                description: annotationObject[annotationIds[j]].description,
                 RTH: 0
             }
-            timeSeriesAnnotationService.addAnnotation(annotationGroupId,annotationIds[j],data,undefined);  
+            timeSeriesAnnotationService.addAnnotation(annotationGroupId, annotationIds[j], data, undefined);
         }
     }
 
@@ -201,9 +204,12 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
             .data(runsData)
             .enter().append("g")
             .attr("class", function (d) {
-                return 'run' + d.id;
+                var id = (d.id.split('!'))
+                return 'run' + id[0] + id[1];
             })
             .on('click', function (d) {
+                activeRunId = d.id;
+                annotationBadgeRender(timeSeriesAnnotationService.getAnnotations(activeRunId))
                 d3.select(this).moveToFront();
             });
 
@@ -215,7 +221,6 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
     }
 
     function annotationBadgeRender(annotations, t) {
-        $log.log(annotations);
         var xt = endZoomVector.rescaleX(x);
         var yt = endZoomVector.rescaleY(y);
 
@@ -255,7 +260,7 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
                 .each(function (d) {
                     var image = d3.select(this).select('image');
                     var imageWidth = image.attr('width');
-                    var annotationBadge = timeSeriesAnnotationService.getAnnotation(activeRunId,id);
+                    var annotationBadge = timeSeriesAnnotationService.getAnnotation(activeRunId, id);
                     var x = xt(annotationBadge.data.Time);
                     image.attr('x', (x - (imageWidth / 2)));
                 })
@@ -274,11 +279,10 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
 
 
         var id = annotationLabelGroup.select('g').attr('id');
-        var annotationBadge = timeSeriesAnnotationService.getAnnotation(activeRunId,id);
+        var annotationBadge = timeSeriesAnnotationService.getAnnotation(activeRunId, id);
 
         var xt = endZoomVector.rescaleX(x);
         var Time = xt.invert(d3.event.x);
-        $log.log(Time);
         annotationBadge.data.Time = Time;
         annotationBadgeRender(timeSeriesAnnotationService.getAnnotations(activeRunId));
 
@@ -316,7 +320,8 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
                     return line(d.values);
                 });
         } else {
-            graph.select('.line')
+            var id = activeRunId.split('!');
+            graph.select('.run-group').select('.run' + id[0] + id[1]).select('.line')
                 .attr('d', function (d) {
                     return line(d.values);
                 });

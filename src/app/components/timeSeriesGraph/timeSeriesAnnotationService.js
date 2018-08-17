@@ -44,12 +44,13 @@ app.service('timeSeriesAnnotationService', ['$log', '$filter', function ($log, $
         annotationGroup.annotations.push(newAnnotation);
     }
 
-    self.removeAnnotation = function(title){
-        for(var i=0,n=annotations.length;i<n;i++){
-            if(annotations[i].title === title){
-                annotations = annotations.splice(i,1);
-            }
-        }
+    self.removeAnnotation = function(annotationGroupId,annotationId){
+       var annotationGroup = annotationGroups.get(annotationGroupId);
+       for(var i=0,n=annotationGroup.annotations.length;i<n;i++){
+           if(annotationGroup.annotations[i].id === annotationId){
+               annotationGroup.annotations[i].splice(i,1);
+           }
+       }
     }
 
     self.getAnnotations = function (annotationGroupId) {

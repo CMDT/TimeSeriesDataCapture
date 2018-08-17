@@ -10,7 +10,7 @@ app.controller('annotationPreviewController', ['$scope', '$log','$mdDialog','tim
     $scope.annotationDescription = annotation.data.description;
     $scope.editMode = false;
 
-    $log.log(savedAnnotation);
+    $log.log(annotation);
     if(savedAnnotation != undefined){
         $log.log('hit');
         if(savedAnnotation.data.Time != annotation.data.Time){
