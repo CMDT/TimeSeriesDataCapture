@@ -40,7 +40,8 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
 
 
 
-    var svg = d3.select('svg');
+    var svg = d3.select('svg').attr("viewBox", "0 0 960 550")
+        .attr("preserveAspectRatio", "xMinYMax meet");
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     var graph = svg
