@@ -3,6 +3,7 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
 
     var self = this;
     var annotationInEdit;
+    var activeRunId = '2B497C4DAFF48A9C!160';
     // set the dimensions and margins of the graph
     var margin = {
         top: 150,
@@ -124,24 +125,38 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
         var getRunPromises = idArray.map(runRequestService.getRun);
         Promise.all(getRunPromises).then(function (result) {
             var results = [];
+
             for (var i = 0, n = result.length; i < n; i++) {
                 var resultArray = dataObjectToArray(result[i].data.runData);
                 results.push({ id: i, values: resultArray });
-                var annotationObject = result[i].data.annotations;
-                var annotationIds = Object.keys(annotationObject);
-                for(var i=0,n=annotationIds.length;i<n;i++){
-                    timeSeriesAnnotationService.addAnnotation(undefined, { Time: annotationObject[annotationIds[i]].xcoordinate, RTH: 0.08616, id:annotationIds[i] }, annotationObject[annotationIds[i]].description);
-                }
+
+                var annotationGroupId = timeSeriesAnnotationService.addAnnotationGroup(result[i].data.id);
+                extractAnnotations(annotationGroupId,result[i].data.annotations);
+
             }
-            $log.log(result);
+
             drawGraph(results);
         })
+    }
+
+    function extractAnnotations(annotationGroupId, annotations) {
+        var annotationObject = annotations;
+        var annotationIds = Object.keys(annotationObject);
+        for (var j = 0, m = annotationIds.length; j < m; j++) {
+            var data = {
+                Time: annotationObject[annotationIds[j]].xcoordinate,
+                description: annotationObject[annotationIds[j]].description, 
+                RTH: 0
+            }
+            timeSeriesAnnotationService.addAnnotation(annotationGroupId,annotationIds[j],data,undefined);  
+        }
     }
 
 
 
     function dataObjectToArray(dataObject) {
         var dataArray = [];
+        $log.log(dataObject);
         var objectKeys = Object.keys(dataObject);
         for (var i = 0, n = dataObject[objectKeys[0]].length; i < n; i++) {
             var row = {};
@@ -196,10 +211,7 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
             .attr("class", "line")
             .attr("d", function (d) { return line(d.values); })
             .style("stroke", function (d) { return z(d.id); })
-
-        
-       
-        annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
+        annotationBadgeRender(timeSeriesAnnotationService.getAnnotations(activeRunId));
     }
 
     function annotationBadgeRender(annotations, t) {
@@ -238,12 +250,12 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
 
 
         if (annotationInEdit != undefined) {
-            var label = annotationLabelGroup.select('g').attr('label')
+            var id = annotationLabelGroup.select('g').attr('id')
             annotationLabelGroup.selectAll('g')
                 .each(function (d) {
                     var image = d3.select(this).select('image');
                     var imageWidth = image.attr('width');
-                    var annotationBadge = timeSeriesAnnotationService.getAnnotation(label);
+                    var annotationBadge = timeSeriesAnnotationService.getAnnotation(activeRunId,id);
                     var x = xt(annotationBadge.data.Time);
                     image.attr('x', (x - (imageWidth / 2)));
                 })
@@ -261,14 +273,14 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
             })
 
 
-        var label = annotationLabelGroup.select('g').attr('label');
-        var annotationBadge = timeSeriesAnnotationService.getAnnotation(label);
+        var id = annotationLabelGroup.select('g').attr('id');
+        var annotationBadge = timeSeriesAnnotationService.getAnnotation(activeRunId,id);
 
         var xt = endZoomVector.rescaleX(x);
         var Time = xt.invert(d3.event.x);
         $log.log(Time);
         annotationBadge.data.Time = Time;
-        annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
+        annotationBadgeRender(timeSeriesAnnotationService.getAnnotations(activeRunId));
 
     }
 
@@ -303,13 +315,13 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
                 .attr('d', function (d) {
                     return line(d.values);
                 });
-        } else if(annotationInEdit ){
+        } else {
             graph.select('.line')
                 .attr('d', function (d) {
                     return line(d.values);
                 });
         }
-        annotationBadgeRender(timeSeriesAnnotationService.getAnnotations(), t);
+        annotationBadgeRender(timeSeriesAnnotationService.getAnnotations(activeRunId), t);
         annotationLabelRender(t);
         endZoomVector = t;
     }
@@ -333,7 +345,7 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
 
     function dragended(d) {
         d3.select(this).classed("active", false);
-      }
+    }
 
     function annotationClickEdit(annotation) {
 
@@ -344,7 +356,7 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
         annotationLabelGroup.selectAll('g').remove();
         annotationLabelGroup.append('g')
             .attr('class', 'move')
-            .attr('label', annotation.note.title)
+            .attr('id', annotation.id)
             .append('svg:image')
             .attr('x', (xCor - (width / 2)))
             .attr('y', annotation._y - 70)
@@ -353,7 +365,7 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
             .attr('height', height)
             .call(d3.drag()
                 .on('drag', annotationDrag)
-                .on('end',dragended))
+                .on('end', dragended))
 
 
         annotationLabelGroup.append('g')
@@ -370,7 +382,7 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
     function annotationPosEditConfirm(d) {
         var image = annotationLabelGroup.select('g').select('image');
         var cx = parseFloat(image.attr('x'));
-        cx += (parseFloat(image.attr('width')))/2;
+        cx += (parseFloat(image.attr('width'))) / 2;
         $log.log(cx);
         var xt = endZoomVector.rescaleX(x);
         var Time = xt.invert(cx);
@@ -390,11 +402,11 @@ app.service('timeSeriesGraphService', ['$log', '$mdDialog', 'runRequestService',
             if (annotation != undefined) {
                 $log.log(annotation);
                 annotationClickEdit(annotation)
-            }else{
+            } else {
                 annotationInEdit = undefined;
             }
-            
-            annotationBadgeRender(timeSeriesAnnotationService.getAnnotations());
+
+            annotationBadgeRender(timeSeriesAnnotationService.getAnnotations(activeRunId));
         })
     }
 

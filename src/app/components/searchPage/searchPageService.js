@@ -5,7 +5,9 @@ app.service('searchPageService', ['$log', 'tagPredictionService', 'searchService
     self.search = function (query) {
         return new Promise(function (resolve, reject) {
             var queryObject = self.searchExtract(query);
+            
             self.queryUrlEncode(queryObject).then(function (result) {
+        
                 searchService.searchRequest(result).then(function(result){
                     resolve(result.data);
                 })

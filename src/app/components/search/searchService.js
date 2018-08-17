@@ -1,4 +1,4 @@
-app.service('searchService', ['$log', '$http', 'queryKeywordService', function ($log, $http, queryKeywordService) {
+app.service('searchService', ['$log', '$http','$rootScope', 'queryKeywordService', function ($log, $http,$rootScope, queryKeywordService) {
 
     var self = this;
 
@@ -9,7 +9,7 @@ app.service('searchService', ['$log', '$http', 'queryKeywordService', function (
             responseType: 'json'
         }
 
-        var url = $rootScope.url + '/apis/search';
+        var url = $rootScope.url + '/apis/search?query=gold';
 
         for(var i=0,n=queryArray.length;i<n;i++){
             var value = queryArray[i].value;
@@ -20,6 +20,7 @@ app.service('searchService', ['$log', '$http', 'queryKeywordService', function (
                 config.params[queryArray[i].name] = value[0];
             }
         }
+        var url = $rootScope.url + '/apis/search?query=silver';
         $log.log(url);
         return $http.get(url, config);
     }

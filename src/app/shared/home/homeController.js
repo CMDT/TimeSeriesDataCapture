@@ -9,7 +9,7 @@ app.controller('homeController', ['$scope', '$log', '$filter', 'authenticationSe
     }
 
     $scope.search = function (query) {
-        
+        $log.log(query);
         searchPageService.search(query).then(function (result) {
             for(var i=0,n=result.length;i<n;i++){
                 result[i].selected = false;
