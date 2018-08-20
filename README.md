@@ -29,6 +29,12 @@ Password: Data^%Series98*
 
 ---
 
+**MongoDB**
+
+Username: timeseriesdatacapture
+
+Password: Time1973628capture182912
+
 # Sub Projects
 [BrowseData](https://github.com/CMDT/TimeSeriesDataCapture_BrowseData)
 
