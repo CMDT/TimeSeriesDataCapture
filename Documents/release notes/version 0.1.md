@@ -2,7 +2,7 @@
 
 ## Version 0.1 Implemented Features
 
-### Searching
+- ### Searching
 
 - Runs can be searched either by date or time
 - A single run can be viewed
@@ -11,7 +11,7 @@
  
 ### Viewing
 
-#### Graph
+- #### Graph
 - Graph can be panned
 - Graph can be zoomed
 - Active Trend can be offset
@@ -38,16 +38,3 @@
 
 
  
- 
-### Viewing
-
-Pan the graph by holding shift and dragging 
-
-Zoom the graph by using the scroll wheel
-
-Offset the active trend
-
-Toggle the visibilty of each run column
-
-add new annotation
-
