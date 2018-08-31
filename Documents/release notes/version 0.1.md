@@ -24,6 +24,7 @@
 - Active Trend can be offset
 - X-axis can be lcoked
 - Y-axis can be locked
+- Offset Line
 
 #### Annotations
 - Annotation can be viewed
@@ -57,6 +58,9 @@
 
 ### Viewing
 
+#### Graph
+- Touch screen controls
+
 #### Column Tag Panel
 - Persistant tag changes
 - Trend line colour pallete
@@ -73,13 +77,32 @@
 
 ### Searching
 
-- **Step 1** : Search for runs by time, 10:38:45, two results will show.
+- **Step 1** : Search for runs by time, 10:38:25, two results will show.
 - **Step 2** : Copy and paste the url into a sperate tab, the same two results will show
 - **Step 3** : Select multiple results by selecting each checkbox
 - **Step 4** : To view runs either click the View button or click a specific result
 
 ### Viewing
-- **Step 1** : 
+#### Graph Control
+- **Step 1** : Using the scroll wheel zoom the graph in and out
+- **Step 2** : Holding shit and dragging the graph will pan about
+- **Step 3** : Clicking and dragging the graph will offset the active trend (*The red line indicates active trend offset*)
+
+#### Column Tab Panel Control
+- **Step 1** : Toggle the visibilty of multiple columns by selecting each checkbox
+- **Step 2** : Click on a column to set active trend
+- **Step 3** : Click on the second tab to view the second run columns
+
+#### Annotation Control
+- **Step 1** : Click plus sign to add new annotation
+- **Step 2** : Click downwards arrow to reposition annotation
+- **Step 3** : Click and hold on black downward arrow then drag to reposition
+- **Step 4** : Click stop, black square, to confirm new postion
+- **Step 5** : Click pencil to edit annotation description
+- **Step 6** : Click confirm to confirm annotation descitpion
+- **Step 7** : To close annoation panel click off it
+- **Step 8** : Click annotation to view
+- **Step 9** : To delete annotation click the delete button
 
 
 
