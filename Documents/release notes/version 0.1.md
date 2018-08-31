@@ -68,8 +68,18 @@
 - OneDrive Authentication
 - Auth0 Authentication
 
+
 ## Example Tests
 
+### Searching
+
+- **Step 1** : Search for runs by time, 10:38:45, two results will show.
+- **Step 2** : Copy and paste the url into a sperate tab, the same two results will show
+- **Step 3** : Select multiple results by selecting each checkbox
+- **Step 4** : To view runs either click the View button or click a specific result
+
+### Viewing
+- **Step 1** : 
 
 
 
