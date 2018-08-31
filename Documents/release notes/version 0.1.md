@@ -25,7 +25,6 @@
 - X-axis can be lcoked
 - Y-axis can be locked
 
-
 #### Annotations
 - Annotation can be viewed
 - Annotation can be added
@@ -43,13 +42,8 @@
 - Column visibilty can be switched
 - Active Trend can be changed
 
-
 #### URL State
 - Zoom level, offset, visible columns & active trend all stored within the url
-
-
-
-
 
 ## Version 0.1 Needed Features
 
@@ -59,7 +53,10 @@
 - Exporting a selected runs to CSV format
 - Deleting specific runs
 
+---
+
 ### Viewing
+
 #### Column Tag Panel
 - Persistant tag changes
 - Trend line colour pallete
