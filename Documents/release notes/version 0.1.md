@@ -13,7 +13,7 @@
  
 ### Viewing
 
-- #### Graph
+#### Graph
 - Graph can be panned
 - Graph can be zoomed
 - Active Trend can be offset
