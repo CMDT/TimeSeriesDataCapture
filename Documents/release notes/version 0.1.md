@@ -65,8 +65,7 @@
 - Trend line colour pallete
 
 ### Importing
-#### Import Panel
-- 
+- All of import
 
 
 
