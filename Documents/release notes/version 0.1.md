@@ -82,7 +82,7 @@
 - **Step 3** : Select multiple results by selecting each checkbox
 - **Step 4** : To view runs either click the View button or click a specific result
 
-*Example search https://timeseriesdatacapture-spwa.herokuapp.com/#!/home/?query=%252010:38:25*
+*Example [search]( https://timeseriesdatacapture-spwa.herokuapp.com/#!/home/?query=%252010:38:25) for 10:38:25, warning open in new tab* 
 
 ### Viewing
 #### Graph Control
@@ -92,7 +92,7 @@
 - **Step 4** : To lock an axis click either lock button (*try panning the graph*)
 - **Step 5** : Copy and paste the url into a sperate tab
 
-*Example graph view https://timeseriesdatacapture-spwa.herokuapp.com/#!/view?runs=2B497C4DAFF48A9C!178&columns=2B497C4DAFF48A9C!178:RTH%2B2B497C4DAFF48A9C!178:T(Environment)&viewVector=%7B%22k%22:0.6,%22x%22:45.41,%22y%22:153.79%7D&offsetVector=%7B%22x%22:569.07,%22y%22:-129.01%7D&active=2B497C4DAFF48A9C!178%2BRTH*
+*Example [graph view](https://timeseriesdatacapture-spwa.herokuapp.com/#!/view?runs=2B497C4DAFF48A9C!178&columns=2B497C4DAFF48A9C!178:RTH%2B2B497C4DAFF48A9C!178:T(Environment)&viewVector=%7B%22k%22:0.6,%22x%22:45.41,%22y%22:153.79%7D&offsetVector=%7B%22x%22:569.07,%22y%22:-129.01%7D&active=2B497C4DAFF48A9C!178%2BRTH), warning open in new tab *
 
 #### Column Tag Panel Control
 - **Step 1** : On the Column Tag Panel, toggle the visibilty of multiple columns by selecting each checkbox
@@ -115,7 +115,7 @@
 
 
 ## Add GitHub Issue
-- **Step 1** : Navigate to TimeSeriesDataCapture Repositry (https://github.com/CMDT/TimeSeriesDataCapture/issues)
+- **Step 1** : Navigate to [TimeSeriesDataCapture Repositry]https://github.com/CMDT/TimeSeriesDataCapture/issues)
 - **Step 2** : Naviagate to the Issues Tab
 - **Step 3** : Click the green New Issue button
 - **Step 4** : Add Issue title and description
