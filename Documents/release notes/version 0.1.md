@@ -87,11 +87,16 @@
 - **Step 1** : Using the scroll wheel zoom the graph in and out
 - **Step 2** : Holding shit and dragging the graph will pan about
 - **Step 3** : Clicking and dragging the graph will offset the active trend (*The red line indicates active trend offset*)
+- **Step 4** : To lock an axis click either lock button (*try panning the graph*)
+- **Step 5** : Copy and paste the url into a sperate tab
 
-#### Column Tab Panel Control
-- **Step 1** : Toggle the visibilty of multiple columns by selecting each checkbox
+#### Column Tag Panel Control
+- **Step 1** : On the Column Tag Panel, toggle the visibilty of multiple columns by selecting each checkbox
 - **Step 2** : Click on a column to set active trend
 - **Step 3** : Click on the second tab to view the second run columns
+- **Step 4** : Click the column switch to view run tags
+- **Step 5** : Click the pencil icon to edit tags
+- **Step 6** : To confirm changes click the confirm button
 
 #### Annotation Control
 - **Step 1** : Click plus sign to add new annotation
