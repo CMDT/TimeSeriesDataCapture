@@ -2,7 +2,7 @@
 
 ## Version 0.1 Implemented Features
 
-- ### Searching
+### Searching
 
 - Runs can be searched either by date or time
 - A single run can be viewed
