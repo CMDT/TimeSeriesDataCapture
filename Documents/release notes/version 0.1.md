@@ -9,6 +9,17 @@
 - Multiple runs can be viewed
 - Search query is stored within the url
  
+#### Viewing
+
+- Graph can be panned
+- Graph can be zoomed
+- Active Trend can be offset
+
+- Annotation can be added
+- Annotation can be deleted
+- Annotation can be repositioned
+- Annotation description can be edited
+
 
  
  
