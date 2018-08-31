@@ -43,6 +43,10 @@
 - Column visibilty can be switched
 - Active Trend can be changed
 
+
+#### URL State
+- Zoom level, offset, visible columns & active trend all stored within the url
+
 ---
 
 #### Import
