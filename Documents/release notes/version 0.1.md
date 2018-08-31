@@ -8,6 +8,8 @@
 - A single run can be viewed
 - Multiple runs can be viewed
 - Search query is stored within the url
+
+---
  
 ### Viewing
 
