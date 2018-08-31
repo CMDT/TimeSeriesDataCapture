@@ -1,15 +1,15 @@
-## Release Notes Version 0.1
+# Release Notes Version 0.1
 
-### Version 0.1 Features
+## Version 0.1 Features
 
-#### Searching
+### Searching
 
 - Runs can be searched either by date or time
 - A single run can be viewed
 - Multiple runs can be viewed
 - Search query is stored within the url
  
-#### Viewing
+### Viewing
 
 - Graph can be panned
 - Graph can be zoomed
