@@ -15,6 +15,8 @@
 - Graph can be zoomed
 - Active Trend can be offset
 
+---
+
 - Annotation can be added
 - Annotation can be deleted
 - Annotation can be repositioned
