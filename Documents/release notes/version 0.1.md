@@ -82,6 +82,8 @@
 - **Step 3** : Select multiple results by selecting each checkbox
 - **Step 4** : To view runs either click the View button or click a specific result
 
+*Example search https://timeseriesdatacapture-spwa.herokuapp.com/#!/home/?query=%252010:38:25*
+
 ### Viewing
 #### Graph Control
 - **Step 1** : Using the scroll wheel zoom the graph in and out
@@ -89,6 +91,8 @@
 - **Step 3** : Clicking and dragging the graph will offset the active trend (*The red line indicates active trend offset*)
 - **Step 4** : To lock an axis click either lock button (*try panning the graph*)
 - **Step 5** : Copy and paste the url into a sperate tab
+
+*Example graph view https://timeseriesdatacapture-spwa.herokuapp.com/#!/view?runs=2B497C4DAFF48A9C!178&columns=2B497C4DAFF48A9C!178:RTH%2B2B497C4DAFF48A9C!178:T(Environment)&viewVector=%7B%22k%22:0.6,%22x%22:45.41,%22y%22:153.79%7D&offsetVector=%7B%22x%22:569.07,%22y%22:-129.01%7D&active=2B497C4DAFF48A9C!178%2BRTH*
 
 #### Column Tag Panel Control
 - **Step 1** : On the Column Tag Panel, toggle the visibilty of multiple columns by selecting each checkbox
