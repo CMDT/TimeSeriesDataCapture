@@ -49,7 +49,9 @@
 
 ---
 
-#### Import
+### Import
+
+#### Import Panel
 - Multiple runs can be imported
 - Folder hierarchy matches file storage folder hierarchy
 - All runs in a folder can be selected using select all
