@@ -4,9 +4,14 @@
 
 ### Searching
 
+#### Search Bar
 - Runs can be searched either by date or time
+
+#### Search Results
 - A single run can be viewed
 - Multiple runs can be viewed
+
+#### Search URL
 - Search query is stored within the url
 
 ---
@@ -43,10 +48,12 @@
 #### Import
 - Multiple runs can be imported
 - Folder hierarchy matches file storage folder hierarchy
-- All run in folder can be selected using select all
+- All runs in a folder can be selected using select all
 
 
-## Version 0.1 Features Haven't Been Implemented
+## Version 0.1 Needed Features
+
+
 
 
  
