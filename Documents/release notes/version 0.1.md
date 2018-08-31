@@ -11,16 +11,28 @@
  
 ### Viewing
 
+#### Graph
 - Graph can be panned
 - Graph can be zoomed
 - Active Trend can be offset
 
----
 
+#### Annotations
+- Annotation can be viewed
 - Annotation can be added
 - Annotation can be deleted
 - Annotation can be repositioned
 - Annotation description can be edited
+
+#### Tags
+- Tags can be viewed
+- Tags can be added
+- Tags can be deleted
+
+#### Column Tag Panel
+- Column Tag Panel can be switched to display either tags or columns
+- Column visibilty can be switched
+- Active Trend can be set
 
 
  
