@@ -121,7 +121,7 @@
 - **Step 2** : Naviagate to the Issues Tab
 - **Step 3** : Click the green New Issue button
 - **Step 4** : Add Issue title and description
-- **Step 5** : Label the issue bu click the Labels gear button (on the left)
+- **Step 5** : Label the issue by clicking the Label gear button (on the left)
 - **Step 6** : Click the green Submit new issue button
 
 *Please don't forget to label issues with the version number (version_0_1) and if it is a bug or an enhancement. If it is a bug please leave steps to reproduce it, example [issue](https://github.com/CMDT/TimeSeriesDataCapture/issues/3)*
