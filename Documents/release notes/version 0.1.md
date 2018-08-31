@@ -38,5 +38,15 @@
 - Column visibilty can be switched
 - Active Trend can be changed
 
+---
+
+#### Import
+- Multiple runs can be imported
+- Folder hierarchy matches file storage folder hierarchy
+- All run in folder can be selected using select all
+
+
+## Version 0.1 Features Haven't Been Implemented
+
 
  
