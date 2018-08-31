@@ -16,17 +16,17 @@
 - Multiple runs can be viewed
 
 #### Search URL
-- Search query is stored within the url
+- The search query is stored within the URL
 
 ---
  
 ### Viewing
 
 #### Graph
-- Graph can be panned
-- Graph can be zoomed
+- The graph can be panned
+- The graph can be zoomed
 - Active Trend can be offset
-- X-axis can be lcoked
+- X-axis can be locked
 - Y-axis can be locked
 - Offset Line
 
@@ -44,18 +44,18 @@
 
 #### Column Tag Panel
 - Column Tag Panel can be switched to display either tags or columns
-- Column visibilty can be switched
+- Column visibility can be switched
 - Active Trend can be changed
 
 #### URL State
-- Zoom level, offset, visible columns & active trend all stored within the url
+- Zoom level, offset, visible columns & active trend all stored within the UR
 
 ## Version 0.1 Needed Features
 
 ### Searching
 
 #### Search Buttons
-- Exporting a selected runs to CSV format
+- Exporting selected runs to CSV format
 - Deleting specific runs
 
 ---
@@ -63,7 +63,7 @@
 ### Viewing
 
 #### Graph
-- Touch screen controls
+- Touchscreen controls
 
 #### Column Tag Panel
 - Persistant tag changes
@@ -82,7 +82,7 @@
 ### Searching
 
 - **Step 1** : Search for runs by time, 10:38:25, two results will show.
-- **Step 2** : Copy and paste the url into a sperate tab, the same two results will show
+- **Step 2** : Copy and paste the URL into a sperate tab, the same two results will show
 - **Step 3** : Select multiple results by selecting each checkbox
 - **Step 4** : To view runs either click the View button or click a specific result
 
@@ -94,13 +94,13 @@
 - **Step 2** : Holding shit and dragging the graph will pan about
 - **Step 3** : Clicking and dragging the graph will offset the active trend (*The red line indicates active trend offset*)
 - **Step 4** : To lock an axis click either lock button (*try panning the graph*)
-- **Step 5** : Copy and paste the url into a sperate tab
+- **Step 5** : Copy and paste the URL into a sperate tab
 
 *Example [graph view](https://timeseriesdatacapture-spwa.herokuapp.com/#!/view?runs=2B497C4DAFF48A9C!178&columns=2B497C4DAFF48A9C!178:RTH%2B2B497C4DAFF48A9C!178:T(Environment)&viewVector=%7B%22k%22:0.6,%22x%22:45.41,%22y%22:153.79%7D&offsetVector=%7B%22x%22:569.07,%22y%22:-129.01%7D&active=2B497C4DAFF48A9C!178%2BRTH), warning open in new tab*
 
 #### Column Tag Panel Control
 - **Step 1** : On the Column Tag Panel, toggle the visibilty of multiple columns by selecting each checkbox
-- **Step 2** : Click on a column to set active trend
+- **Step 2** : Click on a column to set the active trend
 - **Step 3** : Click on the second tab to view the second run columns
 - **Step 4** : Click the column switch to view run tags
 - **Step 5** : Click the pencil icon to edit tags
