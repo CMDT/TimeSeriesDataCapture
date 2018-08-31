@@ -47,17 +47,28 @@
 #### URL State
 - Zoom level, offset, visible columns & active trend all stored within the url
 
----
 
-### Import
 
-#### Import Panel
-- Multiple runs can be imported
-- Folder hierarchy matches file storage folder hierarchy
-- All runs in a folder can be selected using select all
 
 
 ## Version 0.1 Needed Features
+
+### Searching
+
+#### Search Buttons
+- Exporting a selected runs to CSV format
+- Deleting specific runs
+
+### Viewing
+#### Column Tag Panel
+- Persistant tag changes
+- Trend line colour pallete
+
+### Importing
+#### Import Panel
+- 
+
+
 
 
 
