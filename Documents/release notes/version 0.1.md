@@ -91,7 +91,7 @@
 ### Viewing
 #### Graph Control
 - **Step 1** : Using the scroll wheel zoom the graph in and out
-- **Step 2** : Holding shit and dragging the graph will pan about
+- **Step 2** : Holding shift and dragging the graph will pan about
 - **Step 3** : Clicking and dragging the graph will offset the active trend (*The red line indicates active trend offset*)
 - **Step 4** : To lock an axis click either lock button (*try panning the graph*)
 - **Step 5** : Copy and paste the URL into a sperate tab
