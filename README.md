@@ -47,7 +47,7 @@ Password: Time1973628capture182912
 [Parent Trello Board](https://trello.com/b/0pc2DUBy/overview)
 
  # Wireframes
- [Guthub Pages](https://cmdt.github.io/TimeSeriesDataCapture/wireframes)
+ [Github Pages](https://cmdt.github.io/TimeSeriesDataCapture/wireframes)
  
  [On the Repo](https://github.com/CMDT/TimeSeriesDataCapture/tree/master/docs/wireframes)
 
