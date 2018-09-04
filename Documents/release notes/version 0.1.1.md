@@ -1,4 +1,4 @@
-# Release Notes Version 0.1
+# Release Notes Version 0.1.1
 
 **GitHub Issues** https://github.com/CMDT/TimeSeriesDataCapture/issues
 
