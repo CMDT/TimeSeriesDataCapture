@@ -19,4 +19,16 @@
 ## Version 0.1.3 Bug Fixes
 - none
 
+
+## Example Tests
+[Website](https://timeseriesdatacapture-spwa.herokuapp.com/#!/home/)
+### Importing
+
+- **Step 1** : On Search Page click login button on search page.
+- **Step 2** : Login using credentials
+- **Step 3** : Click import link (top-left)
+- **Step 4** : Click import button
+- **Step 5** : Click login button
+
+
  
