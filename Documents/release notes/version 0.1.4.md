@@ -17,7 +17,9 @@
 
 
 ## Version 0.1.4 Bug Fixes
-- none
+- [Annotations can be changed when the user is not logged in](https://github.com/CMDT/TimeSeriesDataCapture/issues/43)
+- [RTH Calculation Wrong](https://github.com/CMDT/TimeSeriesDataCapture/issues/36)
+- [Annotation Have Vertical Variations When Clustered](https://github.com/CMDT/TimeSeriesDataCapture/issues/35)
 
 
 
