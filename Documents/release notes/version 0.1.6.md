@@ -21,8 +21,8 @@
 - [oneDrive Not Loaded](https://github.com/CMDT/TimeSeriesDataCapture/issues/60)
 - [Colour Matches Across Page](https://github.com/CMDT/TimeSeriesDataCapture/issues/32)
 - [Odd sidewards excess scrolling possible](https://github.com/CMDT/TimeSeriesDataCapture/issues/11)
-- [Visual Feedback To Indicate Search Has Started]https://github.com/CMDT/TimeSeriesDataCapture/issues/37
-
+- [Visual Feedback To Indicate Search Has Started](https://github.com/CMDT/TimeSeriesDataCapture/issues/37)
+- [Buttons allow navigation to useless states](https://github.com/CMDT/TimeSeriesDataCapture/issues/12)
 
 
 
