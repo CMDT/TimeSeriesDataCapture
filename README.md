@@ -41,7 +41,7 @@ To install mLab MongoDb navigate to [mongolab addons page](https://elements.hero
 Within the Resources tab for the newely created application if you see the mLab MongoDB add-on mLab  has been succesfully installed.
 
 ### MongoDB user
-Within the Resources tab for the database application click the mLab MongoDB add-on to navigate to the database dashboard.
+Within the Resources tab for the database application click the mLab MongoDB add-on to navigate to the mLab dashboard.
 
 Under the users tab add a new database user, you will need the database-username and database-password to connect.
 
