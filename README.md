@@ -36,4 +36,10 @@ To host the database first you will to sign up to [Heroku](https://signup.heroku
 ### Hosting
 From the Heroku dashboard create a new application, name the app, and choose the appropriate region.
 
-To install mLab MongoDb navigate to [mongolab addons page](https://elements.heroku.com/addons/mongolab), and install ensuring the add-on is added to the newly craeted app
+To install mLab MongoDb navigate to [mongolab addons page](https://elements.heroku.com/addons/mongolab) and install, ensuring the add-on is added to the newly created app
+
+Within the Resources tab for the newely created application if you see the mLab MongoDB add-on mLab  has been succesfully installed.
+
+### MongoDB user
+Within the Resources tab for the database application click the mLab MongoDB add to nagigate to the database dashboard.
+Under the users tab add a new database user, you will need the database-username and database-password to connect.
