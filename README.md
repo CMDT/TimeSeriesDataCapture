@@ -86,5 +86,6 @@ Verify the creation, the output should be the `<database name>`
 db
 ```
 
+To create the starting database template see
 
 
