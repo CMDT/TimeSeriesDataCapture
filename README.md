@@ -102,6 +102,10 @@ The SPWA uses two Auth0 applications, *MACHINE TO MACHINE* and *SINGLE PAGE APPL
 #### Create Single Page Application
 One the Auth0 dashboard under the Applications section create a new application, picking the Single Page Web Applications application type.
 
-Under settings for the newly created application add the domain of the SPWA within the Allowed Callbacks URLs, Allowed Web Origins and Allowed Origins text areas
+Under settings for the newly created application add the domain of the SPWA within the Allowed Callbacks URLs, Allowed Web Origins and Allowed Origins text areas.
+
+
 
 *If the domain of the application is not known the text areas can be filled later*
+*Under Advanced Setting, under Endpoints take note of the OAuth Endpoints, these will be used for the Browse API*
+
