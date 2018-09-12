@@ -46,7 +46,14 @@ The database deafult template contains starting documents, an algorithm and a pa
 Default algorithm to calculate *RTH*
 
 ```
-d.algorithmsCollection.insert({"name" : "default","parameters" : [ "T(Copper)", "T(Cell1)", "DAC"],"algorithm" : "return((T1-T2)/((DAC*DAC)/22))"});
+db.algorithmsCollection.insert({"name" : "default","parameters" : [ "T(Copper)", "T(Cell1)", "DAC"],"algorithm" : "return((T1-T2)/((DAC*DAC)/22))"});
+```
+
+### Palette
+Default palette used by the graph on the single page web application.
+
+```
+db.palettesCollection.insert({"name" : "default","description" : "default colour palette","palette" : [ "#B2003F", "#00B20F","#FF005A"]});
 ```
 
 ```
