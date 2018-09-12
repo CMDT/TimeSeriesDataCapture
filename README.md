@@ -32,3 +32,6 @@ The MongoDB database will store the runs, authentication, algorithms palettes an
 
 #### Heroku Account 
 To host the database first you will to sign up to [Heroku](https://signup.heroku.com)
+
+### Hosting
+From the Heroku dashboard create a new application, name the app database and choose the appropriate region.
