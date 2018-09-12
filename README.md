@@ -120,9 +120,10 @@ The casual user is user who is not logged in thus admin controls are disabled.
 - none
 
 ### Features
-- searching public runs
-- viewing & sharing public runs
-- exporting public runs
+- public runs are only visible
+- searching runs
+- viewing & sharing runs
+- exporting runs
 
 ### Uses
 #### Searching
@@ -136,6 +137,10 @@ One the view page the graph can be zoomed in and out using the mouse wheel and p
 
 Underneath the graph is the Column-Tag panel, from here run tags can be viewed and columns visibility can be toggled.
 
+To lock an axis, when panning or offsetting, the lock buttons located at the end of each axis can be toggled.
+
+To view an annotation description click on the annotation label
+
 #### Exporting 
 Once a run has been searched for, runs can be zipped and saved to the users local machine by using the checkboxes to select multiple runs and clicking the green Export button.
 
@@ -143,4 +148,28 @@ Once a run has been searched for, runs can be zipped and saved to the users loca
 The admin user is a user who is logged in thus admin controls are enabled. The admin users features and uses are a superset of the casual user features and uses.
 
 ### Prerequisites
-- A OneDrive account is needed to import runs into the database, sign up to [OneDrive](https://login.microsoftonline.com)  
+- A OneDrive account is needed to import runs into the database, sign up to [OneDrive](https://login.microsoftonline.com)
+- Logged into the SPWA
+
+### Features
+- private runs are visible
+- deleting runs
+- modifying runs
+- importing runs
+
+### Uses
+#### Deleting
+Once a run has been searched for, runs can be deleted from the database (runs cannot be deleted from OneDrive) by using the checkboxes to select multiple runs and clicking the red Delete button.
+
+#### Modifying Annotations
+On the view page, to add a new annotation click the '+' button. 
+
+To change the annotation position click the down-wards arrow button. Using the black downward arrow click click and hold to reposition. To confirm the new position click the black square.
+
+To edit the annotation description click the pencil icon.
+
+#### Modifying Tags
+One the Column Tag panel switch to view tags. Click the penil icon to edit the tags.
+
+#### Importing Runs
+To import runs from a OneDrive account, click the import button. If not already logged in click the login button to login into OneDrive. To preview a run click the graph preview button, to import runs select the checkboxes and click confirm.
