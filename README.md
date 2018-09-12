@@ -26,4 +26,8 @@ This is the parent project for a suite of applications which take time series da
 ## Setup
 
 ### MongoDB
-The MongoDB database is where the, runs, authentication, algorithms palettes and tags will be stored. To host the database a combination of Heroku and mLab will be used.
+The MongoDB database will store the runs, authentication, algorithms palettes and tags. To host the database a combination of Heroku and mLab will be used.
+
+#### Prerequisites
+
+##### Heroku Account 
