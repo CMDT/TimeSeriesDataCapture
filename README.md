@@ -22,3 +22,8 @@ This is the parent project for a suite of applications which take time series da
  
  [On the Repo](https://github.com/CMDT/TimeSeriesDataCapture/tree/master/docs/wireframes)
 
+
+## Setup
+
+### MongoDB
+The mongoDB database setup requires a 
