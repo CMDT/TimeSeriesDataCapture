@@ -39,6 +39,12 @@ Palettes collection holds all the colour palettes used by the graph on the singl
 db.createCollection("palettesCollection",{capped:false});
 ```
 
+## Documents
+The database deafult template contains starting documents, an algorithm and a palette.
+
+### Alogrithm
+
+
 ```
 db.createCollection("runsCollection",{capped:false}); 
 db.createCollection("tagsCollection",{capped:false}); 
