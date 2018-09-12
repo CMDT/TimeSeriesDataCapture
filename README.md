@@ -25,13 +25,13 @@ This is the parent project for a suite of applications which take time series da
 
 # Setup
 
-## MongoDB
+## MongoDB Hosting
 The MongoDB database will store the runs, authentication, algorithms palettes and tags. To host the database a combination of Heroku and mLab will be used.
 
 ### Prerequisites
 
 #### Heroku Account 
-To host the database first you will to sign up to [Heroku](https://signup.heroku.com)
+To host the database first a Heroku account is needed, sign up to [Heroku](https://signup.heroku.com)
 
 ### Hosting
 From the Heroku dashboard create a new application, name the app, and choose the appropriate region.
@@ -41,5 +41,14 @@ To install mLab MongoDb navigate to [mongolab addons page](https://elements.hero
 Within the Resources tab for the newely created application if you see the mLab MongoDB add-on mLab  has been succesfully installed.
 
 ### MongoDB user
-Within the Resources tab for the database application click the mLab MongoDB add to nagigate to the database dashboard.
+Within the Resources tab for the database application click the mLab MongoDB add to navigate to the database dashboard.
+
 Under the users tab add a new database user, you will need the database-username and database-password to connect.
+
+## MongoDB Creation
+To create the template of the mongoDB database the mongodb shell will be used
+
+### Prerequisites
+
+#### MongoDB Shell
+Before creating the MongoDB collections, first MongoDB must be installed locally. Install MongoDB Community Edition for the appropriate OS.
