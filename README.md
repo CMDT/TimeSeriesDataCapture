@@ -51,4 +51,18 @@ To create the template of the mongoDB database the mongodb shell will be used
 ### Prerequisites
 
 #### MongoDB Shell
-Before creating the MongoDB collections, first MongoDB must be installed locally. Install MongoDB Community Edition for the appropriate OS.
+Before creating the MongoDB database template, first MongoDB must be installed locally. Install [MongoDB Community Edition](https://docs.mongodb.com/manual/installation/#tutorial-installation) for the appropriate OS.
+
+To start the mongo shell change directory to the `<mongodb installation dir>`
+
+```
+cd <mongodb installation dir>
+```
+
+Type `./bin/mongo` to start mongo. To ensure mongodb installation:
+
+```
+mongo --version
+```
+
+
