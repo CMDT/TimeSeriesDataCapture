@@ -26,4 +26,4 @@ This is the parent project for a suite of applications which take time series da
 ## Setup
 
 ### MongoDB
-The mongoDB database setup requires a 
+The MongoDB database is where the, runs, authentication, algorithms palettes and tags will be stored. To host the database a combination of Heroku and mLab will be used.
