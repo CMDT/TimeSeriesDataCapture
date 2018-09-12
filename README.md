@@ -74,13 +74,7 @@ Connect to the mongodb server, mLab dashboard provides instruction on how to.
 mongo <mongo server URI> -u <dbuser> -p <dbpassword>
 ```
 
-Create a new database
-
-```
-use <database name>
-```
-
-Verify the creation, the output should be the `<database name>`
+Verify the database, the output should be the `<database name>`
 
 ```
 db
