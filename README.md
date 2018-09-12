@@ -23,11 +23,11 @@ This is the parent project for a suite of applications which take time series da
  [On the Repo](https://github.com/CMDT/TimeSeriesDataCapture/tree/master/docs/wireframes)
 
 
-## Setup
+# Setup
 
-### MongoDB
+## MongoDB
 The MongoDB database will store the runs, authentication, algorithms palettes and tags. To host the database a combination of Heroku and mLab will be used.
 
-#### Prerequisites
+### Prerequisites
 
-##### Heroku Account 
+#### Heroku Account 
