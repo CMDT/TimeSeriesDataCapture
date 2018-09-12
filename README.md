@@ -110,3 +110,37 @@ Under settings for the newly created application add the domain of the SPWA with
 
 *Under Advanced Setting, under Endpoints take note of the OAuth Endpoints, these will be used for the Browse API*
 
+## How to Use
+The single page web application (SPWA) has to user types casual and admin both, below describes each use case.
+
+## Casual user
+The casual user is user who is not logged in thus admin controls are disabled. 
+ 
+### Prerequisites
+- none
+
+### Features
+- searching public runs
+- viewing & sharing public runs
+- exporting public runs
+
+### Uses
+#### Searching
+To search for a run: on the home page of the SPWA the user can search by tags/time/date within the seach bar. When searching by tags a auto-complete will show.   
+
+
+#### Viewing
+Once a run has been searched for, a single run can be viewed simply by clicking on it, to view multiple runs use the checkboxes and blue View button.
+
+One the view page the graph can be zoomed in and out using the mouse wheel and panned using click and drag. To offset the active drag click and drag while holding shift.
+
+Underneath the graph is the Column-Tag panel, from here run tags can be viewed and columns visibility can be toggled.
+
+#### Exporting 
+Once a run has been searched for, runs can be zipped and saved to the users local machine by using the checkboxes to select multiple runs and clicking the green Export button.
+
+## Admin User
+The admin user is a user who is logged in thus admin controls are enabled. The admin users features and uses are a superset of the casual user features and uses.
+
+### Prerequisites
+- A OneDrive account is needed to import runs into the database, sign up to [OneDrive](https://login.microsoftonline.com)  
