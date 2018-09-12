@@ -8,6 +8,8 @@ This is the parent project for a suite of applications which take time series da
 
 [ImportSource](https://github.com/CMDT/TimeSeriesDataCapture_ImportSource)
 
+[Single Page Web Application](https://github.com/CMDT/TimeSeriesDataCapture_SPWA)
+
 [Private](https://github.com/CMDT/TimeSeriesDataCapture_Private)
 
   
