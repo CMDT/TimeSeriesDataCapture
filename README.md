@@ -88,6 +88,18 @@ db.createCollection("runsCollection",{capped:false}); db.createCollection("tagsC
 
 *for more information of the starting database template see [mongodb-database-template.md](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/mongodb-database-template.md)*
 
+## Dataformats
+When importing runs from the OneDrive into the database the runs must be in an exact format.
+
+### Folder Structure
+
+<date-time>/
+-----------------T-Data/
+-----------------------Temperature_Log.csv
+-----------------Remarks/
+------------------------Remark01.txt
+
+
 ## Auth0
 The single page web application (SPWA) uses Auth0 for authentication. 
 
