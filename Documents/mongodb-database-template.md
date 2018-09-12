@@ -19,7 +19,7 @@ db.createCollection("tagsCollection",{capped:false});
 ```
 
 ### Alogrithms
-Algorithms Collection holds all the algorithms used to calculate RTH
+Algorithms Collection holds all the algorithms used to calculate *RTH*
 
 ```
 db.createCollection("algorithmsCollection",{capped:false});
@@ -43,7 +43,11 @@ db.createCollection("palettesCollection",{capped:false});
 The database deafult template contains starting documents, an algorithm and a palette.
 
 ### Alogrithm
+Default algorithm to calculate *RTH*
 
+```
+d.algorithmsCollection.insert({"name" : "default","parameters" : [ "T(Copper)", "T(Cell1)", "DAC"],"algorithm" : "return((T1-T2)/((DAC*DAC)/22))"});
+```
 
 ```
 db.createCollection("runsCollection",{capped:false}); 
