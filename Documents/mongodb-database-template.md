@@ -15,7 +15,7 @@ db.createCollection("runsCollection",{capped:false});
 Tags Collection holds all tags used to search for runs.
 
 ```
-db.createCollection("tagsCollection",{capped:false})
+db.createCollection("tagsCollection",{capped:false});
 ```
 
 ### Alogrithms
@@ -39,3 +39,6 @@ Palettes collection holds all the colour palettes used by the graph on the singl
 db.createCollection("palettesCollection",{capped:false});
 ```
 
+```
+db.createCollection("runsCollection",{capped:false}); db.createCollection("tagsCollection",{capped:false}); db.createCollection("algorithmsCollection",{capped:false}); db.createCollection("authenticationCollection",{capped:false}); db.createCollection("palettesCollection",{capped:false});
+```
