@@ -65,4 +65,5 @@ Type `./bin/mongo` to start mongo. To ensure mongodb installation:
 mongo --version
 ```
 
+alternatively add `<mongodb installation dir>/bin` to the `PATH` environment variable.
 
