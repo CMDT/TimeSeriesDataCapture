@@ -88,4 +88,18 @@ db.createCollection("runsCollection",{capped:false}); db.createCollection("tagsC
 
 *for more information of the starting database template see [mongodb-database-template.md](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/mongodb-database-template.md)*
 
+## Auth0
+The single page web application (SPWA) uses Auth0 for authentication. 
 
+### Prerequisites
+
+#### Auth0 Account 
+To use authentication first a Auht0 account is needed, sign up to [Auth0](https://auth0.com/signup)
+
+### Setup 
+The SPWA uses two Auth0 applications, *MACHINE TO MACHINE* and *SINGLE PAGE APPLICATION*.
+
+#### Create Single Page Application
+One the Auth0 dashboard under the Applications section create a new application, picking the Single Page Web Applications application type.
+
+Under settings for the newly created application add the domain of the SPWA within the Allowed Callbacks URLs, Allowed Web Origins and Allowed Origins text areas
