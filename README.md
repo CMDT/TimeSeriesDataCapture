@@ -31,3 +31,4 @@ The MongoDB database will store the runs, authentication, algorithms palettes an
 ### Prerequisites
 
 #### Heroku Account 
+To host the database first you will to sign up to [Heroku](https://signup.heroku.com)
