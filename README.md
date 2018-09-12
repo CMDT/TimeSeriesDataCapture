@@ -111,7 +111,7 @@ Under settings for the newly created application add the domain of the SPWA with
 *Under Advanced Setting, under Endpoints take note of the OAuth Endpoints, these will be used for the Browse API*
 
 ## How to Use
-The single page web application (SPWA) has to user types casual and admin both, below describes each use case.
+The single page web application (SPWA) has two user types casual and admin both, below describes each use case.
 
 ## Casual user
 The casual user is user who is not logged in thus admin controls are disabled. 
@@ -135,11 +135,11 @@ Once a run has been searched for, a single run can be viewed simply by clicking 
 
 One the view page the graph can be zoomed in and out using the mouse wheel and panned using click and drag. To offset the active drag click and drag while holding shift.
 
-Underneath the graph is the Column-Tag panel, from here run tags can be viewed and columns visibility can be toggled.
+Underneath the graph is the Column-Tag panel, from here run tags can be viewed and columns visibility can be toggled. To switch the active graph simply click on a visible column.
 
 To lock an axis, when panning or offsetting, the lock buttons located at the end of each axis can be toggled.
 
-To view an annotation description click on the annotation label
+To view an annotation description click on an annotation label
 
 #### Exporting 
 Once a run has been searched for, runs can be zipped and saved to the users local machine by using the checkboxes to select multiple runs and clicking the green Export button.
@@ -164,12 +164,12 @@ Once a run has been searched for, runs can be deleted from the database (runs ca
 #### Modifying Annotations
 On the view page, to add a new annotation click the '+' button. 
 
-To change the annotation position click the down-wards arrow button. Using the black downward arrow click click and hold to reposition. To confirm the new position click the black square.
+To change the annotation position click the down-wards arrow button on the annotation panel. Using the black downward arrow click and hold to reposition. To confirm the new position click the black square.
 
-To edit the annotation description click the pencil icon.
+To edit the annotation description click the pencil icon on the annotation panel.
 
 #### Modifying Tags
-One the Column Tag panel switch to view tags. Click the penil icon to edit the tags.
+One the Column Tag panel switch to view tags. Click the pencil icon to edit the tags.
 
 #### Importing Runs
 To import runs from a OneDrive account, click the import button. If not already logged in click the login button to login into OneDrive. To preview a run click the graph preview button, to import runs select the checkboxes and click confirm.
