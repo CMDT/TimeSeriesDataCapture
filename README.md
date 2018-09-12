@@ -34,4 +34,6 @@ The MongoDB database will store the runs, authentication, algorithms palettes an
 To host the database first you will to sign up to [Heroku](https://signup.heroku.com)
 
 ### Hosting
-From the Heroku dashboard create a new application, name the app database and choose the appropriate region.
+From the Heroku dashboard create a new application, name the app, and choose the appropriate region.
+
+To install mLab MongoDb navigate to [mongolab addons page](https://elements.heroku.com/addons/mongolab), and install ensuring the add-on is added to the newly craeted app
