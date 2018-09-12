@@ -46,12 +46,12 @@ Within the Resources tab for the database application click the mLab MongoDB add
 Under the users tab add a new database user, you will need the database-username and database-password to connect.
 
 ## MongoDB Creation
-To create the template of the mongoDB database the mongodb shell will be used
+To create the mongoDB database the mongo shell will be used.
 
 ### Prerequisites
 
 #### MongoDB Shell
-Before creating the MongoDB database template, first MongoDB must be installed locally. Install [MongoDB Community Edition](https://docs.mongodb.com/manual/installation/#tutorial-installation) for the appropriate OS.
+Before creating the MongoDB database, first MongoDB must be installed locally. Install [MongoDB Community Edition](https://docs.mongodb.com/manual/installation/#tutorial-installation) for the appropriate OS.
 
 To start the mongo shell change directory to the `<mongodb installation dir>`
 
@@ -66,4 +66,25 @@ mongo --version
 ```
 
 alternatively add `<mongodb installation dir>/bin` to the `PATH` environment variable.
+
+### Creation
+Connect to the mongodb server, mLab dashboard provides instruction on how to.
+
+```
+mongo <mongo server URI> -u <dbuser> -p <dbpassword>
+```
+
+Create a new database
+
+```
+use <database name>
+```
+
+Verify the creation, the output should be the `<database name>`
+
+```
+db
+```
+
+
 
