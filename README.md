@@ -95,10 +95,10 @@ When importing runs from the OneDrive into the database the runs must be in an e
 
 ```
 <date-time>/
------------------T-Data/
------------------------Temperature_Log.csv
------------------Remarks/
-------------------------Remark01.txt
+-----------T-Data/
+-----------------Temperature_Log.csv
+-----------Remarks/
+-------------------Remark01.txt
 ```
 
 
