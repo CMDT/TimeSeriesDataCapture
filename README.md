@@ -97,7 +97,7 @@ The single page web application (SPWA) uses Auth0 for authentication.
 To use authentication first a Auht0 account is needed, sign up to [Auth0](https://auth0.com/signup)
 
 ### Setup 
-The SPWA uses two Auth0 applications, *MACHINE TO MACHINE* and *SINGLE PAGE APPLICATION*.
+The SPWA uses Auth0 *SINGLE PAGE APPLICATION* application type.
 
 #### Create Single Page Application
 One the Auth0 dashboard under the Applications section create a new application, picking the Single Page Web Applications application type.
