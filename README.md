@@ -107,5 +107,6 @@ Under settings for the newly created application add the domain of the SPWA with
 
 
 *If the domain of the application is not known the text areas can be filled later*
+
 *Under Advanced Setting, under Endpoints take note of the OAuth Endpoints, these will be used for the Browse API*
 
