@@ -110,6 +110,8 @@ Under settings for the newly created application add the domain of the SPWA with
 
 *Under Advanced Setting, under Endpoints take note of the OAuth Endpoints, these will be used for the Browse API*
 
+---
+
 ## How to Use
 The single page web application (SPWA) has two user types casual and admin both, below describes each use case.
 
