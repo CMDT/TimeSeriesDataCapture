@@ -58,7 +58,7 @@ db.palettesCollection.insert({"name" : "default","description" : "default colour
 
 ## Single Command
 
-Run this single command to craete the default template of the database
+Run this single command to create the default template of the database
 
 ```
 db.createCollection("runsCollection",{capped:false}); db.createCollection("tagsCollection",{capped:false});db.createCollection("algorithmsCollection",{capped:false}); db.createCollection("authenticationCollection",{capped:false}); db.createCollection("palettesCollection",{capped:false}); db.algorithmsCollection.insert({"name" : "default","parameters" : [ "T(Copper)", "T(Cell1)", "DAC"],"algorithm" : "return((T1-T2)/((DAC*DAC)/22))"}); db.palettesCollection.insert({"name" : "default","description" : "default colour palette","palette" : [ "#B2003F", "#00B20F","#FF005A"]});
