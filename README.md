@@ -193,3 +193,19 @@ One the Column Tag panel switch to view tags. Click the pencil icon to edit the 
 
 #### Importing Runs
 To import runs from a OneDrive account, click the import button. If not already logged in click the login button to login into OneDrive. To preview a run click the graph preview button, to import runs select the checkboxes and click confirm.
+
+
+---
+
+This project was funded via the Marloes Peeters Research Group and mentored by DigitalLabs@MMU as a DigitalLabs Summer Project. It is the work of Yusof Bandar.
+
+
+<p align="center">
+<img align="middle" src="https://trello-attachments.s3.amazonaws.com/5b2caa657bcf194b4d089d48/5b98c7ec64145155e09b5083/d2e189709d3b79aa1222ef6e9b1f3735/DigitalLabsLogo_512x512.png"  />
+ </p>
+ 
+ 
+<p align="center">
+<img align="middle" src="https://trello-attachments.s3.amazonaws.com/5b2caa657bcf194b4d089d48/5b98c7ec64145155e09b5083/e5f47675f420face27488d4e5330a48c/logo_mmu.png" />
+ </p>
+
