@@ -104,7 +104,9 @@ When importing runs from the OneDrive into the database the runs must be in an e
 ### Formats
 - run folder name must be the date and time delimited by a '-' format: yyyymmdd-hhmmss.
 - Temperature_Log must be a csv file dimilited by a space, with a minimum of two columns. Line 1 must be column names, line 2 must be column units
-- Remarks must be a txt file. Line 1 must be **Remark added after < seconds > seconds** where < seconds > is the remarks position. Line 2 must be the remark discription.  
+- Remarks must be a txt file. Line 1 must be **Remark added after < seconds > seconds** where < seconds > is the remarks position. Line 2 must be the remark discription.
+
+*see [example](https://github.com/CMDT/TimeSeriesDataCapture/tree/master/Documents/example%20data) dataformat*
 
 ## Auth0
 The single page web application (SPWA) uses Auth0 for authentication. 
