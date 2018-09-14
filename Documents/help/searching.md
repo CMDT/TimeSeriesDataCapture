@@ -5,4 +5,4 @@
 - **Step 3** : Select multiple results by selecting each checkbox
 - **Step 4** : To view runs either click the View button or click a specific result
 - **Step 5** : To export runs click the green Export Button
-- **Step 6** : **Admin Control** To delete runs click the red Delete button
+- **Step 6** : **Admin** To delete runs click the red Delete button
