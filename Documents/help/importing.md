@@ -8,7 +8,7 @@
 - **Step 6** : Select checkboxes to import runs, click confirm to confirm choice
 
 ## Access
-All imported files are private, by default: Only you will be able to see them until you add a tag in the View - 'public'.
+All imported files are private, by default: Only you will be able to see them until you add a tag in [View](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/help/viewing.md) - 'public'.
 
 
 [attribution](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/attribution.md)
