@@ -9,6 +9,9 @@
 
 *[Importing Help](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/help/importing.md)*
 
+## Access
+All data is private by default. Can't see data you expected? Chances are it was imported and left private. Contact the owner, and request that they add the tag 'public' to the data. Problem solved! 
+
 
 [attribution](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/attribution.md)
 
