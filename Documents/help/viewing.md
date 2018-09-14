@@ -23,3 +23,6 @@
 - **Step 5** :  **Admin** Click pencil to edit annotation description
 - **Step 6** :  **Admin** Click confirm to confirm annotation descitpion
 - **Step 9** :  **Admin** On annotation panel, to delete annotation click the delete button
+
+
+[attribution](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/attribution.md)
