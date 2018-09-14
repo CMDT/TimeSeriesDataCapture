@@ -6,3 +6,6 @@
 - **Step 4** : Graph icon indicates a run, click the preview button to preview
 - **Step 5** : Click on the folder breadcrumb to navigate up folders
 - **Step 6** : Select checkboxes to import runs, click confirm to confirm choice
+
+
+[attribution](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/attribution.md)
