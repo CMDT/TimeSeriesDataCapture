@@ -1,4 +1,4 @@
-### Viewing
+# Viewing
 #### Graph Control
 - **Step 1** : Using the scroll wheel zoom the graph in and out
 - **Step 2** : Holding shift and dragging the graph will pan about
