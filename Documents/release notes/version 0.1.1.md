@@ -18,5 +18,7 @@
 - [Annotation Description Not Saving](https://github.com/CMDT/TimeSeriesDataCapture/issues/34)
 
 
+---
 
+*[attribution](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/attribution.md)*
  
