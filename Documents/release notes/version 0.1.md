@@ -128,3 +128,6 @@
 
 *Please don't forget to label issues with the version number (version_0_1) and if it is a bug or an enhancement. If it is a bug please leave steps to reproduce it, example [issue](https://github.com/CMDT/TimeSeriesDataCapture/issues/3)*
  
+---
+
+*[attribution](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/attribution.md)*
