@@ -7,16 +7,7 @@ Official Release Candite 1.0.0
 **Single Page Web App** https://timeseriesdatacapture-spwa.herokuapp.com/#!/home/
 
 ## Version 1.0.0 Changes
-
-### Searching
-- View, Export, Delete buttons styled
-- View, Export, Delete buttons disabled when not runs are selected
-- loading animation when runs are being retreived
-
-### Importing
-- Logout and Exit button styled
-- importing works with any oneDrive Account
-- loading animation when components are being retreived
+ - none
 
 ## Version 1.0.0 Bug Fixes
 - [adding annotation](https://github.com/CMDT/TimeSeriesDataCapture/issues/61)
