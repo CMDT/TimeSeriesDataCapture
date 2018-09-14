@@ -21,7 +21,9 @@
 - [RTH Calculation Wrong](https://github.com/CMDT/TimeSeriesDataCapture/issues/36)
 - [Annotation Have Vertical Variations When Clustered](https://github.com/CMDT/TimeSeriesDataCapture/issues/35)
 
+---
 
+*[attribution](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/attribution.md)*
 
 
 
