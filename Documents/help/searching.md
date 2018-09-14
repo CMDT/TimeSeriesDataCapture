@@ -7,7 +7,8 @@
 - **Step 5** : To export runs click the green Export Button
 - **Step 6** : **Admin** To delete runs click the red Delete button
 
-*[Importing Help](https://github.com/CMDT/TimeSeriesDataCapture/edit/master/Documents/help/importing.md)*
+*[Importing Help](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/help/importing.md)*
 
 
 [attribution](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/attribution.md)
+
