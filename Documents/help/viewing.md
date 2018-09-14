@@ -1,5 +1,5 @@
 # Access
-All data is private by default. Can't see data you expected? Chances are it was imported and left private. Contact the owner, and request that they add the tag 'public' to the data. Problem solved! 
+All data is private by default. Can't see data you expected? Chances are it was imported and left private. Contact the owner, and request that they add the tag ['public'](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/help/viewing.md#access-control) to the data. Problem solved! 
 
 # Viewing
 #### Graph Control
