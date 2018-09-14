@@ -16,7 +16,7 @@
 - importing works with any oneDrive Account
 - loading animation when components are being retreived
 
-## Version 0.1.5 Bug Fixes
+## Version 0.1.6 Bug Fixes
 - [Export To zip7](https://github.com/CMDT/TimeSeriesDataCapture/issues/58)
 - [oneDrive Not Loaded](https://github.com/CMDT/TimeSeriesDataCapture/issues/60)
 - [Colour Matches Across Page](https://github.com/CMDT/TimeSeriesDataCapture/issues/32)
