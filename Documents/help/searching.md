@@ -1,4 +1,4 @@
-## Searching
+# Searching
 
 - **Step 1** : Search for runs either by time/date/tags within the search bar. When searching by tag a autocomplete will show
 - **Step 2** : Copy and paste the URL into a sperate tab, the same two results will show
