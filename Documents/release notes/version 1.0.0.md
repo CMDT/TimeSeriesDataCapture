@@ -25,6 +25,10 @@ Official Release Candite 1.0.0
 - [Graphic buttons need to be cleared that they are buttons and not images ](https://github.com/CMDT/TimeSeriesDataCapture/issues/20)
 - [Text Area Placeholder](https://github.com/CMDT/TimeSeriesDataCapture/issues/30)
 - [onedrive login icon not working](https://github.com/CMDT/TimeSeriesDataCapture/issues/50)
+- [No (obvious) way of getting from View back to Home](https://github.com/CMDT/TimeSeriesDataCapture/issues/55)
+- [https://github.com/CMDT/TimeSeriesDataCapture/issues/57](https://github.com/CMDT/TimeSeriesDataCapture/issues/57)
+- [View Page: Visible Annotations Not Matching Active Run](https://github.com/CMDT/TimeSeriesDataCapture/issues/8)
+- [Start Page: Default Angular state needed]https://github.com/CMDT/TimeSeriesDataCapture/issues/9
 
 
 
