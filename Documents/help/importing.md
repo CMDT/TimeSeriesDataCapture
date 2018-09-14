@@ -1,1 +1,8 @@
 
+# Importing
+- **Step 1** : Once logged in, click the import button.
+- **Step 2** : If not already logged in click the login button to login into OneDrive
+- **Step 3** : Folder icon indicate a folder, click to open
+- **Step 4** : Graph icon indicates a run, click the preview button to preview
+- **Step 5** : Click on the folder breadcrumb to navigate up folders
+- **Step 6** : Select checkboxes to import runs, click confirm to confirm choice
