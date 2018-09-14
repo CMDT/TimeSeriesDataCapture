@@ -30,7 +30,9 @@
 
 
 
+---
 
+*[attribution](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/attribution.md)*
 
 
 
