@@ -13,16 +13,15 @@
 - **Step 2** : Click on a column to set the active trend
 - **Step 3** : Click on the second tab to view the second run columns
 - **Step 4** : Click the column switch to view run tags
-- **Step 5** : Click the pencil icon to edit tags
-- **Step 6** : To confirm changes click the confirm button
+- **Step 5** : **Admin** Click the pencil icon to edit tags
+
 
 #### Annotation Control
-- **Step 1** : Click plus sign to add new annotation
-- **Step 2** : Click downwards arrow to reposition annotation
-- **Step 3** : Click and hold on black downward arrow then drag to reposition
-- **Step 4** : Click stop, black square, to confirm new postion
-- **Step 5** : Click pencil to edit annotation description
-- **Step 6** : Click confirm to confirm annotation descitpion
-- **Step 7** : To close annoation panel click off it
-- **Step 8** : Click annotation to view
-- **Step 9** : To delete annotation click the delete button
+- **Step 0** : Click on annotation label to view annotation, click outside panel to view graph again
+- **Step 1** :  **Admin** Click plus sign to add new annotation
+- **Step 2** :  **Admin** Click downwards arrow to reposition annotation
+- **Step 3** :  **Admin** Click and hold on black downward arrow then drag to reposition
+- **Step 4** :  **Admin** Click stop, black square, to confirm new postion
+- **Step 5** :  **Admin** Click pencil to edit annotation description
+- **Step 6** :  **Admin** Click confirm to confirm annotation descitpion
+- **Step 9** :  **Admin** On annotation panel, to delete annotation click the delete button
