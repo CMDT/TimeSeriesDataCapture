@@ -5,13 +5,13 @@ Here is the original [briefing note](https://github.com/CMDT/TimeSeriesDataCaptu
 ---
 
 # Sub Projects
-[BrowseData](https://github.com/CMDT/TimeSeriesDataCapture_BrowseData)
+[BrowseData](https://github.com/aliceliveprojects/TimeSeriesDataCapture_BrowseData)
 
-[ImportSource](https://github.com/CMDT/TimeSeriesDataCapture_ImportSource)
+[ImportSource](https://github.com/aliceliveprojects/TimeSeriesDataCapture_ImportSource)
 
-[Single Page Web Application](https://github.com/CMDT/TimeSeriesDataCapture_SPWA)
+[Single Page Web Application](https://github.com/aliceliveprojects/TimeSeriesDataCapture_SPWA)
 
-[Private](https://github.com/CMDT/TimeSeriesDataCapture_Private)
+[Private](https://github.com/aliceliveprojects/TimeSeriesDataCapture_Private)
 
   
 # Trello
