@@ -19,9 +19,9 @@ Here is the original [briefing note](https://github.com/CMDT/TimeSeriesDataCaptu
 [Parent Trello Board](https://trello.com/b/0pc2DUBy/overview)
 
  # Wireframes
- [Github Pages](https://cmdt.github.io/TimeSeriesDataCapture/wireframes)
+ [Github Pages](https://aliceliveprojects.github.io/TimeSeriesDataCapture/wireframes)
  
- [On the Repo](https://github.com/CMDT/TimeSeriesDataCapture/tree/master/docs/wireframes)
+ [On the Repo](https://github.com/aliceliveprojects/TimeSeriesDataCapture/tree/master/docs/wireframes)
 
 
 # Setup
