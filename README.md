@@ -14,7 +14,7 @@ This is the AliceLiveProjects fork of the application. You can find credentials 
 
 [Single Page Web Application](https://github.com/aliceliveprojects/TimeSeriesDataCapture_SPWA)
 
-[Private](https://github.com/aliceliveprojects/TimeSeriesDataCapture_Private)
+[Credentials (Private)](https://github.com/CMDT/DigitalLabs_TeachingProjects/blob/master/docs/accounts/alice/accounts.md)
 
   
 # Trello
