@@ -89,6 +89,32 @@ db.createCollection("runsCollection",{capped:false}); db.createCollection("tagsC
 
 *for more information of the starting database template see [mongodb-database-template.md](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/mongodb-database-template.md)*
 
+## OneDrive Application Setup
+To setup OneDrive application
+
+### Prerequisites
+A OneDrive Developer account is needed
+
+### Creating Application
+
+1. Navigate to Microsoft Graph :  <https://developer.microsoft.com/en-us/graph/>
+2. Click the My Apps login, located on the top bar when not signed in.
+3. Microsoft will prompt for a login
+4. Once logged in, click the Add An App button
+5. Name the application and create
+
+### Filling Application Details
+
+Within a specific application : 
+
+1. Take note of the Application Id (also known as Client Id)
+2. Under Platforms click the Add Platform button
+3. Choose the Web Option
+4. Check the Allow Implicit Flow checkbox
+5. Under Redirect URLs enter the applications callback, example [application_domain]/callback.html
+6. Under Microsoft Graph Permissions , remove any default permissions
+7. Add the Sites.Read.All Application Permission (not Delegated Permissions)
+
 ## Dataformats
 When importing runs from the OneDrive into the database the runs must be in an exact format.
 
