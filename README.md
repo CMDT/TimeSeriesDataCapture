@@ -121,21 +121,25 @@ The single page web application (SPWA) uses Auth0 for authentication.
 ### Prerequisites
 
 #### Auth0 Account 
-To use authentication first a Auht0 account is needed, sign up to [Auth0](https://auth0.com/signup)
+To use authentication first a Auth0 account is needed, sign up to [Auth0](https://auth0.com/signup)
 
 ### Setup 
 The SPWA uses Auth0 *SINGLE PAGE APPLICATION* application type.
 
 #### Create Single Page Application
-One the Auth0 dashboard under the Applications section create a new application, picking the Single Page Web Applications application type.
+On the Auth0 dashboard under the Applications section create a new application, picking the Single Page Web Applications application type.
 
 Under settings for the newly created application add the domain of the SPWA within the Allowed Callbacks URLs, Allowed Web Origins and Allowed Origins text areas.
-
 
 
 *If the domain of the application is not known the text areas can be filled later*
 
 *Under Advanced Setting, under Endpoints take note of the OAuth Endpoints, these will be used for the Browse API*
+
+#### Create Machine To Machine API
+On the Auth0 dashboard under the API section create a new API.
+
+*Take note of the API Audience*
 
 ## Dataformats
 When importing runs from the OneDrive into the database the runs must be in an exact format.
