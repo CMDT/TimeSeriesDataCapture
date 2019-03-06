@@ -145,7 +145,7 @@ When importing runs from the OneDrive into the database the runs must be in an e
 ```
 <date-time>/
 -----------T-Data/
------------------Temperature_Log.csv
+-----------------data.txt
 -----------Remarks/
 -------------------Remark01.txt
 ```
