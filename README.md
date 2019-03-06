@@ -115,26 +115,6 @@ Within a specific application :
 6. Under Microsoft Graph Permissions , remove any default permissions
 7. Add the Sites.Read.All Application Permission (not Delegated Permissions)
 
-## Dataformats
-When importing runs from the OneDrive into the database the runs must be in an exact format.
-
-### Folder Structure
-
-```
-<date-time>/
------------T-Data/
------------------Temperature_Log.csv
------------Remarks/
--------------------Remark01.txt
-```
-
-### Formats
-- run folder name must be the date and time delimited by a '-' format: yyyymmdd-hhmmss.
-- Temperature_Log must be a csv file dimilited by a space, with a minimum of two columns. Line 1 must be column names, line 2 must be column units
-- Remarks must be a txt file. Line 1 must be **Remark added after < seconds > seconds** where < seconds > is the remarks position. Line 2 must be the remark discription.
-
-*see [example](https://github.com/CMDT/TimeSeriesDataCapture/tree/master/Documents/example%20data) dataformat*
-
 ## Auth0
 The single page web application (SPWA) uses Auth0 for authentication. 
 
@@ -156,6 +136,28 @@ Under settings for the newly created application add the domain of the SPWA with
 *If the domain of the application is not known the text areas can be filled later*
 
 *Under Advanced Setting, under Endpoints take note of the OAuth Endpoints, these will be used for the Browse API*
+
+## Dataformats
+When importing runs from the OneDrive into the database the runs must be in an exact format.
+
+### Folder Structure
+
+```
+<date-time>/
+-----------T-Data/
+-----------------Temperature_Log.csv
+-----------Remarks/
+-------------------Remark01.txt
+```
+
+### Formats
+- run folder name must be the date and time delimited by a '-' format: yyyymmdd-hhmmss.
+- Temperature_Log must be a csv file dimilited by a space, with a minimum of two columns. Line 1 must be column names, line 2 must be column units
+- Remarks must be a txt file. Line 1 must be **Remark added after < seconds > seconds** where < seconds > is the remarks position. Line 2 must be the remark discription.
+
+*see [example](https://github.com/CMDT/TimeSeriesDataCapture/tree/master/Documents/example%20data) dataformat*
+
+
 
 ---
 
