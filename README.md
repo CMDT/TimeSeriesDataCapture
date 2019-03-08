@@ -2,29 +2,27 @@
 This is the parent project for a suite of applications which take time series data from an instrument, store as tagged, searchable, indexed files, and display on a publicly accessible website.  
 Here is the original [briefing note](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/inital/proposal/DigitalLabs-Marloes_Peeters_Research_Group-12_Week_Student_Project.pdf)
 
-This is the AliceLiveProjects fork of the application. You can find credentials in the Alice Repo [here](https://github.com/CMDT/DigitalLabs_TeachingProjects/blob/master/docs/accounts/alice/accounts.md) (private)
 
 
 ---
 
 # Sub Projects
-[BrowseData](https://github.com/aliceliveprojects/TimeSeriesDataCapture_BrowseData)
+[BrowseData](https://github.com/CMDT/TimeSeriesDataCapture_BrowseData)
 
-[ImportSource](https://github.com/aliceliveprojects/TimeSeriesDataCapture_ImportSource)
+[ImportSource](https://github.com/CMDT/TimeSeriesDataCapture_ImportSource)
 
-[Single Page Web Application](https://github.com/aliceliveprojects/TimeSeriesDataCapture_SPWA)
+[Single Page Web Application](https://github.com/CMDT/TimeSeriesDataCapture_SPWA)
 
-[Credentials (Private)](https://github.com/CMDT/DigitalLabs_TeachingProjects/blob/master/docs/accounts/alice/accounts.md)
+[Private](https://github.com/CMDT/TimeSeriesDataCapture_Private)
 
-  
 # Trello
 [Trello Team](https://trello.com/timeseriesdatacapture)   
 [Parent Trello Board](https://trello.com/b/0pc2DUBy/overview)
 
  # Wireframes
- [Github Pages](https://aliceliveprojects.github.io/TimeSeriesDataCapture/wireframes)
- 
- [On the Repo](https://github.com/aliceliveprojects/TimeSeriesDataCapture/tree/master/docs/wireframes)
+ [Github Pages](https://cmdt.github.io/TimeSeriesDataCapture/wireframes)
+ [On the Repo](https://github.com/CMDT/TimeSeriesDataCapture/tree/master/docs/wireframes)
+
 
 
 # Setup
