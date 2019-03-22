@@ -20,7 +20,7 @@ Here's what you can do with this project:
  1. Share a particular view of the data, as a URL
 
 ## Developing the project
-This project is open sourcel; we welcome use, feedback and pull requests.
+This project is open source; we welcome use, feedback and pull requests.
 The project will also feature in MMU CMDT's Professional Development module as a Live Project: Student teams will be adding features to their own forks, and submitting pull requests.  
 
 ---
