@@ -2,7 +2,26 @@
 This is the parent project for a suite of applications which take time series data from an instrument, store as tagged, searchable, indexed files, and display on a publicly accessible website.  
 Here is the original [briefing note](https://github.com/CMDT/TimeSeriesDataCapture/blob/master/Documents/inital/proposal/DigitalLabs-Marloes_Peeters_Research_Group-12_Week_Student_Project.pdf)
 
+## How it's used
+Researchers commonly use instruments which save their data in a convenient data format. CSV (comma seperated values) are the *de facto* standard.
+The advent of remote file stores, like [Microsoft OneDrive](https://en.wikipedia.org/wiki/OneDrive) make it easy for researchers to share this data between research groups.
+That's the raw data - but how about if you want to discuss or compare different sets of data? That means importing particular data to a a spreadsheet, wrangling and formatting and then distributing the files. Often by email.
 
+What we wanted to do with this project was to make it much, much easier for that data to be communicated.
+
+Here's what you can do with this project:
+
+ 1. Import the raw data from a CSV file in OneDrive (other file store providers can be accomodated)
+ 1. Tag the data to make it easily discoverable
+ 1. View: Pan, Zoom the data
+ 1. Add annotations to particular points in the data
+ 1. Compare: add another data set, offset it to compare features
+ 1. Make your data sharable, by adding a 'public' tag.
+ 1. Share a particular view of the data, as a URL
+
+## Developing the project
+This project is open sourcel; we welcome use, feedback and pull requests.
+The project will also feature in MMU CMDT's Professional Development module as a Live Project: Student teams will be adding features to their own forks, and submitting pull requests.  
 
 ---
 
